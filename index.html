@@ -90,15 +90,32 @@
 <li><p>准备node.js    </p>
 <p>安装完后会有两个组件一个是node.js本身，另一个是npm包管理器。<br>可以来查看一下node 与 npm 的版本<br><img src="https://i.loli.net/2020/01/22/BEnZXsNS2lI1c7g.png" alt="截图示意"></p>
 </li>
-<li><p>安装cnpm<br>利用npm装淘宝的源  </p>
-<figure class="highlight plain"><figcaption><span>install -g cnpm --registry</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">![示意](https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;22&#x2F;Lce7Y1IhdiPWBUr.png)</span><br><span class="line"></span><br><span class="line">3. 利用cnpm安装hexo  </span><br><span class="line">&#96;&#96;&#96; cnpm install -g hexo-cli &#96;&#96;&#96;  </span><br><span class="line">一样可以利用</span><br><span class="line">&#96;&#96;&#96; hexo -v &#96;&#96;&#96; 查看版本顺便验证是否成功</span><br><span class="line"></span><br><span class="line">4.  建立一个目录</span><br><span class="line"></span><br><span class="line">        mkdir blog</span><br><span class="line">    这个名字随意</span><br><span class="line"></span><br><span class="line">5. 初始化博客  </span><br><span class="line">   切换到这个目录之下，然后  </span><br><span class="line">   &#96;&#96;&#96;hexo init &#96;&#96;&#96;  </span><br><span class="line">   </span><br><span class="line">**到这儿我们就搭建基本完成了**</span><br><span class="line"></span><br><span class="line">可以用</span><br><span class="line">&#96;&#96;&#96; hexo s</span><br></pre></td></tr></table></figure>
-<p>来启动，即可得到一个地址，在浏览器中打开即可看到。</p>
+<li><p>安装cnpm<br>利用npm装淘宝的源<br><img src="https://i.loli.net/2020/01/22/Lce7Y1IhdiPWBUr.png" alt="示意"></p>
+</li>
+<li><p>利用cnpm安装hexo  </p>
 </li>
 </ol>
+<pre><code>cnpm install -g hexo-cli   </code></pre><p>一样可以利用  </p>
+<pre><code>hexo -v  </code></pre><p>查看版本顺便验证是否成功</p>
+<ol start="4">
+<li><p>建立一个目录</p>
+<pre><code>mkdir blog</code></pre><p>这个名字随意</p>
+</li>
+<li><p>初始化博客<br>切换到这个目录之下，然后 </p>
+<pre><code>hexo init  </code></pre></li>
+</ol>
+<p><strong>到这儿我们就搭建基本完成了</strong></p>
+<p>可以用  </p>
+<pre><code>hexo s  </code></pre><p>来启动，即可得到一个地址，在浏览器中打开即可看到。</p>
 <p>然后利用  </p>
-<figure class="highlight plain"><figcaption><span>n " 你自己去的文章名字" ```  </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">来创建博文  </span><br><span class="line">然后利用VS code打开，再用markdown语法来写即可。</span><br><span class="line">可以看到我们的文章都在&#x2F;_posts&#x2F;目录下</span><br><span class="line">![博文所在位置](https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;22&#x2F;ZTCHKlzb5NjwdxA.png)  </span><br><span class="line">再在blog目录下进行生成  </span><br><span class="line">&#96;&#96;&#96; hexo g&#96;&#96;&#96;  </span><br><span class="line">即可</span><br><span class="line">此时再启动   </span><br><span class="line">&#96;&#96;&#96;hexo s  &#96;&#96;&#96;  </span><br><span class="line">就可以看到自己的博文</span><br><span class="line">## 第二步 部署到远端(github)</span><br><span class="line">在这里，我是将其部署到GitHub上的</span><br><span class="line">首先我们新建一个仓库(repository)</span><br><span class="line">![创建新仓库](https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;22&#x2F;kZVitEpABcQbvdO.png)  </span><br><span class="line">在repository name 处一定写的是  </span><br><span class="line">    </span><br><span class="line">    用户名.github.io</span><br><span class="line"></span><br><span class="line">emmm我也不知道为什么，是这样说的。  </span><br><span class="line"></span><br><span class="line">创建成功后</span><br><span class="line"></span><br><span class="line">在命令行中，在blog的目录下安装一个git 部署的插件  </span><br><span class="line">&#96;&#96;&#96;cnpm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
-
-<p>成功后需要修改👇这个文件  </p>
+<pre><code>hexo n &quot; 你自己去的文章名字&quot;   </code></pre><p>来创建博文<br>然后利用VS code打开，再用markdown语法来写即可。<br>可以看到我们的文章都在/_posts/目录下<br><img src="https://i.loli.net/2020/01/22/ZTCHKlzb5NjwdxA.png" alt="博文所在位置"><br>再在blog目录下进行生成  </p>
+<pre><code>hexo g  </code></pre><p>即可<br>此时再启动   </p>
+<pre><code>hexo s    </code></pre><p>就可以看到自己的博文</p>
+<h2 id="第二步-部署到远端-github"><a href="#第二步-部署到远端-github" class="headerlink" title="第二步 部署到远端(github)"></a>第二步 部署到远端(github)</h2><p>在这里，我是将其部署到GitHub上的<br>首先我们新建一个仓库(repository)<br><img src="https://i.loli.net/2020/01/22/kZVitEpABcQbvdO.png" alt="创建新仓库"><br>在repository name 处一定写的是  </p>
+<pre><code>用户名.github.io</code></pre><p>emmm我也不知道为什么，是这样说的。  </p>
+<p>创建成功后</p>
+<p>在命令行中，在blog的目录下安装一个git 部署的插件  </p>
+<pre><code>cnpm install --save hexo-deployer-git </code></pre><p>成功后需要修改👇这个文件  </p>
 <p> <strong>_config.yml</strong><br><img src="https://i.loli.net/2020/01/22/kwGW9sCudYtOb57.png" alt=""><br>在git bash 里可以直接利用<br><code>vim _config.yml</code><br>就可以打开，再在里面修改成👇<br><img src="https://i.loli.net/2020/01/22/JpCADZLunVt8dsw.png" alt="图示"><br>即可<br>在Windows中退出<br>先按ESC 再<br><code>:wq</code>    退出</p>
 <p>修改完成后，<br>部署到远端<br><code>hexo d</code><br>期间会要求登录GitHub账号<br>登陆成功后，即可<br>成功后，再将仓库名在浏览器中访问即可。  </p>
 <h2 id="第三步-换主题"><a href="#第三步-换主题" class="headerlink" title="第三步 换主题"></a>第三步 换主题</h2><p>在GitHub中找到自己喜欢的主题，再克隆到本地，要注意的是，在克隆中可能与GitHub上写的不太一样。(至少我是/(ㄒoㄒ)/~~)<br><img src="https://i.loli.net/2020/01/22/sFUCA12YMa3owzv.png" alt="github上"><br>可以看到在clone那里的地址末尾是没有<br><code>.git</code>的，应该加上。<br>在我之前没加的时候就一直报错，加了之后才成功了。</p>
