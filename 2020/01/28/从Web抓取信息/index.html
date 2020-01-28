@@ -46,19 +46,22 @@
   };
 </script>
 
-  <meta name="description" content="利用webbrowser打开网页简单介绍及思路分析webbrowser.get(URL)可以打开在命令行打开网页。接下来我们利用一个小练习来体会一下编写一个脚本使得能够在命令行实现搜索某个地区地图的目的也就是，不通过浏览器搜索，而是在命令行中执行该程序，输入你想查找的地址，即可打开该处的地图。再翻译一下就是要实现，你输入一个地址，利用 &#96;&#96;&#96;  12345678910111213141516171">
+  <meta name="description" content="利用webbrowser打开网页简单介绍及思路分析webbrowser.get(URL)可以打开在命令行打开网页。接下来我们利用一个小练习来体会一下编写一个脚本使得能够在命令行实现搜索某个地区地图的目的也就是，不通过浏览器搜索，而是在命令行中执行该程序，输入你想查找的地址，即可打开该处的地图。再翻译一下就是要实现，你输入一个地址，利用   webbrowser.get(URL)    得到在谷歌地">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从Web抓取信息">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;28&#x2F;%E4%BB%8EWeb%E6%8A%93%E5%8F%96%E4%BF%A1%E6%81%AF&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="利用webbrowser打开网页简单介绍及思路分析webbrowser.get(URL)可以打开在命令行打开网页。接下来我们利用一个小练习来体会一下编写一个脚本使得能够在命令行实现搜索某个地区地图的目的也就是，不通过浏览器搜索，而是在命令行中执行该程序，输入你想查找的地址，即可打开该处的地图。再翻译一下就是要实现，你输入一个地址，利用 &#96;&#96;&#96;  12345678910111213141516171">
+<meta property="og:description" content="利用webbrowser打开网页简单介绍及思路分析webbrowser.get(URL)可以打开在命令行打开网页。接下来我们利用一个小练习来体会一下编写一个脚本使得能够在命令行实现搜索某个地区地图的目的也就是，不通过浏览器搜索，而是在命令行中执行该程序，输入你想查找的地址，即可打开该处的地图。再翻译一下就是要实现，你输入一个地址，利用   webbrowser.get(URL)    得到在谷歌地">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;28&#x2F;ibpT7f9wONUHxV1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;28&#x2F;5oqXmxMOhkEDncB.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;28&#x2F;3YJ2eV1mN8qHxrC.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;29&#x2F;Gs9MEBJQkxiLWqA.png">
 <meta property="article:published_time" content="2020-01-28T08:33:58.000Z">
-<meta property="article:modified_time" content="2020-01-28T16:04:54.544Z">
+<meta property="article:modified_time" content="2020-01-28T16:10:27.650Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;29&#x2F;Gs9MEBJQkxiLWqA.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;28&#x2F;ibpT7f9wONUHxV1.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/01/28/%E4%BB%8EWeb%E6%8A%93%E5%8F%96%E4%BF%A1%E6%81%AF/">
 
@@ -201,7 +204,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-29 00:04:54" itemprop="dateModified" datetime="2020-01-29T00:04:54+08:00">2020-01-29</time>
+                <time title="Modified: 2020-01-29 00:10:27" itemprop="dateModified" datetime="2020-01-29T00:10:27+08:00">2020-01-29</time>
               </span>
 
           
@@ -215,7 +218,85 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="利用webbrowser打开网页"><a href="#利用webbrowser打开网页" class="headerlink" title="利用webbrowser打开网页"></a>利用webbrowser打开网页</h1><h2 id="简单介绍及思路分析"><a href="#简单介绍及思路分析" class="headerlink" title="简单介绍及思路分析"></a>简单介绍及思路分析</h2><pre><code>webbrowser.get(URL)</code></pre><p>可以打开在命令行打开网页。<br>接下来我们利用一个小练习来体会一下<br><strong><em>编写一个脚本使得能够在命令行实现搜索某个地区地图的目的</em></strong><br>也就是，不通过浏览器搜索，而是在命令行中执行该程序，输入你想查找的地址，即可打开该处的地图。<br>再翻译一下就是要实现，你输入一个地址，利用<br> <figure class="highlight plain"><figcaption><span>```  </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"> 得到在谷歌地图中搜索该地址的网页  </span><br><span class="line"> 从而我们只需要实现能够输入找到  </span><br><span class="line"> 又可以发现，虽然我们任意搜索一个地址时，URL非常的复杂，但是我们只输入它的地点，仍然是可以得到相同的结果的。  </span><br><span class="line"> ***</span><br><span class="line"> 以  </span><br><span class="line"></span><br><span class="line">    870 Valencia St,San Francisco, CA 94110</span><br><span class="line">为例。当我们直接在谷歌地图中搜索时，得到的是</span><br><span class="line"></span><br><span class="line">    https:&#x2F;&#x2F;www.google.com&#x2F;maps&#x2F;place&#x2F;870+Valencia+St,+San+Francisco,+CA+94110%E7%BE%8E%E5%9B%BD&#x2F;@37.7589579,-122.4238514,17z&#x2F;data&#x3D;!3m2!4b1!5s0x808f7e3dae6df76b:0x6240f16ee9572080!4m5!3m4!1s0x808f7e3dae0fc797:0x26acf7c8a5797e94!8m2!3d37.7589579!4d-122.4216627</span><br><span class="line">但实际上我们直接输入</span><br><span class="line"></span><br><span class="line">    https:&#x2F;&#x2F;www.google.com&#x2F;maps&#x2F;place&#x2F;870+Valencia+St,+San+Francisco,+CA+94110</span><br><span class="line">也可以得到相同的结果。</span><br><span class="line">***</span><br><span class="line">所以最后一步的代码可以确定下来是</span><br><span class="line"></span><br><span class="line">    webbrowser.open(&#39;https:&#x2F;&#x2F;www.google.com&#x2F;maps&#x2F;place&#x2F;&#39;+address)</span><br><span class="line">那么我们得到这个***address***是我们在***命令行中输入***或者****复制到了剪贴板***  </span><br><span class="line">也就是要用到 &#96;&#96;&#96; sys.argv &#96;&#96;&#96; 与 &#96;&#96;&#96; pyperclip.paste() &#96;&#96;&#96;  ，接下来我们将简单介绍一下这两个的用法。</span><br><span class="line">## 简单介绍sys.argv与pyperclip.patse()以及字符串一些处理</span><br><span class="line">**sys.argv**  </span><br><span class="line">***</span><br><span class="line">实质上就是外部参数传入程序内部然后输出。  </span><br><span class="line">在命令行中👇运行这个程序，后面跟着的就是传入程序的参数。  </span><br><span class="line">***</span><br><span class="line">***记录一个***  </span><br><span class="line">在Git Bash中运行&#96;&#96;&#96; .py &#96;&#96;&#96; 应该是  &#96;&#96;&#96; python name.py &#96;&#96;&#96;  </span><br><span class="line">在Windows的命令行中直接在该文件所在目录打开 &#96;&#96;&#96; name.py &#96;&#96;&#96;即可</span><br><span class="line">***</span><br><span class="line">也就是在命令行中运行的时候传入参数，即是，参数其实不在代码中，而在于你准备运行时传入的。  </span><br><span class="line">👇👇👇  </span><br><span class="line"></span><br><span class="line">    python name.py 参数</span><br><span class="line">将以列表形式储存，并以空格分开每一个，所以，可以索引。下面是例子解释</span><br><span class="line">***</span><br><span class="line">try.py 的代码如下  </span><br><span class="line"> </span><br><span class="line">    import sys</span><br><span class="line">    a &#x3D; sys.argv</span><br><span class="line">    b &#x3D; sys.argv[0]</span><br><span class="line">    c &#x3D; sys.argv[1]</span><br><span class="line">    d &#x3D; sys.argv[2]</span><br><span class="line">    print(a,b,c，d)</span><br><span class="line">![结果示意](https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;28&#x2F;ibpT7f9wONUHxV1.png)  </span><br><span class="line">如上图所示  </span><br><span class="line">1. 返回了一个列表  </span><br><span class="line">2. 列表的第一个是它本身  </span><br><span class="line">3. 列表中的每一个元素是以空格隔开来得到的</span><br><span class="line">***</span><br><span class="line">***</span><br><span class="line">**pyperclip.paste()**</span><br><span class="line">***</span><br><span class="line">这个实际上就是粘贴，放入一个变量即可  </span><br><span class="line"></span><br><span class="line">    import pyperclip</span><br><span class="line">    a &#x3D; pyperclip.paste()</span><br><span class="line">a 里面就装了刚刚复制的内容了。  </span><br><span class="line">***</span><br><span class="line">***</span><br><span class="line">**一些字符串的处理记录**  </span><br><span class="line">***&#39;分隔物&#39;.join()***  </span><br><span class="line">join后的括号里面即是可以迭代的，比如列表，然后以前面引号内的进行链接，形成字符串。  </span><br><span class="line">***str.split()***  </span><br><span class="line">通过在括号内设定分隔符，将字符串进行分割，返回一个列表。  </span><br><span class="line">![图片示例](https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;28&#x2F;5oqXmxMOhkEDncB.png)  </span><br><span class="line">可以看到  </span><br><span class="line">1. 只用空格，全部分隔，则不需要引号   </span><br><span class="line">2. 后面可以制定分隔次数，则前面的分隔符指定应该是一定要打上引号  </span><br><span class="line">***</span><br><span class="line">***</span><br><span class="line">## 最后代码示例 </span><br><span class="line"></span><br><span class="line">    import webbrowser,pyperclip,sys</span><br><span class="line">    if len(sys.argv) &gt; 1 :</span><br><span class="line">        address &#x3D; &#39;+&#39;.join(sys.argv[1:])</span><br><span class="line">    else:</span><br><span class="line">        add &#x3D; pyperclip.paste()</span><br><span class="line">        address &#x3D; &#39;+&#39;.join(add.split( ))</span><br><span class="line">    webbrowser.open(&#39;https:&#x2F;&#x2F;www.google.com&#x2F;maps&#x2F;place&#x2F;&#39;+place)</span><br><span class="line"></span><br><span class="line">***注：的确还有逗号，在粘贴部分，但是经过测试发现没有影响，包括即便不要处理字符串就是空格也是可以得到相同结果的。***</span><br><span class="line">***</span><br><span class="line"># requests 下载文件 </span><br><span class="line">requests 实际上由两个抓取，一个是**Get**，一个是**POST**，在这里先写**Get**,后面再继续补上。 </span><br><span class="line">&#96;&#96;&#96;requests.get(URL)&#96;&#96;&#96; 实质上得到的就是该网页的源代码。</span><br><span class="line">当然，我们可以通过这种方法来下载某个网页里的一篇文章，即是获得HTML里某些标签的内容即可。  </span><br><span class="line">在这里，主要今天的重点在于如果有一个txt可以下载的网址。</span><br><span class="line"></span><br><span class="line">    import requests</span><br><span class="line">    res &#x3D; requests.get(URL)</span><br><span class="line">    type(res)</span><br><span class="line">这个返回的是Response对象，其中包含了Web服务器对请求做出的响应。</span><br><span class="line">![示意](https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;01&#x2F;28&#x2F;3YJ2eV1mN8qHxrC.png)  </span><br><span class="line">👆👆👆  </span><br><span class="line">1. Response 对象有一个status_code 属性，可以检查她是否等于&#96;&#96;&#96;requests.codes.ok&#96;&#96;&#96;,了解下载是否成功。</span><br><span class="line">2. 检查成功的另一种方法就是在Response对象上调用&#96;&#96;&#96;raise_for_status()&#96;&#96;&#96;方法。如果下载文件出错，这将抛出异常。如果下载成功，就什么也不做。</span><br><span class="line">***</span><br><span class="line">接下来就是我得到后，将要保存。</span><br><span class="line">***</span><br><span class="line"></span><br><span class="line">    file &#x3D; open(&#39;name.txt&#39;,&#39;wb&#39;)</span><br><span class="line">    # 必须用&quot;写二进制&quot;模式打开该文件，即向函数传入字符串&#39;wb&#39;,作为open()的第二参数。</span><br><span class="line">    # 即是该页面是纯文本，也需要写入二进制数据，而不是文本数据，目的是为了保存该文本的</span><br><span class="line">    # &quot;Unicode编码&quot;</span><br><span class="line">    for i in res.iter_content(number):</span><br><span class="line">        file.write(i)</span><br><span class="line">👆👆👆  </span><br><span class="line">1. &#96;&#96;&#96;res.iter_content(number)</span><br></pre></td></tr></table></figure><br>     是指在循环的每次迭代中，返回一段内容。每段内容都是bytes数据类型，你需要指定一段内容包含多少字节。也就是<strong><em>number</em></strong>处的内容<br>2. 结果将返回写入字节数和最后所剩的字数，如图👇<br><img src="https://i.loli.net/2020/01/29/Gs9MEBJQkxiLWqA.png" alt="示意"><br>可以看到，最后剩余字数并不是指，没达到<strong><em>number</em></strong>所设定的就不能够写入，只是给你的提示，相当于，‘噢，你看，你没有整除成功，还有余呢’</p>
+        <h1 id="利用webbrowser打开网页"><a href="#利用webbrowser打开网页" class="headerlink" title="利用webbrowser打开网页"></a>利用webbrowser打开网页</h1><h2 id="简单介绍及思路分析"><a href="#简单介绍及思路分析" class="headerlink" title="简单介绍及思路分析"></a>简单介绍及思路分析</h2><pre><code>webbrowser.get(URL)</code></pre><p>可以打开在命令行打开网页。<br>接下来我们利用一个小练习来体会一下<br><strong><em>编写一个脚本使得能够在命令行实现搜索某个地区地图的目的</em></strong><br>也就是，不通过浏览器搜索，而是在命令行中执行该程序，输入你想查找的地址，即可打开该处的地图。<br>再翻译一下就是要实现，你输入一个地址，利用  </p>
+<pre><code>webbrowser.get(URL)   </code></pre><p> 得到在谷歌地图中搜索该地址的网页<br> 从而我们只需要实现能够输入找到<br> 又可以发现，虽然我们任意搜索一个地址时，URL非常的复杂，但是我们只输入它的地点，仍然是可以得到相同的结果的。  </p>
+<hr>
+<p> 以  </p>
+<pre><code>870 Valencia St,San Francisco, CA 94110</code></pre><p>为例。当我们直接在谷歌地图中搜索时，得到的是</p>
+<pre><code>https://www.google.com/maps/place/870+Valencia+St,+San+Francisco,+CA+94110%E7%BE%8E%E5%9B%BD/@37.7589579,-122.4238514,17z/data=!3m2!4b1!5s0x808f7e3dae6df76b:0x6240f16ee9572080!4m5!3m4!1s0x808f7e3dae0fc797:0x26acf7c8a5797e94!8m2!3d37.7589579!4d-122.4216627</code></pre><p>但实际上我们直接输入</p>
+<pre><code>https://www.google.com/maps/place/870+Valencia+St,+San+Francisco,+CA+94110</code></pre><p>也可以得到相同的结果。</p>
+<hr>
+<p>所以最后一步的代码可以确定下来是</p>
+<pre><code>webbrowser.open(&apos;https://www.google.com/maps/place/&apos;+address)</code></pre><p>那么我们得到这个<strong><em>address</em></strong>是我们在<strong><em>命令行中输入</em></strong>或者<strong><em>*复制到了剪贴板</em></strong><br>也就是要用到 </p>
+<pre><code>sys.argv  </code></pre><p>与 </p>
+<pre><code>pyperclip.paste() </code></pre><p>接下来我们将简单介绍一下这两个的用法。</p>
+<h2 id="简单介绍sys-argv与pyperclip-patse-以及字符串一些处理"><a href="#简单介绍sys-argv与pyperclip-patse-以及字符串一些处理" class="headerlink" title="简单介绍sys.argv与pyperclip.patse()以及字符串一些处理"></a>简单介绍sys.argv与pyperclip.patse()以及字符串一些处理</h2><p><strong>sys.argv</strong>  </p>
+<hr>
+<p>实质上就是外部参数传入程序内部然后输出。<br>在命令行中👇运行这个程序，后面跟着的就是传入程序的参数。  </p>
+<hr>
+<p><strong><em>记录一个</em></strong><br>在Git Bash中运行<code>.py</code> 应该是  <code>python name.py</code><br>在Windows的命令行中直接在该文件所在目录打开 <code>name.py</code>即可</p>
+<hr>
+<p>也就是在命令行中运行的时候传入参数，即是，参数其实不在代码中，而在于你准备运行时传入的。<br>👇👇👇  </p>
+<pre><code>python name.py 参数</code></pre><p>将以列表形式储存，并以空格分开每一个，所以，可以索引。下面是例子解释</p>
+<hr>
+<p>try.py 的代码如下  </p>
+<pre><code>import sys
+a = sys.argv
+b = sys.argv[0]
+c = sys.argv[1]
+d = sys.argv[2]
+print(a,b,c，d)</code></pre><p><img src="https://i.loli.net/2020/01/28/ibpT7f9wONUHxV1.png" alt="结果示意"><br>如上图所示  </p>
+<ol>
+<li>返回了一个列表  </li>
+<li>列表的第一个是它本身  </li>
+<li>列表中的每一个元素是以空格隔开来得到的</li>
+</ol>
+<hr>
+<hr>
+<p><strong>pyperclip.paste()</strong></p>
+<hr>
+<p>这个实际上就是粘贴，放入一个变量即可  </p>
+<pre><code>import pyperclip
+a = pyperclip.paste()</code></pre><p>a 里面就装了刚刚复制的内容了。  </p>
+<hr>
+<hr>
+<p><strong>一些字符串的处理记录</strong><br><strong><em>‘分隔物’.join()</em></strong><br>join后的括号里面即是可以迭代的，比如列表，然后以前面引号内的进行链接，形成字符串。<br><strong><em>str.split()</em></strong><br>通过在括号内设定分隔符，将字符串进行分割，返回一个列表。<br><img src="https://i.loli.net/2020/01/28/5oqXmxMOhkEDncB.png" alt="图片示例"><br>可以看到  </p>
+<ol>
+<li>只用空格，全部分隔，则不需要引号   </li>
+<li>后面可以制定分隔次数，则前面的分隔符指定应该是一定要打上引号  </li>
+</ol>
+<hr>
+<hr>
+<h2 id="最后代码示例"><a href="#最后代码示例" class="headerlink" title="最后代码示例"></a>最后代码示例</h2><pre><code>import webbrowser,pyperclip,sys
+if len(sys.argv) &gt; 1 :
+    address = &apos;+&apos;.join(sys.argv[1:])
+else:
+    add = pyperclip.paste()
+    address = &apos;+&apos;.join(add.split( ))
+webbrowser.open(&apos;https://www.google.com/maps/place/&apos;+place)</code></pre><p><strong><em>注：的确还有逗号，在粘贴部分，但是经过测试发现没有影响，包括即便不要处理字符串就是空格也是可以得到相同结果的。</em></strong></p>
+<hr>
+<h1 id="requests-下载文件"><a href="#requests-下载文件" class="headerlink" title="requests 下载文件"></a>requests 下载文件</h1><p>requests 实际上由两个抓取，一个是<strong>Get</strong>，一个是<strong>POST</strong>，在这里先写<strong>Get</strong>,后面再继续补上。</p>
+<pre><code>requests.get(URL) </code></pre><p>实质上得到的就是该网页的源代码。<br>当然，我们可以通过这种方法来下载某个网页里的一篇文章，即是获得HTML里某些标签的内容即可。<br>在这里，主要今天的重点在于如果有一个txt可以下载的网址。</p>
+<pre><code>import requests
+res = requests.get(URL)
+type(res)</code></pre><p>这个返回的是Response对象，其中包含了Web服务器对请求做出的响应。<br><img src="https://i.loli.net/2020/01/28/3YJ2eV1mN8qHxrC.png" alt="示意"><br>👆👆👆  </p>
+<ol>
+<li>Response 对象有一个status_code 属性，可以检查她是否等于<code>requests.codes.ok</code>,了解下载是否成功。</li>
+<li>检查成功的另一种方法就是在Response对象上调用<code>raise_for_status()</code>方法。如果下载文件出错，这将抛出异常。如果下载成功，就什么也不做。</li>
+</ol>
+<hr>
+<p>接下来就是我得到后，将要保存。</p>
+<hr>
+<pre><code>file = open(&apos;name.txt&apos;,&apos;wb&apos;)
+# 必须用&quot;写二进制&quot;模式打开该文件，即向函数传入字符串&apos;wb&apos;,作为open()的第二参数。
+# 即是该页面是纯文本，也需要写入二进制数据，而不是文本数据，目的是为了保存该文本的
+# &quot;Unicode编码&quot;
+for i in res.iter_content(number):
+    file.write(i)</code></pre><p>👆👆👆  </p>
+<ol>
+<li><code>res.iter_content(number)</code><br>  是指在循环的每次迭代中，返回一段内容。每段内容都是bytes数据类型，你需要指定一段内容包含多少字节。也就是<strong><em>number</em></strong>处的内容  </li>
+<li>结果将返回写入字节数和最后所剩的字数，如图👇<br><img src="https://i.loli.net/2020/01/29/Gs9MEBJQkxiLWqA.png" alt="示意"><br>可以看到，最后剩余字数并不是指，没达到<strong><em>number</em></strong>所设定的就不能够写入，只是给你的提示，相当于，‘噢，你看，你没有整除成功，还有余呢’</li>
+</ol>
 <hr>
 <p><strong>以上就是今天的全部啦 :)</strong></p>
 
@@ -296,7 +377,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#利用webbrowser打开网页"><span class="nav-number">1.</span> <span class="nav-text">利用webbrowser打开网页</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单介绍及思路分析"><span class="nav-number">1.1.</span> <span class="nav-text">简单介绍及思路分析</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#利用webbrowser打开网页"><span class="nav-number">1.</span> <span class="nav-text">利用webbrowser打开网页</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单介绍及思路分析"><span class="nav-number">1.1.</span> <span class="nav-text">简单介绍及思路分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单介绍sys-argv与pyperclip-patse-以及字符串一些处理"><span class="nav-number">1.2.</span> <span class="nav-text">简单介绍sys.argv与pyperclip.patse()以及字符串一些处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后代码示例"><span class="nav-number">1.3.</span> <span class="nav-text">最后代码示例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#requests-下载文件"><span class="nav-number">2.</span> <span class="nav-text">requests 下载文件</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
