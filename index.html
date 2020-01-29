@@ -190,7 +190,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-01-29 22:52:34 / Modified: 23:38:14" itemprop="dateCreated datePublished" datetime="2020-01-29T22:52:34+08:00">2020-01-29</time>
+              <time title="Created: 2020-01-29 22:52:34 / Modified: 23:40:32" itemprop="dateCreated datePublished" datetime="2020-01-29T22:52:34+08:00">2020-01-29</time>
             </span>
 
           
@@ -215,8 +215,12 @@
 <li><p>一般来讲<code>select()</code>得到的应该是<code>list</code>的，但我下载的最新版，好像是4.8几，就并不是<code>list</code>的，而是<code>bs4.element.ResultSet</code>。然后，因为学艺不精，我就调回到了4.4.0版，也就是官方给出的文件的那个版本。</p>
 </li>
 <li><p>得到<code>select()</code>之后，可以看它的<code>type(),len()</code>,先假设这个变量名称是elems，可以得到(如果只有一个标签，如<code>&lt;p id=&#39;author&#39;&gt;Emma&lt;/p&gt;</code>) </p>
-<p> len(elems)   # 0<br> type(elems)  # &lt;class ‘list’&gt;<br> type(elems[0]) #&lt;class ‘bs4.element.Tag’&gt;<br> elems[0].getText() #’Emma’<br> elems[0].attrs #{‘id’:’author’}<br> elems.get(‘id’) # ‘author’    </p>
-<p>👆可以看到<code>getText()</code>会得到文本，<code>attrs</code>会得到相应的属性和属性值，<code>get</code>则能够获得对应属性的属性值。</p>
+<pre><code>len(elems)   # 0  
+type(elems)  # &lt;class &apos;list&apos;&gt;  
+type(elems[0]) #&lt;class &apos;bs4.element.Tag&apos;&gt;  
+elems[0].getText() #&apos;Emma&apos;  
+elems[0].attrs #{&apos;id&apos;:&apos;author&apos;}  
+elems.get(&apos;id&apos;) # &apos;author&apos;    </code></pre><p>👆可以看到<code>getText()</code>会得到文本，<code>attrs</code>会得到相应的属性和属性值，<code>get</code>则能够获得对应属性的属性值。</p>
 </li>
 </ol>
 <p><strong><em>注：不是<code>list</code>的时候不能够用<code>get</code></em></strong></p>
