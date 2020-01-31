@@ -190,7 +190,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-01-31 16:07:22 / Modified: 17:28:19" itemprop="dateCreated datePublished" datetime="2020-01-31T16:07:22+08:00">2020-01-31</time>
+              <time title="Created: 2020-01-31 16:07:22 / Modified: 17:32:36" itemprop="dateCreated datePublished" datetime="2020-01-31T16:07:22+08:00">2020-01-31</time>
             </span>
 
           
@@ -204,19 +204,92 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="🎈介绍与思路"><a href="#🎈介绍与思路" class="headerlink" title="🎈介绍与思路"></a>🎈介绍与思路</h1><p><strong>✨目的:下载xkcd的所有漫画</strong><br>进入xkcd后，下载当前的漫画，并自动获得PRE的url，再下载前一页的漫画，直到退无可退为止。  </p>
+          <h1 id="🎈介绍与思路"><a href="#🎈介绍与思路" class="headerlink" title="🎈介绍与思路"></a>🎈介绍与思路</h1><h2 id="🎏目的"><a href="#🎏目的" class="headerlink" title="🎏目的"></a>🎏目的</h2><p>下载xkcd的所有漫画<br>进入xkcd后，下载当前的漫画，并自动获得PRE的url，再下载前一页的漫画，直到退无可退为止。  </p>
 <h2 id="🎏找到各个节点"><a href="#🎏找到各个节点" class="headerlink" title="🎏找到各个节点"></a>🎏找到各个节点</h2><p>🎐 下载漫画  ===&gt;&gt; <code>requests.get(imgurl)</code>  ===&gt;&gt; 获取<code>imgurl</code>的信息===&gt;&gt;&gt;观察该标签 ===&gt;&gt; <img src="https://i.loli.net/2020/01/31/MQoVnKNI9GDxeZq.png" alt=""><br>👆可得到<code>name.select(&#39;#comic img&#39;)</code>  </p>
 <hr>
 <p>🎐 PRE和最后一页的特点 ===&gt;&gt;a 直接指定，最后一页的href 为/#/👇<br><img src="https://i.loli.net/2020/01/31/DHtNafEpBnIMveA.png" alt="">   </p>
 <hr>
-<p><strong>补充🎱</strong><br>① &lt;a&gt; 中的属性<code>rel</code>是用于指定当前文档与被链接文档的关系。<br>用于&lt;a&gt;标签的可选属性 rel 和 rev 分别表示源文档与目标文档之间正式的关系和方向。rel 属性指定从源文档到目标文档的关系，而 rev 属性则指定从目标文档到源文档的关系。这两种属性可以在&lt;a&gt;标签中同时使用。<br>所以<code>rel = &quot;prev&quot;</code>就是指源文档到目标文档的关系是“前”的关系，就是目标文档是该文档的前文档，表达同一意思的如<code>rev = &quot;next&quot;</code><br>|值|    描述|<br>|—|—|<br>|alternate|    文档的可选版本（例如打印页、翻译页或镜像）。|<br>|stylesheet    |文档的外部样式表。|<br>start    |集合中的第一个文档。|<br>next    |集合中的下一个文档。|<br>prev    |集合中的前一个文档。|<br>contents|    文档目录。|<br>index    |文档索引。|<br>glossary|    文档中所用字词的术语表或解释。|<br>copyright|    包含版权信息的文档。|<br>chapter    |文档的章。|<br>section    |文档的节。|<br>subsection|    文档的子段。|<br>appendix|    文档附录。|<br>help    |帮助文档。|<br>bookmark|    相关文档。|<br>nofollow|    Google 使用 “nofollow”，用于指定 Google 搜索引擎不要跟踪链接。| </p>
+<p><strong>补充🎱</strong><br>① &lt;a&gt; 中的属性<code>rel</code>是用于指定当前文档与被链接文档的关系。<br>用于&lt;a&gt;标签的可选属性 rel 和 rev 分别表示源文档与目标文档之间正式的关系和方向。rel 属性指定从源文档到目标文档的关系，而 rev 属性则指定从目标文档到源文档的关系。这两种属性可以在&lt;a&gt;标签中同时使用。<br>所以<code>rel = &quot;prev&quot;</code>就是指源文档到目标文档的关系是“前”的关系，就是目标文档是该文档的前文档，表达同一意思的如<code>rev = &quot;next&quot;</code>    </p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>alternate</td>
+<td>文档的可选版本（例如打印页、翻译页或镜像）。</td>
+</tr>
+<tr>
+<td>stylesheet</td>
+<td>文档的外部样式表。</td>
+</tr>
+<tr>
+<td>start</td>
+<td>集合中的第一个文档。</td>
+</tr>
+<tr>
+<td>next</td>
+<td>集合中的下一个文档。</td>
+</tr>
+<tr>
+<td>prev</td>
+<td>集合中的前一个文档。</td>
+</tr>
+<tr>
+<td>contents</td>
+<td>文档目录。</td>
+</tr>
+<tr>
+<td>index</td>
+<td>文档索引。</td>
+</tr>
+<tr>
+<td>glossary</td>
+<td>文档中所用字词的术语表或解释。</td>
+</tr>
+<tr>
+<td>copyright</td>
+<td>包含版权信息的文档。</td>
+</tr>
+<tr>
+<td>chapter</td>
+<td>文档的章。</td>
+</tr>
+<tr>
+<td>section</td>
+<td>文档的节。</td>
+</tr>
+<tr>
+<td>subsection</td>
+<td>文档的子段。</td>
+</tr>
+<tr>
+<td>appendix</td>
+<td>文档附录。</td>
+</tr>
+<tr>
+<td>help</td>
+<td>帮助文档。</td>
+</tr>
+<tr>
+<td>bookmark</td>
+<td>相关文档。</td>
+</tr>
+<tr>
+<td>nofollow</td>
+<td>Google 使用 “nofollow”，用于指定 Google 搜索引擎不要跟踪链接。</td>
+</tr>
+</tbody></table>
 <blockquote>
 <p>注释：上面这些关系也用在文档的 &lt;head&gt; 中的 &lt;link&gt; 标签里。&lt;link&gt; 标签无需实际创建一个指向目标文档的链接就可以创建关系；&lt;a&gt; 标签则要创建链接，并在其中加入关系属性。   </p>
 </blockquote>
 <p>② 关于url，在鼠标悬停时可以看到相关的完整链接，在敲代码时补充上即可。</p>
 <hr>
-<p>🎐 保存到本地 ===&gt;&gt;创建一个文件夹<code>os.makedirs(&#39;path&#39;,mode=0o777,exist_ok=False)</code><br><strong>补充🎱</strong><br>① 与<code>os.mkdir</code>的区别在于，如果path=’A/B/C’，<strong><em>前者</em></strong>能够创建多层目录，即，这个path可以创建成功，而<strong><em>后者</em></strong>只能创建最后一级目录，也就是只能创建C，如果之前的目录不存在的话，则会创建失败。<br>② 该<code>os.makedirs()</code>的参数说明。<code>path</code>自然就是路径；<code>mode</code>默认是0o777，权限模式，我也不知道是什么；<code>exist_ok</code>就是说如果创建的目录存在是否报错。<code>False</code>报错，返回异常<code>FileExistsError</code>；<code>True</code>则不触发这个异常。<br>===&gt;&gt;<strong>🐱‍🏍重点说明：在<code>requests.get(url)</code>就是下载了这个url对应的网页内容了，那么保存就是以二进制写入模式创建一个文档<code>open(&#39;wb&#39;)``````for</code>循环通过<code>res.iter_content(指定一次迭代读取内容的多少个字节)</code>写入<code>filename.write(i)</code>最后记得<code>filename.close()</code>即可</strong>  </p>
-<h1 id="🎏代码示例"><a href="#🎏代码示例" class="headerlink" title="🎏代码示例"></a>🎏代码示例</h1><p><img src="https://i.loli.net/2020/01/31/wkE7xIuJcmjYvBg.png" alt=""></p>
+<p>🎐 保存到本地 ===&gt;&gt;创建一个文件夹<code>os.makedirs(&#39;path&#39;,mode=0o777,exist_ok=False)</code><br><strong>补充🎱</strong><br>① 与<code>os.mkdir</code>的区别在于，如果path=’A/B/C’，<strong><em>前者</em></strong>能够创建多层目录，即，这个path可以创建成功，而<strong><em>后者</em></strong>只能创建最后一级目录，也就是只能创建C，如果之前的目录不存在的话，则会创建失败。<br>② 该<code>os.makedirs()</code>的参数说明。<code>path</code>自然就是路径；<code>mode</code>默认是0o777，权限模式，我也不知道是什么；<code>exist_ok</code>就是说如果创建的目录存在是否报错。<code>False</code>报错，返回异常<code>FileExistsError</code>；<code>True</code>则不触发这个异常。<br>===&gt;&gt;<strong>🐱‍🏍重点说明：在<code>requests.get(url)</code>就是下载了这个url对应的网页内容了，那么保存就是以二进制写入模式创建一个文档<code>open(&#39;wb&#39;)``````for</code>循环通过<code>res.iter_content(指定一次迭代读取内容的多少个字节)</code>写入<code>filename.write(i)</code>最后记得<code>filename.close()</code>即可</strong> </p>
+<hr>
+<h1 id="🎈代码示例"><a href="#🎈代码示例" class="headerlink" title="🎈代码示例"></a>🎈代码示例</h1><p><img src="https://i.loli.net/2020/01/31/wkE7xIuJcmjYvBg.png" alt=""></p>
 
       
     </div>
