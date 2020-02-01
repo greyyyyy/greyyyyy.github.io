@@ -46,18 +46,18 @@
   };
 </script>
 
-  <meta name="description" content="🎈selenium的安装🎐1. pip安装pip install selenium🎐2. 浏览器的driver&#x3D;&#x3D;&#x3D;&gt;&gt;webdriver|浏览器|对应driver|网址||—|—|–||Chrome|chromedriver|https:&#x2F;&#x2F;npm.taobao.org&#x2F;mirrors&#x2F;chromedriver&#x2F;||Firefox|geckdriver|https:&#x2F;&#x2F;fire">
+  <meta name="description" content="🎈selenium的安装🎐1. pip安装pip install selenium🎐2. 浏览器的driver&#x3D;&#x3D;&#x3D;&gt;&gt;webdriver    浏览器 对应driver 网址    Chrome chromedriver https:&#x2F;&#x2F;npm.taobao.org&#x2F;mirrors&#x2F;chromedriver&#x2F;   Firefox geckdriver https:&#x2F;&#x2F;firef">
 <meta property="og:type" content="article">
 <meta property="og:title" content="selenium基本操作">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;01&#x2F;selenium%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="🎈selenium的安装🎐1. pip安装pip install selenium🎐2. 浏览器的driver&#x3D;&#x3D;&#x3D;&gt;&gt;webdriver|浏览器|对应driver|网址||—|—|–||Chrome|chromedriver|https:&#x2F;&#x2F;npm.taobao.org&#x2F;mirrors&#x2F;chromedriver&#x2F;||Firefox|geckdriver|https:&#x2F;&#x2F;fire">
+<meta property="og:description" content="🎈selenium的安装🎐1. pip安装pip install selenium🎐2. 浏览器的driver&#x3D;&#x3D;&#x3D;&gt;&gt;webdriver    浏览器 对应driver 网址    Chrome chromedriver https:&#x2F;&#x2F;npm.taobao.org&#x2F;mirrors&#x2F;chromedriver&#x2F;   Firefox geckdriver https:&#x2F;&#x2F;firef">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;01&#x2F;OsN5Myf3htqpExo.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;01&#x2F;7YZXpPtxhOTkNAq.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;01&#x2F;bGxnhukYeOcA8Tj.png">
 <meta property="article:published_time" content="2020-02-01T07:24:02.000Z">
-<meta property="article:modified_time" content="2020-02-01T09:26:38.942Z">
+<meta property="article:modified_time" content="2020-02-01T09:32:27.923Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;01&#x2F;OsN5Myf3htqpExo.png">
@@ -197,7 +197,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-02-01 15:24:02 / Modified: 17:26:38" itemprop="dateCreated datePublished" datetime="2020-02-01T15:24:02+08:00">2020-02-01</time>
+              <time title="Created: 2020-02-01 15:24:02 / Modified: 17:32:27" itemprop="dateCreated datePublished" datetime="2020-02-01T15:24:02+08:00">2020-02-01</time>
             </span>
 
           
@@ -211,14 +211,62 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="🎈selenium的安装"><a href="#🎈selenium的安装" class="headerlink" title="🎈selenium的安装"></a>🎈selenium的安装</h1><p>🎐1. pip安装<code>pip install selenium</code><br>🎐2. 浏览器的driver===&gt;&gt;webdriver<br>|浏览器|对应driver|网址|<br>|—|—|–|<br>|Chrome|chromedriver|<a href="https://npm.taobao.org/mirrors/chromedriver/|" target="_blank" rel="noopener">https://npm.taobao.org/mirrors/chromedriver/|</a><br>|Firefox|geckdriver|<a href="https://firefox-source-docs.mozilla.org/testing/geckodriver/geckodriver/Support.htm(👈对照表)https://github.com/mozilla/geckodriver/releases(👈全部驱动下载地址)|" target="_blank" rel="noopener">https://firefox-source-docs.mozilla.org/testing/geckodriver/geckodriver/Support.htm(👈对照表)https://github.com/mozilla/geckodriver/releases(👈全部驱动下载地址)|</a><br>🎐3.配置环境  </p>
-<ul>
-<li>下载下来后解压缩得到一个<code>.exe</code>文件</li>
-<li>新建一个文件夹保存驱动文件<code>C:\webdriver</code></li>
-<li>将上面👆这个Path添加到环境变量中即可。  </li>
-</ul>
-<hr>
-<h1 id="🎈selenium的介绍和相关操作"><a href="#🎈selenium的介绍和相关操作" class="headerlink" title="🎈selenium的介绍和相关操作"></a>🎈selenium的介绍和相关操作</h1><h2 id="🎏启动浏览器"><a href="#🎏启动浏览器" class="headerlink" title="🎏启动浏览器"></a>🎏启动浏览器</h2><pre><code>from selenium import webdriver
+        <h1 id="🎈selenium的安装"><a href="#🎈selenium的安装" class="headerlink" title="🎈selenium的安装"></a>🎈selenium的安装</h1><p>🎐1. pip安装<code>pip install selenium</code><br>🎐2. 浏览器的driver===&gt;&gt;webdriver</p>
+<table>
+<thead>
+<tr>
+<th>浏览器</th>
+<th>对应driver</th>
+<th>网址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Chrome</td>
+<td>chromedriver</td>
+<td><a href="https://npm.taobao.org/mirrors/chromedriver/" target="_blank" rel="noopener">https://npm.taobao.org/mirrors/chromedriver/</a></td>
+</tr>
+<tr>
+<td>Firefox</td>
+<td>geckdriver</td>
+<td><a href="https://firefox-source-docs.mozilla.org/testing/geckodriver/geckodriver/Support.htm(👈对照表)https://github.com/mozilla/geckodriver/releases(👈全部驱动下载地址)" target="_blank" rel="noopener">https://firefox-source-docs.mozilla.org/testing/geckodriver/geckodriver/Support.htm(👈对照表)https://github.com/mozilla/geckodriver/releases(👈全部驱动下载地址)</a></td>
+</tr>
+<tr>
+<td>🎐3.配置环境</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>+ 下载下来后解压缩得到一个<code>.exe</code>文件</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>+ 新建一个文件夹保存驱动文件<code>C:\webdriver</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>+ 将上面👆这个Path添加到环境变量中即可。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>—</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td># 🎈selenium的介绍和相关操作</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## 🎏启动浏览器</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<pre><code>from selenium import webdriver
 browser = webdriver.Firefox
 # 此时将打开Firefox浏览器是一个新标签页。
 browser.get(&apos;https://www.baidu.com&apos;)
@@ -504,7 +552,7 @@ browser.quite()
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈selenium的安装"><span class="nav-number">1.</span> <span class="nav-text">🎈selenium的安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈selenium的介绍和相关操作"><span class="nav-number">2.</span> <span class="nav-text">🎈selenium的介绍和相关操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏启动浏览器"><span class="nav-number">2.1.</span> <span class="nav-text">🎏启动浏览器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏寻找元素并进行相关操作"><span class="nav-number">2.2.</span> <span class="nav-text">🎏寻找元素并进行相关操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🐱‍🏍重点补充——常见该异常的原因"><span class="nav-number">2.3.</span> <span class="nav-text">🐱‍🏍重点补充——常见该异常的原因</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#①-iframe-frame"><span class="nav-number">2.3.1.</span> <span class="nav-text">① iframe&#x2F;frame</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏有了WebElement对象可以读取的属性或调用的方法示例"><span class="nav-number">2.4.</span> <span class="nav-text">🎏有了WebElement对象可以读取的属性或调用的方法示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏-提交表单、点击按钮"><span class="nav-number">2.5.</span> <span class="nav-text">🎏 提交表单、点击按钮</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈selenium的安装"><span class="nav-number">1.</span> <span class="nav-text">🎈selenium的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏寻找元素并进行相关操作"><span class="nav-number">1.1.</span> <span class="nav-text">🎏寻找元素并进行相关操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🐱‍🏍重点补充——常见该异常的原因"><span class="nav-number">1.2.</span> <span class="nav-text">🐱‍🏍重点补充——常见该异常的原因</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#①-iframe-frame"><span class="nav-number">1.2.1.</span> <span class="nav-text">① iframe&#x2F;frame</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏有了WebElement对象可以读取的属性或调用的方法示例"><span class="nav-number">1.3.</span> <span class="nav-text">🎏有了WebElement对象可以读取的属性或调用的方法示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏-提交表单、点击按钮"><span class="nav-number">1.4.</span> <span class="nav-text">🎏 提交表单、点击按钮</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
