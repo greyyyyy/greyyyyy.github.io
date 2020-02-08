@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="🏐将以一个典型的requests库应用为例 import requests def getHTML(url):     r &#x3D; requests.get(url)     r.raise_for_status()     r.encoding &#x3D; r.apparent_encoding     return r.text🎈分步详解🎏综述request库常用作获取网页。    获取的✔ &amp;gt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="requests库详解">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;07&#x2F;request%E5%BA%93%E8%AF%A6%E8%A7%A3&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="🏐将以一个典型的requests库应用为例 import requests def getHTML(url):     r &#x3D; requests.get(url)     r.raise_for_status()     r.encoding &#x3D; r.apparent_encoding     return r.text🎈分步详解🎏综述request库常用作获取网页。    获取的✔ &amp;gt">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;08&#x2F;oBeFlzifAS5V6Qb.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;08&#x2F;ZbmBj75yiUAuHzf.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;08&#x2F;W8AThInOFycpv6x.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;08&#x2F;zPiSGINYw56OJHV.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;08&#x2F;GnN6OmH5vohVwWM.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;08&#x2F;muG1gJ7xSKwb9tV.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;08&#x2F;UtBfKH8IZlwj6GS.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;08&#x2F;HEUiRwymv839WeV.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;08&#x2F;8dSYqg5ysWfjVhe.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;08&#x2F;CqerP4LFwzcZ9XE.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;08&#x2F;zBQ5EKSbgk2plta.png">
+<meta property="article:published_time" content="2020-02-07T12:52:49.000Z">
+<meta property="article:modified_time" content="2020-02-08T14:53:59.020Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;08&#x2F;oBeFlzifAS5V6Qb.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/07/request%E5%BA%93%E8%AF%A6%E8%A7%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>requests库详解 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/07/request%E5%BA%93%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          requests库详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-07 20:52:49" itemprop="dateCreated datePublished" datetime="2020-02-07T20:52:49+08:00">2020-02-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-08 22:53:59" itemprop="dateModified" datetime="2020-02-08T22:53:59+08:00">2020-02-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>🏐将以一个典型的requests库应用为例</strong></p>
+<pre><code>import requests
+def getHTML(url):
+    r = requests.get(url)
+    r.raise_for_status()
+    r.encoding = r.apparent_encoding
+    return r.text</code></pre><h1 id="🎈分步详解"><a href="#🎈分步详解" class="headerlink" title="🎈分步详解"></a>🎈分步详解</h1><h2 id="🎏综述"><a href="#🎏综述" class="headerlink" title="🎏综述"></a>🎏综述</h2><p><strong>request库常用作获取网页。</strong>  </p>
+<ol>
+<li>获取的✔ &gt;&gt;&gt; 不仅仅指uHTML，并且还是下载这个网页的内容，比如图片或者文本等。 </li>
+<li>得到的✔ &gt;&gt;&gt; 就目前所学到的来讲，并不是JS解析后的，而是一开始就写在了代码中的。  </li>
+</ol>
+<p><strong><em>🎱补充:当我们查看网页的源代码时，有两个方法，分别是 ▪F12 &gt;&gt;&gt; 查看开发者工具 ；▪右键查看/CTRL+U. 前者得到的代码是JS解析之后的，而后者则是直接在源代码中的，也就是我们能直接get的。</em></strong><br><strong><em>这也就是为什么我们打开开发者工具看到了的内容，却不能解析的原因</em></strong>  </p>
+<hr>
+<h2 id="🎏-Request-与-Response"><a href="#🎏-Request-与-Response" class="headerlink" title="🎏 Request 与 Response"></a>🎏 Request 与 Response</h2><pre><code>r = requets.get(url)  </code></pre><p>这个过程实际上是向服务器发送了请求并且得到了Response。这个语句中有两个对象，一个是Request，一个是Response。<br>在Request，可以说就是get后面所包含的，里面有我们发送给服务器的<code>User-agent</code>等信息，而这个信息对于我们能不能获取很有帮助。因为网页有防止爬虫获取的一个手段就是检查来源，也就是看你的<code>user-agent</code>是不是市面上已知的浏览器。Response也就是我们得到的。</p>
+<h3 id="🐱‍🏍HTTP协议"><a href="#🐱‍🏍HTTP协议" class="headerlink" title="🐱‍🏍HTTP协议"></a><strong>🐱‍🏍HTTP协议</strong></h3><p>🎐HTTP，超文本传输协议。  </p>
+<p>HTTP是1-2-3(基于XX模式的无状态的应用层协议)  </p>
+<ol>
+<li>基于”请求与响应”模式的 &gt;&gt;&gt; 用户发送请求，服务器做出响应  </li>
+<li>无状态的  &gt;&gt;&gt; 是指前后请求无关联，即是第一次请求和第二次请求无关联。具体来讲实际上是指，Web浏览器与Web服务器之间不需要建立持久的连接。当一个客户端向服务器端发出请求，服务器返回响应(Response)，链接也就关闭了，在服务器端不保留链接的有关信息，HTTP请求只能由客户端发起，服务器不能主动向客户端发送数据。  </li>
+<li>应用层协议 &gt;&gt;&gt; 是指该协议工作在TCP协议之上<br><img src="https://i.loli.net/2020/02/08/oBeFlzifAS5V6Qb.png" alt="图示"></li>
+</ol>
+<hr>
+<p>🎐 URL PART</p>
+<pre><code>格式: http://host[:port][path]  
+host: 合法的Internet主机  
+port: 端口号，缺省端口为80  
+path: 请求资源路径  </code></pre><p>URL是通过HTTP协议存取资源的Internet路径，一个URL对应一个数据资源。</p>
+<hr>
+<p><strong><em>🎱补充robots协议。</em></strong><br><strong><em>obots协议是君子协议，并不会起到任何防止技术的作用，是一个类似公告📄的东西。<br>通过在网站域名后添加<code>/robots.txt</code>即可查看。如果输入后显示页面不存在，则表明均可以爬取🕷。<br>比如以下为百度首页的robots协议。</em></strong><br><img src="https://i.loli.net/2020/02/08/ZbmBj75yiUAuHzf.png" alt="百度首页robots协议"><br>**<em>可以看到<code>User-agent</code>写明了对象，<code>Disallow</code>即是不能爬取的。<br>以路径来说明，也就是比如<code>/s?</code>不能爬取以<code>s?</code>开头的路径;```</em><code>就是除以上提到的所有，不能爬取</code>/```以这个开头的全部，也就是所有都不能爬取。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">与robots协议结合理解可知，网站的根目录即是域名，它的资源路径都是根目录下的***</span><br><span class="line"></span><br><span class="line">---   </span><br><span class="line">🎐 HTTP协议对资源的操作  </span><br><span class="line">***🎱补充一个关于cookie的内容***</span><br><span class="line">![图片表示客户端与服务器发送内容示意](https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;13949989-dcf024be2733e725.png?imageMogr2&#x2F;auto-orient&#x2F;strip|imageView2&#x2F;2&#x2F;w&#x2F;400&#x2F;format&#x2F;webp)  </span><br><span class="line">***cookie是一段以键值格式的文本信息，客户端向服务器发送一个request，如果服务器需要记录用户状态，就在response中给客户端发一个set-cookie，当客户端再次请求的时候，就会发cookie过去。***  </span><br><span class="line">👆我们也可以看到request与response的关系。  </span><br><span class="line">接下来我们用一个表格显示HTTP对资源的操作👇</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">|方法|说明|</span><br><span class="line">|---|---|</span><br><span class="line">|GET|请求获取URL位置的资源|</span><br><span class="line">|HEAD|请求获取URL位置资源的响应信息报告，也就是获得该资源的头部信息|</span><br><span class="line">|POST|请求向URL位置的资源后附加新的数据|</span><br><span class="line">|PUT|请求向URL位置存储一个资源，覆盖原URL位置的资源。***这个资源是大的资源，里面其实有很多内容。比如你只想改变其中的UserName部分，如果用PUT，那么所有的这个PART全只有了UserName；所以若只改变其中应该用下一个👇***|</span><br><span class="line">|PATCH|请求局部更新URL位置的资源，即改变该处资源的部分内容；***所以相比于PUT👆，PATCH能够节省网络带宽***|</span><br><span class="line">|DELETE|请求删除URL位置存储的资源|</span><br><span class="line">---</span><br><span class="line">但是实际上一般服务器都是有限制的，不可能大家都可以自己更改服务器的资源。所以常用的还是GET&#x2F;HEAD&#x2F;POST。  </span><br><span class="line">至于有什么限制，怎么查看，怎么破解。待深入学习。  </span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">### **🐱‍🏍requests库的相应使用**</span><br><span class="line">1. requests库我们常用到的书写如下👇 </span><br><span class="line"></span><br><span class="line">|HTTP对应操作|requests库写法①|requests库写法②|</span><br><span class="line">|---|---|---|</span><br><span class="line">|GET|requests.get(url)|requests.request(&#39;GET&#39;,url)|</span><br><span class="line">|HEAD|requests.head()|requests.request(&#39;HEAD&#39;,url)|</span><br><span class="line">|POST|requests.post()|requests.request(&#39;POST&#39;,url)|</span><br><span class="line">|PUT|requests.put()|requests.request(&#39;PUT&#39;,url)|</span><br><span class="line">|PATCH|requests.patch()|requests.request(&#39;PATCH&#39;,url)|</span><br><span class="line">|DELETE|requests.delete()|requests.request(&#39;DELETE&#39;,url)|</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">有一个可能不同的是&#96;&#96;&#96;requests.request(&#39;OPTIONS&#39;,url,**kwargs)</span><br></pre></td></tr></table></figure>
+<p>因为<code>requests.request(method,url,**kwargs)</code>中的参数都与分别写出来是一样的所以就以这个为例。<br><strong>访问控制参数是以星星*开头的，这是可选的意思，对于这种应该以命名的方式传入，即X = Y</strong><br>一共有十三个参数👇</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>params</td>
+<td>字典或字节序列形式添加，是作为参数增加到url中的</td>
+<td><img src="https://i.loli.net/2020/02/08/W8AThInOFycpv6x.png" alt="图片示例"></td>
+</tr>
+<tr>
+<td>data</td>
+<td>字典、字节序列或文件对象形式，作为request的内容</td>
+<td><img src="https://i.loli.net/2020/02/08/zPiSGINYw56OJHV.png" alt="example"></td>
+</tr>
+<tr>
+<td>json</td>
+<td>JSON格式的数据，作为request内容</td>
+<td><img src="https://i.loli.net/2020/02/08/GnN6OmH5vohVwWM.png" alt="example"></td>
+</tr>
+<tr>
+<td>header</td>
+<td>字典格式，HTTP定制头，这个也就是我们将User-agent更改的方式以放被查到</td>
+<td><img src="https://i.loli.net/2020/02/08/muG1gJ7xSKwb9tV.png" alt="example"></td>
+</tr>
+<tr>
+<td>cookies</td>
+<td>字典或CookieJar形式，Request中的cookie</td>
+<td>无</td>
+</tr>
+<tr>
+<td>auth</td>
+<td>元组形式，支持HTTP认证功能</td>
+<td>无</td>
+</tr>
+<tr>
+<td>files</td>
+<td>字典类型，传输文件</td>
+<td><img src="https://i.loli.net/2020/02/08/UtBfKH8IZlwj6GS.png" alt="example"></td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>设定超时时间，以秒为单位</td>
+<td><img src="https://i.loli.net/2020/02/08/HEUiRwymv839WeV.png" alt="example"></td>
+</tr>
+<tr>
+<td>proxies</td>
+<td>字典类型，设定访问代理服务器，可以增加登录认证；即是可以用于隐藏原IP</td>
+<td><img src="https://i.loli.net/2020/02/08/8dSYqg5ysWfjVhe.png" alt="example"></td>
+</tr>
+<tr>
+<td>allow_redirects</td>
+<td>True/False,默认为True，重定向开关</td>
+<td>无</td>
+</tr>
+<tr>
+<td>stream</td>
+<td>同上，获取内容立即下载开关，默认为TRUE</td>
+<td>无</td>
+</tr>
+<tr>
+<td>verify</td>
+<td>同上，认证SSL证书开关</td>
+<td>无</td>
+</tr>
+<tr>
+<td>cert</td>
+<td>本地SSL证书路径</td>
+<td>无</td>
+</tr>
+<tr>
+<td>—</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## 🎏HTTP请求返回状态——requests库的异常</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<pre><code>r.status_code
+# 这个将返回HTTP请求的返回状态  
+&gt;&gt;&gt; 200 
+# 链接成功 
+# 其他的任何数字比如404 均表示失败</code></pre><p>而，我们一般写程序就需要他自己判断，而不是它返回一个值再人为判断，所以我们写<code>r.raise_for_status()</code>判断返回的是不是200，若是200则继续，若不是则引发Error  </p>
+<pre><code>try:
+    r.raise_for_status()
+except Exception as exc():
+    print(&apos;The Problem is: %s&apos; %(exc))  
+# The Problem is:404 Client Error:Not Found  </code></pre><hr>
+<table>
+<thead>
+<tr>
+<th>异常</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>requests.ConnectionError</td>
+<td>网络连接错误异常，比如DNS查询失败、拒接链接等</td>
+</tr>
+<tr>
+<td>requests.HTTPError</td>
+<td>HTTP错误异常</td>
+</tr>
+<tr>
+<td>requests.URLRequired</td>
+<td>URL缺失异常</td>
+</tr>
+<tr>
+<td>requests.TooManyRedirects</td>
+<td>超过最大重定向次数</td>
+</tr>
+<tr>
+<td>requests.ConnectTimeOut</td>
+<td>连接远程服务器超时异常——发出request的这个过程</td>
+</tr>
+<tr>
+<td>requests.TimeOUT</td>
+<td>请求URL到返回这整个过程超时</td>
+</tr>
+<tr>
+<td>—</td>
+<td></td>
+</tr>
+<tr>
+<td>## 🎏 编码方式，读取返回响应</td>
+<td></td>
+</tr>
+</tbody></table>
+<pre><code>r.encoding 
+# 从HTTP header中猜测响应内容编码方式，如果header中没有charset，则认为编码为ISO-8859-1
+
+r.apparent_encoding 
+# 从响应的内容文本分析的编码方式
+
+r.content 
+# HTTP响应的二进制形式
+
+r.text
+# HTTP响应内容的字符串形式，即对应的页面内容  </code></pre><p>如果出现了错误，但是可以查看编码<code>r.text</code> 则不是网络错误，往往是网站对网络爬虫的限制，此时我们可以通过改变header来再次尝试。  </p>
+<pre><code>&gt;&gt;&gt; r.status_code
+&gt;&gt;&gt; 503
+&gt;&gt;&gt;r.encoding = r.apparent_encoding
+&gt;&gt;&gt;r.text
+&gt;&gt;&gt; ...
+# 👆相应内容</code></pre><p><img src="https://i.loli.net/2020/02/08/CqerP4LFwzcZ9XE.png" alt="响应内容示意"></p>
+<pre><code>&gt;&gt;&gt; r.requests.header
+# 查看我们发出去的request的头部信息  </code></pre><p><img src="https://i.loli.net/2020/02/08/zBQ5EKSbgk2plta.png" alt="内容示意"></p>
+<p>再构造新的键值对作为头部  </p>
+<pre><code>&gt;&gt;&gt; kv = {&apos;user-agent&apos;:&apos;Mozilla/5.0&apos;}
+&gt;&gt;&gt; r = requests.get(url,headers = kv)</code></pre><hr>
+<p>向搜索引擎提交关键字<code>https://www.baidu.com/s?wd = keyword</code>  </p>
+<pre><code>&gt;&gt;&gt; kv = {&apos;wd&apos;:&apos;Python&apos;}
+&gt;&gt;&gt; r = requests.get(&apos;https://www.baidu.com/s&apos;,params = kv)
+&gt;&gt;&gt; r.requests.url
+&apos;https://www/baidu.com/s?wd=Python&apos;</code></pre><hr>
+<p>👾接下来 ==&gt;&gt;解析相关的内容——BeautifulSoup库详解</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/01/%E7%AB%A0%E6%9C%AB%E7%9F%A5%E8%AF%86%E7%82%B9x%E7%BB%83%E4%B9%A0%E2%80%98/" rel="prev" title="章末知识点x练习‘ ">
+      <i class="fa fa-chevron-left"></i> 章末知识点x练习‘ 
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈分步详解"><span class="nav-number">1.</span> <span class="nav-text">🎈分步详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏综述"><span class="nav-number">1.1.</span> <span class="nav-text">🎏综述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏-Request-与-Response"><span class="nav-number">1.2.</span> <span class="nav-text">🎏 Request 与 Response</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#🐱‍🏍HTTP协议"><span class="nav-number">1.2.1.</span> <span class="nav-text">🐱‍🏍HTTP协议</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.1.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

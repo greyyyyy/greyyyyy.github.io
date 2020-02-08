@@ -165,6 +165,320 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/07/request%E5%BA%93%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/07/request%E5%BA%93%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">requests库详解</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-07 20:52:49" itemprop="dateCreated datePublished" datetime="2020-02-07T20:52:49+08:00">2020-02-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-08 22:53:59" itemprop="dateModified" datetime="2020-02-08T22:53:59+08:00">2020-02-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>🏐将以一个典型的requests库应用为例</strong></p>
+<pre><code>import requests
+def getHTML(url):
+    r = requests.get(url)
+    r.raise_for_status()
+    r.encoding = r.apparent_encoding
+    return r.text</code></pre><h1 id="🎈分步详解"><a href="#🎈分步详解" class="headerlink" title="🎈分步详解"></a>🎈分步详解</h1><h2 id="🎏综述"><a href="#🎏综述" class="headerlink" title="🎏综述"></a>🎏综述</h2><p><strong>request库常用作获取网页。</strong>  </p>
+<ol>
+<li>获取的✔ &gt;&gt;&gt; 不仅仅指uHTML，并且还是下载这个网页的内容，比如图片或者文本等。 </li>
+<li>得到的✔ &gt;&gt;&gt; 就目前所学到的来讲，并不是JS解析后的，而是一开始就写在了代码中的。  </li>
+</ol>
+<p><strong><em>🎱补充:当我们查看网页的源代码时，有两个方法，分别是 ▪F12 &gt;&gt;&gt; 查看开发者工具 ；▪右键查看/CTRL+U. 前者得到的代码是JS解析之后的，而后者则是直接在源代码中的，也就是我们能直接get的。</em></strong><br><strong><em>这也就是为什么我们打开开发者工具看到了的内容，却不能解析的原因</em></strong>  </p>
+<hr>
+<h2 id="🎏-Request-与-Response"><a href="#🎏-Request-与-Response" class="headerlink" title="🎏 Request 与 Response"></a>🎏 Request 与 Response</h2><pre><code>r = requets.get(url)  </code></pre><p>这个过程实际上是向服务器发送了请求并且得到了Response。这个语句中有两个对象，一个是Request，一个是Response。<br>在Request，可以说就是get后面所包含的，里面有我们发送给服务器的<code>User-agent</code>等信息，而这个信息对于我们能不能获取很有帮助。因为网页有防止爬虫获取的一个手段就是检查来源，也就是看你的<code>user-agent</code>是不是市面上已知的浏览器。Response也就是我们得到的。</p>
+<h3 id="🐱‍🏍HTTP协议"><a href="#🐱‍🏍HTTP协议" class="headerlink" title="🐱‍🏍HTTP协议"></a><strong>🐱‍🏍HTTP协议</strong></h3><p>🎐HTTP，超文本传输协议。  </p>
+<p>HTTP是1-2-3(基于XX模式的无状态的应用层协议)  </p>
+<ol>
+<li>基于”请求与响应”模式的 &gt;&gt;&gt; 用户发送请求，服务器做出响应  </li>
+<li>无状态的  &gt;&gt;&gt; 是指前后请求无关联，即是第一次请求和第二次请求无关联。具体来讲实际上是指，Web浏览器与Web服务器之间不需要建立持久的连接。当一个客户端向服务器端发出请求，服务器返回响应(Response)，链接也就关闭了，在服务器端不保留链接的有关信息，HTTP请求只能由客户端发起，服务器不能主动向客户端发送数据。  </li>
+<li>应用层协议 &gt;&gt;&gt; 是指该协议工作在TCP协议之上<br><img src="https://i.loli.net/2020/02/08/oBeFlzifAS5V6Qb.png" alt="图示"></li>
+</ol>
+<hr>
+<p>🎐 URL PART</p>
+<pre><code>格式: http://host[:port][path]  
+host: 合法的Internet主机  
+port: 端口号，缺省端口为80  
+path: 请求资源路径  </code></pre><p>URL是通过HTTP协议存取资源的Internet路径，一个URL对应一个数据资源。</p>
+<hr>
+<p><strong><em>🎱补充robots协议。</em></strong><br><strong><em>obots协议是君子协议，并不会起到任何防止技术的作用，是一个类似公告📄的东西。<br>通过在网站域名后添加<code>/robots.txt</code>即可查看。如果输入后显示页面不存在，则表明均可以爬取🕷。<br>比如以下为百度首页的robots协议。</em></strong><br><img src="https://i.loli.net/2020/02/08/ZbmBj75yiUAuHzf.png" alt="百度首页robots协议"><br>**<em>可以看到<code>User-agent</code>写明了对象，<code>Disallow</code>即是不能爬取的。<br>以路径来说明，也就是比如<code>/s?</code>不能爬取以<code>s?</code>开头的路径;```</em><code>就是除以上提到的所有，不能爬取</code>/```以这个开头的全部，也就是所有都不能爬取。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">与robots协议结合理解可知，网站的根目录即是域名，它的资源路径都是根目录下的***</span><br><span class="line"></span><br><span class="line">---   </span><br><span class="line">🎐 HTTP协议对资源的操作  </span><br><span class="line">***🎱补充一个关于cookie的内容***</span><br><span class="line">![图片表示客户端与服务器发送内容示意](https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;13949989-dcf024be2733e725.png?imageMogr2&#x2F;auto-orient&#x2F;strip|imageView2&#x2F;2&#x2F;w&#x2F;400&#x2F;format&#x2F;webp)  </span><br><span class="line">***cookie是一段以键值格式的文本信息，客户端向服务器发送一个request，如果服务器需要记录用户状态，就在response中给客户端发一个set-cookie，当客户端再次请求的时候，就会发cookie过去。***  </span><br><span class="line">👆我们也可以看到request与response的关系。  </span><br><span class="line">接下来我们用一个表格显示HTTP对资源的操作👇</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">|方法|说明|</span><br><span class="line">|---|---|</span><br><span class="line">|GET|请求获取URL位置的资源|</span><br><span class="line">|HEAD|请求获取URL位置资源的响应信息报告，也就是获得该资源的头部信息|</span><br><span class="line">|POST|请求向URL位置的资源后附加新的数据|</span><br><span class="line">|PUT|请求向URL位置存储一个资源，覆盖原URL位置的资源。***这个资源是大的资源，里面其实有很多内容。比如你只想改变其中的UserName部分，如果用PUT，那么所有的这个PART全只有了UserName；所以若只改变其中应该用下一个👇***|</span><br><span class="line">|PATCH|请求局部更新URL位置的资源，即改变该处资源的部分内容；***所以相比于PUT👆，PATCH能够节省网络带宽***|</span><br><span class="line">|DELETE|请求删除URL位置存储的资源|</span><br><span class="line">---</span><br><span class="line">但是实际上一般服务器都是有限制的，不可能大家都可以自己更改服务器的资源。所以常用的还是GET&#x2F;HEAD&#x2F;POST。  </span><br><span class="line">至于有什么限制，怎么查看，怎么破解。待深入学习。  </span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">### **🐱‍🏍requests库的相应使用**</span><br><span class="line">1. requests库我们常用到的书写如下👇 </span><br><span class="line"></span><br><span class="line">|HTTP对应操作|requests库写法①|requests库写法②|</span><br><span class="line">|---|---|---|</span><br><span class="line">|GET|requests.get(url)|requests.request(&#39;GET&#39;,url)|</span><br><span class="line">|HEAD|requests.head()|requests.request(&#39;HEAD&#39;,url)|</span><br><span class="line">|POST|requests.post()|requests.request(&#39;POST&#39;,url)|</span><br><span class="line">|PUT|requests.put()|requests.request(&#39;PUT&#39;,url)|</span><br><span class="line">|PATCH|requests.patch()|requests.request(&#39;PATCH&#39;,url)|</span><br><span class="line">|DELETE|requests.delete()|requests.request(&#39;DELETE&#39;,url)|</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">有一个可能不同的是&#96;&#96;&#96;requests.request(&#39;OPTIONS&#39;,url,**kwargs)</span><br></pre></td></tr></table></figure>
+<p>因为<code>requests.request(method,url,**kwargs)</code>中的参数都与分别写出来是一样的所以就以这个为例。<br><strong>访问控制参数是以星星*开头的，这是可选的意思，对于这种应该以命名的方式传入，即X = Y</strong><br>一共有十三个参数👇</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>params</td>
+<td>字典或字节序列形式添加，是作为参数增加到url中的</td>
+<td><img src="https://i.loli.net/2020/02/08/W8AThInOFycpv6x.png" alt="图片示例"></td>
+</tr>
+<tr>
+<td>data</td>
+<td>字典、字节序列或文件对象形式，作为request的内容</td>
+<td><img src="https://i.loli.net/2020/02/08/zPiSGINYw56OJHV.png" alt="example"></td>
+</tr>
+<tr>
+<td>json</td>
+<td>JSON格式的数据，作为request内容</td>
+<td><img src="https://i.loli.net/2020/02/08/GnN6OmH5vohVwWM.png" alt="example"></td>
+</tr>
+<tr>
+<td>header</td>
+<td>字典格式，HTTP定制头，这个也就是我们将User-agent更改的方式以放被查到</td>
+<td><img src="https://i.loli.net/2020/02/08/muG1gJ7xSKwb9tV.png" alt="example"></td>
+</tr>
+<tr>
+<td>cookies</td>
+<td>字典或CookieJar形式，Request中的cookie</td>
+<td>无</td>
+</tr>
+<tr>
+<td>auth</td>
+<td>元组形式，支持HTTP认证功能</td>
+<td>无</td>
+</tr>
+<tr>
+<td>files</td>
+<td>字典类型，传输文件</td>
+<td><img src="https://i.loli.net/2020/02/08/UtBfKH8IZlwj6GS.png" alt="example"></td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>设定超时时间，以秒为单位</td>
+<td><img src="https://i.loli.net/2020/02/08/HEUiRwymv839WeV.png" alt="example"></td>
+</tr>
+<tr>
+<td>proxies</td>
+<td>字典类型，设定访问代理服务器，可以增加登录认证；即是可以用于隐藏原IP</td>
+<td><img src="https://i.loli.net/2020/02/08/8dSYqg5ysWfjVhe.png" alt="example"></td>
+</tr>
+<tr>
+<td>allow_redirects</td>
+<td>True/False,默认为True，重定向开关</td>
+<td>无</td>
+</tr>
+<tr>
+<td>stream</td>
+<td>同上，获取内容立即下载开关，默认为TRUE</td>
+<td>无</td>
+</tr>
+<tr>
+<td>verify</td>
+<td>同上，认证SSL证书开关</td>
+<td>无</td>
+</tr>
+<tr>
+<td>cert</td>
+<td>本地SSL证书路径</td>
+<td>无</td>
+</tr>
+<tr>
+<td>—</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>## 🎏HTTP请求返回状态——requests库的异常</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<pre><code>r.status_code
+# 这个将返回HTTP请求的返回状态  
+&gt;&gt;&gt; 200 
+# 链接成功 
+# 其他的任何数字比如404 均表示失败</code></pre><p>而，我们一般写程序就需要他自己判断，而不是它返回一个值再人为判断，所以我们写<code>r.raise_for_status()</code>判断返回的是不是200，若是200则继续，若不是则引发Error  </p>
+<pre><code>try:
+    r.raise_for_status()
+except Exception as exc():
+    print(&apos;The Problem is: %s&apos; %(exc))  
+# The Problem is:404 Client Error:Not Found  </code></pre><hr>
+<table>
+<thead>
+<tr>
+<th>异常</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>requests.ConnectionError</td>
+<td>网络连接错误异常，比如DNS查询失败、拒接链接等</td>
+</tr>
+<tr>
+<td>requests.HTTPError</td>
+<td>HTTP错误异常</td>
+</tr>
+<tr>
+<td>requests.URLRequired</td>
+<td>URL缺失异常</td>
+</tr>
+<tr>
+<td>requests.TooManyRedirects</td>
+<td>超过最大重定向次数</td>
+</tr>
+<tr>
+<td>requests.ConnectTimeOut</td>
+<td>连接远程服务器超时异常——发出request的这个过程</td>
+</tr>
+<tr>
+<td>requests.TimeOUT</td>
+<td>请求URL到返回这整个过程超时</td>
+</tr>
+<tr>
+<td>—</td>
+<td></td>
+</tr>
+<tr>
+<td>## 🎏 编码方式，读取返回响应</td>
+<td></td>
+</tr>
+</tbody></table>
+<pre><code>r.encoding 
+# 从HTTP header中猜测响应内容编码方式，如果header中没有charset，则认为编码为ISO-8859-1
+
+r.apparent_encoding 
+# 从响应的内容文本分析的编码方式
+
+r.content 
+# HTTP响应的二进制形式
+
+r.text
+# HTTP响应内容的字符串形式，即对应的页面内容  </code></pre><p>如果出现了错误，但是可以查看编码<code>r.text</code> 则不是网络错误，往往是网站对网络爬虫的限制，此时我们可以通过改变header来再次尝试。  </p>
+<pre><code>&gt;&gt;&gt; r.status_code
+&gt;&gt;&gt; 503
+&gt;&gt;&gt;r.encoding = r.apparent_encoding
+&gt;&gt;&gt;r.text
+&gt;&gt;&gt; ...
+# 👆相应内容</code></pre><p><img src="https://i.loli.net/2020/02/08/CqerP4LFwzcZ9XE.png" alt="响应内容示意"></p>
+<pre><code>&gt;&gt;&gt; r.requests.header
+# 查看我们发出去的request的头部信息  </code></pre><p><img src="https://i.loli.net/2020/02/08/zBQ5EKSbgk2plta.png" alt="内容示意"></p>
+<p>再构造新的键值对作为头部  </p>
+<pre><code>&gt;&gt;&gt; kv = {&apos;user-agent&apos;:&apos;Mozilla/5.0&apos;}
+&gt;&gt;&gt; r = requests.get(url,headers = kv)</code></pre><hr>
+<p>向搜索引擎提交关键字<code>https://www.baidu.com/s?wd = keyword</code>  </p>
+<pre><code>&gt;&gt;&gt; kv = {&apos;wd&apos;:&apos;Python&apos;}
+&gt;&gt;&gt; r = requests.get(&apos;https://www.baidu.com/s&apos;,params = kv)
+&gt;&gt;&gt; r.requests.url
+&apos;https://www/baidu.com/s?wd=Python&apos;</code></pre><hr>
+<p>👾接下来 ==&gt;&gt;解析相关的内容——BeautifulSoup库详解</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/%E7%AB%A0%E6%9C%AB%E7%9F%A5%E8%AF%86%E7%82%B9x%E7%BB%83%E4%B9%A0%E2%80%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/01/%E7%AB%A0%E6%9C%AB%E7%9F%A5%E8%AF%86%E7%82%B9x%E7%BB%83%E4%B9%A0%E2%80%98/" class="post-title-link" itemprop="url">章末知识点x练习‘ </a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-01 17:40:04" itemprop="dateCreated datePublished" datetime="2020-02-01T17:40:04+08:00">2020-02-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/selenium%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1098,256 +1412,12 @@ print(numpy.__version__)</code></pre>
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/16/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">Markdown基本语法记录</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-16 16:08:46" itemprop="dateCreated datePublished" datetime="2019-12-16T16:08:46+08:00">2019-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-31 16:38:22" itemprop="dateModified" datetime="2020-01-31T16:38:22+08:00">2020-01-31</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="一、标题"><a href="#一、标题" class="headerlink" title="一、标题"></a>一、标题</h1><p>设置为标题的文字前面加 # 来表示，一定要注意的是#后是有空格的。 </p>
-<p>一级一个#最大</p>
-<p>二级两个#稍小</p>
-<p>三级四级以此类推，最多六个。</p>
-<hr>
-<h1 id="二、字体"><a href="#二、字体" class="headerlink" title="二、字体"></a>二、字体</h1><ul>
-<li><p><code>**加粗**</code></p>
-<p>  要加粗的文字左右两边分别用两个*包起来</p>
-</li>
-<li><p><code>*斜体*</code></p>
-<p>  用一个*包起来</p>
-</li>
-<li><p><code>***倾斜和加粗***</code></p>
-<p>  用三个***包起来</p>
-</li>
-<li><p><code>~~删除线~~</code> </p>
-<p>  每边用两个~~包起来</p>
-</li>
-<li><p><U>下划线</u></p>
-</li>
-</ul>
-<p><code>&lt;u&gt;内容&lt;/u&gt;</code></p>
-<hr>
-<h1 id="三、引用"><a href="#三、引用" class="headerlink" title="三、引用"></a>三、引用</h1><p>在引用文字前加&gt;即可；</p>
-<p>也可以嵌套，即是引用的引用则多加一个</p>
-<p>比如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;你好 </span><br><span class="line">&gt;&gt;你好</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>你好 </p>
-<blockquote>
-<p>你好</p>
-</blockquote>
-</blockquote>
-<p>并且还要注意的是引用要在<strong>开头</strong></p>
-<hr>
-<h1 id="四、排版问题"><a href="#四、排版问题" class="headerlink" title="四、排版问题"></a>四、排版问题</h1><p>(可能也是我没多查其他的博文，我找的博文并没有说明这一点。)</p>
-<p>我发现，如果要实现提行写，要在后面两个以上空格加回车<br>空一行则会，额，空一行<br>并且，在分隔符的上面如果不分开，会自动变大加粗，效果有点像二级标题的样式。</p>
-<p>然后分隔的用</p>
-<p>👉 —</p>
-<p>👉 —- </p>
-<p>👉 ***</p>
-<p>👉 ****</p>
-<p>然后两个内容之间只能用一个空格。你就算打无数个空格，显示出来的间距也最多是一个空格。</p>
-<hr>
-<h1 id="五、代码"><a href="#五、代码" class="headerlink" title="五、代码"></a>五、代码</h1><p>用反引号包含``</p>
-<p>代码块有两个方法</p>
-<ul>
-<li>一个tab<br>如果用tab要注意，必须与前面非代码块空一行才能使用成功</li>
-<li>三个```;代码块前后用三个反引号包含  </li>
-</ul>
-<p><strong>一定注意！第二种不能用在开头，它的使用前面同行必须有内容，不然无效，多次教训</strong></p>
-<hr>
-<h1 id="六、图片和链接"><a href="#六、图片和链接" class="headerlink" title="六、图片和链接"></a>六、图片和链接</h1><pre><code>![alt 属性文本](图片地址 &quot;标题&quot;)
-举例如下👇
-![百度图标](https://www.baidu.com/img/superlogo_c4d7df0a003d3db9b65e9ef0fe6da1ec.png?where=super &quot;百度&quot;)</code></pre><p><img src="https://www.baidu.com/img/superlogo_c4d7df0a003d3db9b65e9ef0fe6da1ec.png?where=super" alt="百度图标" title="百度"></p>
-<p>链接就是没有感叹号  </p>
-<pre><code>[百度](www.baidu.com)</code></pre><p><a href="www.baidu.com">百度</a></p>
-<hr>
-<h1 id="七、表格"><a href="#七、表格" class="headerlink" title="七、表格"></a>七、表格</h1><p><code>|</code>分隔单元格<br><code>-</code>分割表头和其他行</p>
-<pre><code>| 表头 | 表头 |
-| --- | --- |
-|单元格|单元格|
-|单元格|单元格|</code></pre><table>
-<thead>
-<tr>
-<th>表头</th>
-<th>表头</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>单元格</td>
-<td>单元格</td>
-</tr>
-<tr>
-<td>单元格</td>
-<td>单元格</td>
-</tr>
-</tbody></table>
-<p>应该意思就是第一行自动为表头吧</p>
-<ul>
-<li><p><code>-:</code><br>内容和标题栏居右对齐</p>
-</li>
-<li><p><code>:-</code><br>内容和标题栏居左对齐</p>
-</li>
-<li><p><code>:-:</code><br>内容和标题栏居中对齐  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| 左对齐 | 右对齐|居中|</span><br><span class="line">| :--- | ---: |:---:|</span><br><span class="line">|单元格|单元格|单元格|</span><br><span class="line">|单元格|单元格|单元格|</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="left">–左对齐–</th>
-<th align="right">–右对齐–</th>
-<th align="center">–居中–</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">单元格</td>
-<td align="right">单元格</td>
-<td align="center">单元格</td>
-</tr>
-<tr>
-<td align="left">单元格</td>
-<td align="right">单元格</td>
-<td align="center">单元格</td>
-</tr>
-</tbody></table>
-<hr>
-<h1 id="八、数学公式"><a href="#八、数学公式" class="headerlink" title="八、数学公式"></a>八、数学公式</h1><p>$$</p>
-<p>x^2+y^2=z^2</p>
-<p>$$</p>
-<h1 id="九、特殊符号"><a href="#九、特殊符号" class="headerlink" title="九、特殊符号"></a>九、特殊符号</h1><p><img src="https://i.loli.net/2020/01/31/jtqPQUezcyJrC9G.png" alt=""></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/16/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-16 15:27:14" itemprop="dateCreated datePublished" datetime="2019-12-16T15:27:14+08:00">2019-12-16</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
@@ -1412,7 +1482,7 @@ print(numpy.__version__)</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
