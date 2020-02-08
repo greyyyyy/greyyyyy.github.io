@@ -196,7 +196,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-08 22:53:59" itemprop="dateModified" datetime="2020-02-08T22:53:59+08:00">2020-02-08</time>
+                <time title="Modified: 2020-02-08 23:05:53" itemprop="dateModified" datetime="2020-02-08T23:05:53+08:00">2020-02-08</time>
               </span>
 
           
@@ -238,9 +238,95 @@ host: 合法的Internet主机
 port: 端口号，缺省端口为80  
 path: 请求资源路径  </code></pre><p>URL是通过HTTP协议存取资源的Internet路径，一个URL对应一个数据资源。</p>
 <hr>
-<p><strong><em>🎱补充robots协议。</em></strong><br><strong><em>obots协议是君子协议，并不会起到任何防止技术的作用，是一个类似公告📄的东西。<br>通过在网站域名后添加<code>/robots.txt</code>即可查看。如果输入后显示页面不存在，则表明均可以爬取🕷。<br>比如以下为百度首页的robots协议。</em></strong><br><img src="https://i.loli.net/2020/02/08/ZbmBj75yiUAuHzf.png" alt="百度首页robots协议"><br>**<em>可以看到<code>User-agent</code>写明了对象，<code>Disallow</code>即是不能爬取的。<br>以路径来说明，也就是比如<code>/s?</code>不能爬取以<code>s?</code>开头的路径;```</em><code>就是除以上提到的所有，不能爬取</code>/```以这个开头的全部，也就是所有都不能爬取。  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">与robots协议结合理解可知，网站的根目录即是域名，它的资源路径都是根目录下的***</span><br><span class="line"></span><br><span class="line">---   </span><br><span class="line">🎐 HTTP协议对资源的操作  </span><br><span class="line">***🎱补充一个关于cookie的内容***</span><br><span class="line">![图片表示客户端与服务器发送内容示意](https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;13949989-dcf024be2733e725.png?imageMogr2&#x2F;auto-orient&#x2F;strip|imageView2&#x2F;2&#x2F;w&#x2F;400&#x2F;format&#x2F;webp)  </span><br><span class="line">***cookie是一段以键值格式的文本信息，客户端向服务器发送一个request，如果服务器需要记录用户状态，就在response中给客户端发一个set-cookie，当客户端再次请求的时候，就会发cookie过去。***  </span><br><span class="line">👆我们也可以看到request与response的关系。  </span><br><span class="line">接下来我们用一个表格显示HTTP对资源的操作👇</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">|方法|说明|</span><br><span class="line">|---|---|</span><br><span class="line">|GET|请求获取URL位置的资源|</span><br><span class="line">|HEAD|请求获取URL位置资源的响应信息报告，也就是获得该资源的头部信息|</span><br><span class="line">|POST|请求向URL位置的资源后附加新的数据|</span><br><span class="line">|PUT|请求向URL位置存储一个资源，覆盖原URL位置的资源。***这个资源是大的资源，里面其实有很多内容。比如你只想改变其中的UserName部分，如果用PUT，那么所有的这个PART全只有了UserName；所以若只改变其中应该用下一个👇***|</span><br><span class="line">|PATCH|请求局部更新URL位置的资源，即改变该处资源的部分内容；***所以相比于PUT👆，PATCH能够节省网络带宽***|</span><br><span class="line">|DELETE|请求删除URL位置存储的资源|</span><br><span class="line">---</span><br><span class="line">但是实际上一般服务器都是有限制的，不可能大家都可以自己更改服务器的资源。所以常用的还是GET&#x2F;HEAD&#x2F;POST。  </span><br><span class="line">至于有什么限制，怎么查看，怎么破解。待深入学习。  </span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">### **🐱‍🏍requests库的相应使用**</span><br><span class="line">1. requests库我们常用到的书写如下👇 </span><br><span class="line"></span><br><span class="line">|HTTP对应操作|requests库写法①|requests库写法②|</span><br><span class="line">|---|---|---|</span><br><span class="line">|GET|requests.get(url)|requests.request(&#39;GET&#39;,url)|</span><br><span class="line">|HEAD|requests.head()|requests.request(&#39;HEAD&#39;,url)|</span><br><span class="line">|POST|requests.post()|requests.request(&#39;POST&#39;,url)|</span><br><span class="line">|PUT|requests.put()|requests.request(&#39;PUT&#39;,url)|</span><br><span class="line">|PATCH|requests.patch()|requests.request(&#39;PATCH&#39;,url)|</span><br><span class="line">|DELETE|requests.delete()|requests.request(&#39;DELETE&#39;,url)|</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">有一个可能不同的是&#96;&#96;&#96;requests.request(&#39;OPTIONS&#39;,url,**kwargs)</span><br></pre></td></tr></table></figure>
-<p>因为<code>requests.request(method,url,**kwargs)</code>中的参数都与分别写出来是一样的所以就以这个为例。<br><strong>访问控制参数是以星星*开头的，这是可选的意思，对于这种应该以命名的方式传入，即X = Y</strong><br>一共有十三个参数👇</p>
+<p><strong><em>🎱补充robots协议。</em></strong><br><strong><em>obots协议是君子协议，并不会起到任何防止技术的作用，是一个类似公告📄的东西。<br>通过在网站域名后添加<code>/robots.txt</code>即可查看。如果输入后显示页面不存在，则表明均可以爬取🕷。<br>比如以下为百度首页的robots协议。</em></strong><br><img src="https://i.loli.net/2020/02/08/ZbmBj75yiUAuHzf.png" alt="百度首页robots协议"><br><strong><em>可以看到<code>User-agent</code>写明了对象，<code>Disallow</code>即是不能爬取的。<br>以路径来说明，也就是比如<code>/s?</code>不能爬取以<code>s?</code>开头的路径;<code>*</code>就是除以上提到的所有，不能爬取<code>/</code>以这个开头的全部，也就是所有都不能爬取.<code>/</code>的父目录就根目录，也就是域名。<br>与robots协议结合理解可知，网站的根目录即是域名，它的资源路径都是根目录下的</em></strong></p>
+<hr>
+<p>🎐 HTTP协议对资源的操作<br><strong><em>🎱补充一个关于cookie的内容</em></strong><br><img src="https://upload-images.jianshu.io/upload_images/13949989-dcf024be2733e725.png" alt="图片表示客户端与服务器发送内容示意"><br><strong><em>cookie是一段以键值格式的文本信息，客户端向服务器发送一个request，如果服务器需要记录用户状态，就在response中给客户端发一个set-cookie，当客户端再次请求的时候，就会发cookie过去。</em></strong><br>👆我们也可以看到request与response的关系。<br>接下来我们用一个表格显示HTTP对资源的操作👇</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GET</td>
+<td>请求获取URL位置的资源</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>请求获取URL位置资源的响应信息报告，也就是获得该资源的头部信息</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>请求向URL位置的资源后附加新的数据</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>请求向URL位置存储一个资源，覆盖原URL位置的资源。<strong><em>这个资源是大的资源，里面其实有很多内容。比如你只想改变其中的UserName部分，如果用PUT，那么所有的这个PART全只有了UserName；所以若只改变其中应该用下一个👇</em></strong></td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>请求局部更新URL位置的资源，即改变该处资源的部分内容；<strong><em>所以相比于PUT👆，PATCH能够节省网络带宽</em></strong></td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>请求删除URL位置存储的资源</td>
+</tr>
+<tr>
+<td>—</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>但是实际上一般服务器都是有限制的，不可能大家都可以自己更改服务器的资源。所以常用的还是GET/HEAD/POST。<br>至于有什么限制，怎么查看，怎么破解。待深入学习。  </p>
+<hr>
+<h3 id="🐱‍🏍requests库的相应使用"><a href="#🐱‍🏍requests库的相应使用" class="headerlink" title="🐱‍🏍requests库的相应使用"></a><strong>🐱‍🏍requests库的相应使用</strong></h3><ol>
+<li>requests库我们常用到的书写如下👇 </li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>HTTP对应操作</th>
+<th>requests库写法①</th>
+<th>requests库写法②</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GET</td>
+<td>requests.get(url)</td>
+<td>requests.request(‘GET’,url)</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>requests.head()</td>
+<td>requests.request(‘HEAD’,url)</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>requests.post()</td>
+<td>requests.request(‘POST’,url)</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>requests.put()</td>
+<td>requests.request(‘PUT’,url)</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>requests.patch()</td>
+<td>requests.request(‘PATCH’,url)</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>requests.delete()</td>
+<td>requests.request(‘DELETE’,url)</td>
+</tr>
+<tr>
+<td>—</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>有一个可能不同的是<code>requests.request(&#39;OPTIONS&#39;,url,**kwargs)</code><br>因为<code>requests.request(method,url,**kwargs)</code>中的参数都与分别写出来是一样的所以就以这个为例。<br><strong>访问控制参数是以星星*开头的，这是可选的意思，对于这种应该以命名的方式传入，即X = Y</strong><br>一共有十三个参数👇</p>
 <table>
 <thead>
 <tr>
@@ -319,13 +405,8 @@ path: 请求资源路径  </code></pre><p>URL是通过HTTP协议存取资源的I
 <td></td>
 <td></td>
 </tr>
-<tr>
-<td>## 🎏HTTP请求返回状态——requests库的异常</td>
-<td></td>
-<td></td>
-</tr>
 </tbody></table>
-<pre><code>r.status_code
+<h2 id="🎏HTTP请求返回状态——requests库的异常"><a href="#🎏HTTP请求返回状态——requests库的异常" class="headerlink" title="🎏HTTP请求返回状态——requests库的异常"></a>🎏HTTP请求返回状态——requests库的异常</h2><pre><code>r.status_code
 # 这个将返回HTTP请求的返回状态  
 &gt;&gt;&gt; 200 
 # 链接成功 
@@ -370,12 +451,8 @@ except Exception as exc():
 <td>—</td>
 <td></td>
 </tr>
-<tr>
-<td>## 🎏 编码方式，读取返回响应</td>
-<td></td>
-</tr>
 </tbody></table>
-<pre><code>r.encoding 
+<h2 id="🎏-编码方式，读取返回响应"><a href="#🎏-编码方式，读取返回响应" class="headerlink" title="🎏 编码方式，读取返回响应"></a>🎏 编码方式，读取返回响应</h2><pre><code>r.encoding 
 # 从HTTP header中猜测响应内容编码方式，如果header中没有charset，则认为编码为ISO-8859-1
 
 r.apparent_encoding 
