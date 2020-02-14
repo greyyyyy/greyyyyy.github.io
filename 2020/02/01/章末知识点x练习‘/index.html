@@ -46,13 +46,15 @@
   };
 </script>
 
-  <meta property="og:type" content="article">
-<meta property="og:title" content="章末知识点x练习‘ ">
+  <meta name="description" content="🎈习题   回答 正解    webbrowser主要是用于打开;requests能够下载网页，如果是纯文本&#x2F;图片则相当于下载了图片和文本； bs4则可以对已经下载下来的进行信息的查找，对元素进行查找，可以得到对应的属性值，配合requests可以不断地打开链接，备份整个网页等;selenium则是模仿整个浏览器，私以为可以完成所有浏览器地任务，但是不能够下载，当然模拟鼠标，如果有下载按钮肯定也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="章末知识点练习">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;01&#x2F;%E7%AB%A0%E6%9C%AB%E7%9F%A5%E8%AF%86%E7%82%B9x%E7%BB%83%E4%B9%A0%E2%80%98&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="🎈习题   回答 正解    webbrowser主要是用于打开;requests能够下载网页，如果是纯文本&#x2F;图片则相当于下载了图片和文本； bs4则可以对已经下载下来的进行信息的查找，对元素进行查找，可以得到对应的属性值，配合requests可以不断地打开链接，备份整个网页等;selenium则是模仿整个浏览器，私以为可以完成所有浏览器地任务，但是不能够下载，当然模拟鼠标，如果有下载按钮肯定也">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-01T09:40:04.000Z">
-<meta property="article:modified_time" content="2020-02-01T09:40:04.048Z">
+<meta property="article:modified_time" content="2020-02-13T10:10:29.901Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -68,7 +70,7 @@
   };
 </script>
 
-  <title>章末知识点x练习‘  | Hexo</title>
+  <title>章末知识点练习 | Hexo</title>
   
 
 
@@ -180,7 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          章末知识点x练习‘ 
+          章末知识点练习
         </h1>
 
         <div class="post-meta">
@@ -192,6 +194,13 @@
 
               <time title="Created: 2020-02-01 17:40:04" itemprop="dateCreated datePublished" datetime="2020-02-01T17:40:04+08:00">2020-02-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-13 18:10:29" itemprop="dateModified" datetime="2020-02-13T18:10:29+08:00">2020-02-13</time>
+              </span>
 
           
 
@@ -204,7 +213,92 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="🎈习题"><a href="#🎈习题" class="headerlink" title="🎈习题"></a>🎈习题</h1><table>
+<thead>
+<tr>
+<th>回答</th>
+<th>正解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>webbrowser主要是用于打开;requests能够下载网页，如果是纯文本/图片则相当于下载了图片和文本； bs4则可以对已经下载下来的进行信息的查找，对元素进行查找，可以得到对应的属性值，配合requests可以不断地打开链接，备份整个网页等;selenium则是模仿整个浏览器，私以为可以完成所有浏览器地任务，但是不能够下载，当然模拟鼠标，如果有下载按钮肯定也是可以的.总而言之，web可以打开一个网页，其实有点鸡肋，只是可以看到效果，req，bs配合可以将内容下载到本地，而，sele则完全是模拟浏览器。</td>
+<td>差不多✔</td>
+</tr>
+<tr>
+<td>Response;res.text</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>res.raise_for_status()</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>不知道</td>
+<td>Response对象的status_code属性包含了HTTP状态码/<strong>如何取得Response的HTTP状态码?</strong></td>
+</tr>
+<tr>
+<td>首先创建一个文件，然后可以用for i in res.it_content(1000)循环，再写入</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>F12</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>搜索，下方有一个搜索的。也可以CTRL+U后再CTRL+F在新的页面中搜查</td>
+<td>右键点击页面上的元素，并从菜单中选择Inspect Element</td>
+</tr>
+<tr>
+<td>#main</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>.highlight</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>select(div div)</td>
+<td>✔</td>
+</tr>
+<tr>
+<td><del>select(button[‘value=”favorite”‘])</del></td>
+<td>select(‘button[value=”favorite”]’)</td>
+</tr>
+<tr>
+<td>spam.getText()</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>linkElem = tag.attrs</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>from selenium import webdriver</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>前者之查找与之匹配的第一个元素，后者查找全部，返回一个列表</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>click();keys.<em>;send_keys(key.</em>)</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>在任何元素上调用submit()方法</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>bowser.back/forward/refrsh()</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>—</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="🎈-项目练习"><a href="#🎈-项目练习" class="headerlink" title="🎈 项目练习"></a>🎈 项目练习</h1><h2 id="🎏命令行邮件程序"><a href="#🎏命令行邮件程序" class="headerlink" title="🎏命令行邮件程序"></a>🎏命令行邮件程序</h2><p>r.status_code，HTTP请求的返回状态<br>返回的是200则链接成功，其他如404表示失败<br>r.text HTTP响应内容的字符串形式，即，url对应的页面内容<br>r.encoding 从HTTP header中猜测的响应内容编码方式 ===如果header中没有charset，则认为编码为ISO-8859-1<br>r.apparent_encoing 备选的编码方式，从响应的内容文本分析出来的编码方式===根据内容分析出来的<br>r.content HTTP响应的二进制形式<br>通用代码框架<br>一组代码，准确的可靠的爬取网页内容，</p>
+
     </div>
 
     
@@ -285,6 +379,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈习题"><span class="nav-number">1.</span> <span class="nav-text">🎈习题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈-项目练习"><span class="nav-number">2.</span> <span class="nav-text">🎈 项目练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏命令行邮件程序"><span class="nav-number">2.1.</span> <span class="nav-text">🎏命令行邮件程序</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -298,7 +393,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
