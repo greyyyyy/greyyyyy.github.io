@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="🎈函数与import当我们import时到底发生了什么?如何import自己写的函数呢？ 我们可以自己创建一个python文件，比如我们专门创建了处理绝对值的函数，将这个文件命名为a.py，该文件里面某个函数ab()则可以from a import ab   🎈函数返回(除了return,还有pass)在定义函数时，除了return还有pass，它并没有什么实际性的作用，可以用来做占位符，比如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python学习——函数篇">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;28&#x2F;Python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0%E7%AF%87&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="🎈函数与import当我们import时到底发生了什么?如何import自己写的函数呢？ 我们可以自己创建一个python文件，比如我们专门创建了处理绝对值的函数，将这个文件命名为a.py，该文件里面某个函数ab()则可以from a import ab   🎈函数返回(除了return,还有pass)在定义函数时，除了return还有pass，它并没有什么实际性的作用，可以用来做占位符，比如">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;16&#x2F;IHsuVh7xwBJeUdY.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;28&#x2F;ruep8Qom4PfzIls.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;28&#x2F;UXCkGLuWSzOspwE.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;28&#x2F;f8yEDLIpNYCKnua.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;bkimg.cdn.bcebos.com&#x2F;pic&#x2F;d50735fae6cd7b896014d3e7052442a7d9330e5e?x-bce-process&#x3D;image&#x2F;watermark,g_7,image_d2F0ZXIvYmFpa2U4MA&#x3D;&#x3D;,xp_5,yp_5">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;29&#x2F;CrGQMeNXzgRwmHD.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;29&#x2F;ijN8X1cplJqI4HC.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;29&#x2F;7uy3cA6z2gnjJFw.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;29&#x2F;kJAj8zqHpVaQx7I.png">
+<meta property="article:published_time" content="2020-02-28T09:01:49.000Z">
+<meta property="article:modified_time" content="2020-02-29T08:44:21.440Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;16&#x2F;IHsuVh7xwBJeUdY.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/28/Python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0%E7%AF%87/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Python学习——函数篇 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/28/Python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python学习——函数篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-28 17:01:49" itemprop="dateCreated datePublished" datetime="2020-02-28T17:01:49+08:00">2020-02-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-29 16:44:21" itemprop="dateModified" datetime="2020-02-29T16:44:21+08:00">2020-02-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="🎈函数与import"><a href="#🎈函数与import" class="headerlink" title="🎈函数与import"></a>🎈函数与import</h1><p>当我们import时到底发生了什么?如何import自己写的函数呢？</p>
+<p>我们可以自己创建一个python文件，比如我们专门创建了处理绝对值的函数，将这个文件命名为a.py，该文件里面某个函数ab()<br>则可以<code>from a import ab</code>  </p>
+<h1 id="🎈函数返回-除了return-还有pass"><a href="#🎈函数返回-除了return-还有pass" class="headerlink" title="🎈函数返回(除了return,还有pass)"></a>🎈函数返回(除了return,还有pass)</h1><p>在定义函数时，除了<code>return</code>还有<code>pass</code>，它并没有什么实际性的作用，可以用来做占位符，比如没有想好怎么写，可以先写以恶个pass，让程序运行下去。  </p>
+<pre><code>if age &gt;= 12:
+    pass</code></pre><p>如果缺少了pass，则会出现语法错误  </p>
+<h1 id="🎈-函数参数"><a href="#🎈-函数参数" class="headerlink" title="🎈 函数参数"></a>🎈 函数参数</h1><h2 id="🎏参数的报错"><a href="#🎏参数的报错" class="headerlink" title="🎏参数的报错"></a>🎏参数的报错</h2><ul>
+<li>如果参数个数不对，会抛出TypeError</li>
+<li>但参数类型不对，往往不会抛出异常，我们需要自己设置<br>返回多个值  </li>
+</ul>
+<p>实际上并没有真的返回多个值，而是返回了一个元组tuple  </p>
+<h1 id="🎱补充元组"><a href="#🎱补充元组" class="headerlink" title="🎱补充元组"></a>🎱补充元组</h1><ul>
+<li><p>任何无符号的对象，以逗号隔开，默认为元组  </p>
+</li>
+<li><p>元组tuple用小括号()括起来表示</p>
+</li>
+<li><p>当元组中只有一个元素时，应写作<code>tup = (1,)</code>即是，应当后面还是要跟上一个逗号</p>
+</li>
+<li><p>元组可以干的事</p>
+<ul>
+<li><p>可以迭代</p>
+<pre><code>&gt; for i in (1,2,3):
+&gt;   print(i)
+...
+1
+2
+3</code></pre></li>
+<li><p>可以索引</p>
+<pre><code>&gt; tuple[0] = ..</code></pre></li>
+<li><p>不能删除，修改其中的元素，但可以进行删除整个元组，两个元组相加以及将元组运用乘法(里面元素翻倍)</p>
+<pre><code>&gt; del(tuple)
+# 删除整个元组  
+&gt; tup1 + tup2 
+# 两个元组合并  
+&gt; tup1 = (2,3)
+&gt; tup1*3
+...
+(2,3,2,3,2,3)</code></pre></li>
+<li><p>可以判断某个元素是否在元组中</p>
+<pre><code>&gt; 3 in (5,6,8)
+...
+False</code></pre></li>
+<li><p>可以得到一共有多少个(len)</p>
+<pre><code>&gt; tup(1,2,3)
+&gt; len(tup)
+...
+3</code></pre></li>
+<li><p>可以返回最大/最小值</p>
+<pre><code>&gt; max/min(tup)</code></pre></li>
+</ul>
+</li>
+</ul>
+<h2 id="🎏参数有哪些"><a href="#🎏参数有哪些" class="headerlink" title="🎏参数有哪些"></a>🎏参数有哪些</h2><ul>
+<li><p>位置参数<br>  位置参数也就是我们平时常用的参数。即是，当我们定义一个函数时，想要传入的。位置参数，是必须要传入的参数。</p>
+<pre><code>def add(x,y):
+    return x+y
+
+&gt;add(2,3)
+...
+5</code></pre></li>
+<li><p>默认参数<br>  默认参数实际上，就是我们想要传一个到两个。也就是第二个参数并不是必须的时候。我们可以设置其为默认参数，也就是当我们没有传入第二个参数时，它会传入我们设定的值  </p>
+<pre><code>def add(x,y=2):
+    return x+y
+
+&gt;add(1)
+...
+3
+&gt;add(2,3)
+...
+5  </code></pre></li>
+<li><p>可变参数<br>  可变参数实际上就是，可以传入多个值，而传入的会被当做元组处理。  </p>
+<pre><code>def add(*num):
+    print(num)
+    for i  in num:
+        print(i)
+
+&gt; add(1,2,3)
+...
+(1,2,3)
+1
+2
+3
+
+# 也可以传入字典，列表，元组
+# 如果直接传入，那么这个整体作为一个元素传入元组中得到的元组为:(A,)👈这种形式
+# 在前面加上*号，则将列表和元组中的每个元素传入元素。📌而对于字典来说，则只传了键，没有传值
+
+&gt; list = [1,2,3]
+&gt; tup = (1,2,3)
+&gt; kv = {&quot;a&quot;:1,&quot;b&quot;:2}
+
+&gt; add(list)
+...
+([1,2,3],)
+[1,2,3]
+&gt; add(*list)
+...
+(1,2,3)
+1
+2
+3
+
+&gt; add(kv)
+...
+({&quot;a&quot;:1,&quot;b&quot;:2},)
+{&quot;a&quot;:1,&quot;b&quot;:2}
+&gt; add(*kv)
+...
+(&quot;a&quot;,&quot;b&quot;)
+a
+b</code></pre></li>
+<li><p>关键字参数<br>  **kw即是关键字参数，传入键值对形式的参数。返回的形式即是字典形式。可以传入任意内容，只要是键值对。  </p>
+<pre><code>&gt; def ab(name,**info):
+    print(&apos;name:&apos;,name,**info)
+&gt; kv = {&apos;addr&apos;:&apos;china&apos;}</code></pre><p><img src="https://i.loli.net/2020/02/16/IHsuVh7xwBJeUdY.png" alt=""><br>可以看到设置关键字参数只需要前面有两个**就可以了。如果是直接传入，则符合<code>a = b</code>形式即可；如果是传入字典，则需要在字典前加两个星号，否则，会如图所示报错。  </p>
+</li>
+<li><p>命名参数<br>  命名参数与关键字参数类似，也是键值对的类型，但必须传入给出的名字<code>x =y</code><br>  <img src="https://i.loli.net/2020/02/28/ruep8Qom4PfzIls.png" alt="">  </p>
+<ul>
+<li>命名参数的设置有两种方法：  <ul>
+<li>前面加上一个<code>*</code>再加上逗号，后面的即是命名参数  </li>
+<li>可变参数后面的参数即是命名参数，但这样可变参数是仍然在的。可以从上面的例子中看到对于命名参数和可变参数，可变参数此时传入就必须要在前面调价<code>*</code>,并且命名参数必须全部传入  </li>
+</ul>
+</li>
+<li>命名参数的传入   <ul>
+<li>命名参数的传入必须要写明<code>x=y</code>这种形式，不能缺。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="🎈递归函数"><a href="#🎈递归函数" class="headerlink" title="🎈递归函数"></a>🎈递归函数</h1><p>递归函数，即是如下所示 </p>
+<pre><code>def a(n):
+    if n==1:
+        return n
+    return n*a(n-1)</code></pre><p><img src="https://i.loli.net/2020/02/28/UXCkGLuWSzOspwE.png" alt=""><br>可以看到递归函数即是能够不断地调用，自己调用另一个函数。具体来说，递归函数即是那些能够在函数内部调动自身的函数。<br>但是我们也可以看到当我们调用1000次的时候，报错了。<br>这是因为在计算机中，函数调用时通过栈(stack)这种数据结构实现的，每当进入一个函数调用，栈就会加一层栈帧，每当函数返回，栈就会减一层。由于栈的大小不是无限的，所以调用次数过多，会导致栈溢出。</p>
+<p>解决栈溢出的方法是尾递归。尾递归即是指，在函数返回时。调用本身，并且，return语句不能包含表达式。这样，编译器或者解释器就可以把尾递归做优化，使递归本身无论调用多少次，都只占用一个栈帧，不会出现栈溢出的情况。<br><img src="https://i.loli.net/2020/02/28/f8yEDLIpNYCKnua.png" alt=""><br>所以👆是尾递归，但是，还是会溢出。  </p>
+<h1 id="🎈汉诺塔练习"><a href="#🎈汉诺塔练习" class="headerlink" title="🎈汉诺塔练习"></a>🎈汉诺塔练习</h1><h2 id="🎏汉诺塔移动简要介绍"><a href="#🎏汉诺塔移动简要介绍" class="headerlink" title="🎏汉诺塔移动简要介绍"></a>🎏汉诺塔移动简要介绍</h2><p>一共有三个柱子，分别是A、B、C<br><strong>初始:</strong> A上有N个盘子，从上到下盘子逐渐变大。<br><strong>目的:</strong> 将A上的盘子全部移动到C上，且顺序不变，在移动过程中，也必须要保持大的在下小的在上的顺序。<br><img src="https://bkimg.cdn.bcebos.com/pic/d50735fae6cd7b896014d3e7052442a7d9330e5e?x-bce-process=image/watermark,g_7,image_d2F0ZXIvYmFpa2U4MA==,xp_5,yp_5" alt="">  </p>
+<h2 id="🎏思路"><a href="#🎏思路" class="headerlink" title="🎏思路"></a>🎏思路</h2><p>图中序号表示盘子的序号，数字越大也就越大<br><strong>当有A有两个时</strong><br><img src="https://i.loli.net/2020/02/29/CrGQMeNXzgRwmHD.png" alt=""><br><strong>当A有三个时</strong><br><img src="https://i.loli.net/2020/02/29/ijN8X1cplJqI4HC.png" alt=""></p>
+<p>我们最好在大脑中模拟一下这个过程。实际上，当最大的给到C时，C就可以当作没有，则此时B上的就应该看作最开始的A。<br>当A上只有两个时，第一个小的给了B，最大的给了C之后，此时，B相当于只有1个时的A，则，此时直接给C。<br>当A上有三个时，最大的那个要给到C，此时B上有两个，此时B又相当于只有两个时的A，再分配给C，也就是此时A为B，B为A。B上的两个可以看作一个整体，仍然是1，那么只是重复了前面的一套，也就是此时应该将B当作A是2时的。<br><img src="https://i.loli.net/2020/02/29/7uy3cA6z2gnjJFw.png" alt="">    </p>
+<ul>
+<li><p>当A=2时<br>①滑给B【<strong>使B得到除最大的所有，此为状态Ⅰ</strong>】&gt;&gt;②滑给C【<strong>C得到最大的，此为状态Ⅱ–上图的左半部分</strong>】&gt;&gt;①滑给C【<strong>C有两个了，状态Ⅲ</strong>】  –此时C就有两个了。  </p>
+</li>
+<li><p>当A=3时<br>首先确定C一定是要得到最大的那一个，则可以看作此时的B为之前A=2时的C&gt;&gt;经过一次A=2,B=C,C=B的调换，B上有两个–<strong>状态Ⅰ</strong>&gt;&gt;A再将最大的滑给C–<strong>状态Ⅱ</strong>&gt;&gt;此时，C可以说是相当于没有的，因为最大的并不会产生任何影响，则现在相当于B是A=2时的A；A是B；C是C，又将两个滑给C。  </p>
+</li>
+<li><p>当A=4时<br>  B相当于A=3时的C –<strong>状态Ⅰ</strong>&gt;&gt;A又将最大的滑给C –<strong>状态Ⅱ</strong>&gt;&gt;再将B当作A=3时的A，将B上的分配给C  </p>
+<h2 id="🎏代码实现"><a href="#🎏代码实现" class="headerlink" title="🎏代码实现"></a>🎏代码实现</h2><p>  def move(n,a,b,c):</p>
+<pre><code>if n==1:
+    print(a,&quot;--&gt;&quot;,c)
+else:
+    move(n-1,a,c,b) 
+     #第一步将B当作上一个的C，得到上一轮的所有，即是除了最大的所有
+    move(1,a,b,c)
+    # 第二步将最大的移动给C
+    move(n-1,b,a,c)
+    # 第三步将B剩余所有移动给C，也就是上一轮的A的操作  </code></pre><p><img src="https://i.loli.net/2020/02/29/kJAj8zqHpVaQx7I.png" alt="">  </p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/22/%E8%AE%BA%E6%96%87%E7%9A%84%E9%80%89%E9%A2%98%E3%80%81%E6%A0%87%E9%A2%98%E3%80%81%E6%91%98%E8%A6%81/" rel="prev" title="论文的选题、标题、摘要">
+      <i class="fa fa-chevron-left"></i> 论文的选题、标题、摘要
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈函数与import"><span class="nav-number">1.</span> <span class="nav-text">🎈函数与import</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈函数返回-除了return-还有pass"><span class="nav-number">2.</span> <span class="nav-text">🎈函数返回(除了return,还有pass)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈-函数参数"><span class="nav-number">3.</span> <span class="nav-text">🎈 函数参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏参数的报错"><span class="nav-number">3.1.</span> <span class="nav-text">🎏参数的报错</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎱补充元组"><span class="nav-number">4.</span> <span class="nav-text">🎱补充元组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏参数有哪些"><span class="nav-number">4.1.</span> <span class="nav-text">🎏参数有哪些</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈递归函数"><span class="nav-number">5.</span> <span class="nav-text">🎈递归函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈汉诺塔练习"><span class="nav-number">6.</span> <span class="nav-text">🎈汉诺塔练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏汉诺塔移动简要介绍"><span class="nav-number">6.1.</span> <span class="nav-text">🎏汉诺塔移动简要介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏思路"><span class="nav-number">6.2.</span> <span class="nav-text">🎏思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏代码实现"><span class="nav-number">6.3.</span> <span class="nav-text">🎏代码实现</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.1.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
