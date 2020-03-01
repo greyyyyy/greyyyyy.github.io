@@ -59,11 +59,11 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;28&#x2F;f8yEDLIpNYCKnua.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;bkimg.cdn.bcebos.com&#x2F;pic&#x2F;d50735fae6cd7b896014d3e7052442a7d9330e5e?x-bce-process&#x3D;image&#x2F;watermark,g_7,image_d2F0ZXIvYmFpa2U4MA&#x3D;&#x3D;,xp_5,yp_5">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;29&#x2F;CrGQMeNXzgRwmHD.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;29&#x2F;ijN8X1cplJqI4HC.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;29&#x2F;7uy3cA6z2gnjJFw.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;29&#x2F;wNRvOUB3GuDepzM.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;29&#x2F;lJRiIHLwFZVtNxm.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;29&#x2F;kJAj8zqHpVaQx7I.png">
 <meta property="article:published_time" content="2020-02-28T09:01:49.000Z">
-<meta property="article:modified_time" content="2020-02-29T08:44:21.440Z">
+<meta property="article:modified_time" content="2020-02-29T08:52:40.885Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;02&#x2F;16&#x2F;IHsuVh7xwBJeUdY.png">
@@ -209,7 +209,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-29 16:44:21" itemprop="dateModified" datetime="2020-02-29T16:44:21+08:00">2020-02-29</time>
+                <time title="Modified: 2020-02-29 16:52:40" itemprop="dateModified" datetime="2020-02-29T16:52:40+08:00">2020-02-29</time>
               </span>
 
           
@@ -359,12 +359,11 @@ b</code></pre></li>
     return n*a(n-1)</code></pre><p><img src="https://i.loli.net/2020/02/28/UXCkGLuWSzOspwE.png" alt=""><br>可以看到递归函数即是能够不断地调用，自己调用另一个函数。具体来说，递归函数即是那些能够在函数内部调动自身的函数。<br>但是我们也可以看到当我们调用1000次的时候，报错了。<br>这是因为在计算机中，函数调用时通过栈(stack)这种数据结构实现的，每当进入一个函数调用，栈就会加一层栈帧，每当函数返回，栈就会减一层。由于栈的大小不是无限的，所以调用次数过多，会导致栈溢出。</p>
 <p>解决栈溢出的方法是尾递归。尾递归即是指，在函数返回时。调用本身，并且，return语句不能包含表达式。这样，编译器或者解释器就可以把尾递归做优化，使递归本身无论调用多少次，都只占用一个栈帧，不会出现栈溢出的情况。<br><img src="https://i.loli.net/2020/02/28/f8yEDLIpNYCKnua.png" alt=""><br>所以👆是尾递归，但是，还是会溢出。  </p>
 <h1 id="🎈汉诺塔练习"><a href="#🎈汉诺塔练习" class="headerlink" title="🎈汉诺塔练习"></a>🎈汉诺塔练习</h1><h2 id="🎏汉诺塔移动简要介绍"><a href="#🎏汉诺塔移动简要介绍" class="headerlink" title="🎏汉诺塔移动简要介绍"></a>🎏汉诺塔移动简要介绍</h2><p>一共有三个柱子，分别是A、B、C<br><strong>初始:</strong> A上有N个盘子，从上到下盘子逐渐变大。<br><strong>目的:</strong> 将A上的盘子全部移动到C上，且顺序不变，在移动过程中，也必须要保持大的在下小的在上的顺序。<br><img src="https://bkimg.cdn.bcebos.com/pic/d50735fae6cd7b896014d3e7052442a7d9330e5e?x-bce-process=image/watermark,g_7,image_d2F0ZXIvYmFpa2U4MA==,xp_5,yp_5" alt="">  </p>
-<h2 id="🎏思路"><a href="#🎏思路" class="headerlink" title="🎏思路"></a>🎏思路</h2><p>图中序号表示盘子的序号，数字越大也就越大<br><strong>当有A有两个时</strong><br><img src="https://i.loli.net/2020/02/29/CrGQMeNXzgRwmHD.png" alt=""><br><strong>当A有三个时</strong><br><img src="https://i.loli.net/2020/02/29/ijN8X1cplJqI4HC.png" alt=""></p>
-<p>我们最好在大脑中模拟一下这个过程。实际上，当最大的给到C时，C就可以当作没有，则此时B上的就应该看作最开始的A。<br>当A上只有两个时，第一个小的给了B，最大的给了C之后，此时，B相当于只有1个时的A，则，此时直接给C。<br>当A上有三个时，最大的那个要给到C，此时B上有两个，此时B又相当于只有两个时的A，再分配给C，也就是此时A为B，B为A。B上的两个可以看作一个整体，仍然是1，那么只是重复了前面的一套，也就是此时应该将B当作A是2时的。<br><img src="https://i.loli.net/2020/02/29/7uy3cA6z2gnjJFw.png" alt="">    </p>
+<h2 id="🎏思路"><a href="#🎏思路" class="headerlink" title="🎏思路"></a>🎏思路</h2><p>图中序号表示盘子的序号，数字越大也就越大<br><strong>当有A有两个时</strong><br><img src="https://i.loli.net/2020/02/29/CrGQMeNXzgRwmHD.png" alt=""><br><strong>当A有三个时</strong><br><img src="https://i.loli.net/2020/02/29/wNRvOUB3GuDepzM.png" alt=""></p>
 <ul>
 <li><p>当A=2时<br>①滑给B【<strong>使B得到除最大的所有，此为状态Ⅰ</strong>】&gt;&gt;②滑给C【<strong>C得到最大的，此为状态Ⅱ–上图的左半部分</strong>】&gt;&gt;①滑给C【<strong>C有两个了，状态Ⅲ</strong>】  –此时C就有两个了。  </p>
 </li>
-<li><p>当A=3时<br>首先确定C一定是要得到最大的那一个，则可以看作此时的B为之前A=2时的C&gt;&gt;经过一次A=2,B=C,C=B的调换，B上有两个–<strong>状态Ⅰ</strong>&gt;&gt;A再将最大的滑给C–<strong>状态Ⅱ</strong>&gt;&gt;此时，C可以说是相当于没有的，因为最大的并不会产生任何影响，则现在相当于B是A=2时的A；A是B；C是C，又将两个滑给C。  </p>
+<li><p>当A=3时<br>首先确定C一定是要得到最大的那一个，则可以看作此时的B为之前A=2时的C&gt;&gt;经过一次A=2,B=C,C=B的调换，B上有两个–<strong>状态Ⅰ</strong>&gt;&gt;A再将最大的滑给C–<strong>状态Ⅱ</strong>&gt;&gt;此时，C可以说是相当于没有的，因为最大的并不会产生任何影响，则现在相当于B是A=2时的A；A是B；C是C，又将两个滑给C。<br><img src="https://i.loli.net/2020/02/29/lJRiIHLwFZVtNxm.png" alt=""> </p>
 </li>
 <li><p>当A=4时<br>  B相当于A=3时的C –<strong>状态Ⅰ</strong>&gt;&gt;A又将最大的滑给C –<strong>状态Ⅱ</strong>&gt;&gt;再将B当作A=3时的A，将B上的分配给C  </p>
 <h2 id="🎏代码实现"><a href="#🎏代码实现" class="headerlink" title="🎏代码实现"></a>🎏代码实现</h2><p>  def move(n,a,b,c):</p>
@@ -397,7 +396,10 @@ else:
     <a href="/2020/02/22/%E8%AE%BA%E6%96%87%E7%9A%84%E9%80%89%E9%A2%98%E3%80%81%E6%A0%87%E9%A2%98%E3%80%81%E6%91%98%E8%A6%81/" rel="prev" title="论文的选题、标题、摘要">
       <i class="fa fa-chevron-left"></i> 论文的选题、标题、摘要
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/29/Python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" rel="next" title="Python学习——高级特性">
+      Python学习——高级特性 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -471,7 +473,7 @@ else:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

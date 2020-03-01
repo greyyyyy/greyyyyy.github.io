@@ -46,13 +46,15 @@
   };
 </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="🎈 需要考虑的因素   消耗的网络流量 使采集目标的服务器负载降低一些r’^&#x2F;&#x2F;wiki&#x2F;&#x2F;[A-Za-z0-9.]+’    实践练习 —— 获得Wiki某词条的所有词条链接，并随机进入一个链接，一直循环，知道找到一个词条页面中没有一个其他词条链接时停止。 from urllib.requst import urlopen import bs4,datetime,random,re  rand">
+<meta property="og:type" content="article">
 <meta property="og:title" content="python爬虫动物书笔记(二)">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;15&#x2F;python%E7%88%AC%E8%99%AB%E5%8A%A8%E7%89%A9%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%BA%8C&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="🎈 需要考虑的因素   消耗的网络流量 使采集目标的服务器负载降低一些r’^&#x2F;&#x2F;wiki&#x2F;&#x2F;[A-Za-z0-9.]+’    实践练习 —— 获得Wiki某词条的所有词条链接，并随机进入一个链接，一直循环，知道找到一个词条页面中没有一个其他词条链接时停止。 from urllib.requst import urlopen import bs4,datetime,random,re  rand">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-15T07:40:06.000Z">
-<meta property="article:modified_time" content="2020-02-15T07:40:06.884Z">
+<meta property="article:modified_time" content="2020-02-29T08:45:31.243Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -192,6 +194,13 @@
 
               <time title="Created: 2020-02-15 15:40:06" itemprop="dateCreated datePublished" datetime="2020-02-15T15:40:06+08:00">2020-02-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-29 16:45:31" itemprop="dateModified" datetime="2020-02-29T16:45:31+08:00">2020-02-29</time>
+              </span>
 
           
 
@@ -204,7 +213,62 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="🎈"><a href="#🎈" class="headerlink" title="🎈"></a>🎈</h1><ul>
+<li>需要考虑的因素  <ul>
+<li>消耗的网络流量</li>
+<li>使采集目标的服务器负载降低一些<br>r’^//wiki//[A-Za-z0-9.]+’</li>
+</ul>
+</li>
+</ul>
+<p>实践练习 —— 获得Wiki某词条的所有词条链接，并随机进入一个链接，一直循环，知道找到一个词条页面中没有一个其他词条链接时停止。</p>
+<pre><code>from urllib.requst import urlopen
+import bs4,datetime,random,re
+
+random.seed(datetime.datetime.now())     
+
+def getLinks(url):
+    html = urlopen(&quot;https://en.wikipedia.org&quot;+url)
+    soup = bs4.BeautifulSoup(html)
+    return soup.find(&quot;div&quot;,{&quot;id&quot;:&quot;bodyContent&quot;}).finAll(&quot;a&quot;,href=re.compile(&quot;^(/wiki/)((?!:).)*$))
+
+links = getLinks(&quot;/wiki/Kevin_Bacon&quot;)
+
+while len(links) &gt; 0:
+    new = links[random.randint(0,len(links)-1)].attrs[&quot;href&quot;]
+    print(new)
+    links = getLinks(new)</code></pre><p>获得HTML这整个过程没有什么好说的 &gt;&gt;&gt;  首先明白自己的目的 — 从词条页面中随机得到一个新词条，并进入再在该页面查找新的词条链接，直到没有词条链接 &gt;&gt;&gt; 通过开发者工具或者CTRL+U查看源代码(开发者工具是js解析后的)，分析自己想要找的是如何一种类型  &gt;&gt;&gt; 写代码 — ①获得页面②查找同意规律的标签③主函数循环  </p>
+<p><strong>🎱在这里学到的一个新东西是<code>random.seed</code></strong>  </p>
+<ul>
+<li>为何要设定<code>random.seed</code>？如何设定？  <ul>
+<li>随机选择是一种随机数算法努力创造一种呈均匀分布且难以预测的数据序列。但是在算法的初始化都需要听过一个随机数种子也就是<code>random.seed</code>。完全相同的种子，每次产生相同的随机数序列。所以我们可以将随机数种子设为当下的系统时间。这样更具有随机性。  </li>
+<li>python的伪随机数生成器用的是梅森旋转算法。，比较消耗CPU资源，但是产生的随机数很难预测并且均匀分布。</li>
+</ul>
+</li>
+</ul>
+<h1 id="🎈scrapy框架的相关知识补充"><a href="#🎈scrapy框架的相关知识补充" class="headerlink" title="🎈scrapy框架的相关知识补充"></a>🎈scrapy框架的相关知识补充</h1><ul>
+<li>scarpy生成的调试信息是很多的，可以在scrapy项目中的<code>setting.py</code>文件中设置日志显示层级。<br>scrapy日志有五种层级，按照范围递增顺序排列如下:  <ul>
+<li>CRITICAL  </li>
+<li>ERROR  </li>
+<li>WARNING   </li>
+<li>DEBUG   </li>
+<li>INFO  </li>
+</ul>
+</li>
+</ul>
+<p>设置哪一个等级，就会只显示这个等级及以上的内容。比如，设置为ERROR，则只显示ERROR与CRITICAL  </p>
+<ul>
+<li><p>日志不仅可以显示在终端，也可以通过下面命令输出到用一个独立文件中:  </p>
+<pre><code>    scrapy crawl name -s LOG_FILE=wiki.log
+如果目录中没有wiki.log，那么运行程序会创建一个新文件，并把所有日志保存其中。如果已存在，则添加新内容。</code></pre></li>
+<li><p>保存所获得的信息  </p>
+<pre><code>scrapy crawl name -o name.csv -t csv
+
+scrapy crawl name -o name.jjson -t json
+
+scrapy crawl name -o name.xml -t xml</code></pre></li>
+</ul>
+<h1 id="🎈API"><a href="#🎈API" class="headerlink" title="🎈API"></a>🎈API</h1><p>API——应用编程接口，为不同的应用提供了方便友好的接口，让不同的软件进行信息共享。<br>API与普通网址访问没有什么区别。API可以通过HTTP协议下载文件，和URL访问网址获取数据的协议一样。API请求使用很严谨的语法，其次API用JSON或XML格式表示数据，而不是HTML格式。  </p>
+
     </div>
 
     
@@ -285,6 +349,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈"><span class="nav-number">1.</span> <span class="nav-text">🎈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈scrapy框架的相关知识补充"><span class="nav-number">2.</span> <span class="nav-text">🎈scrapy框架的相关知识补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈API"><span class="nav-number">3.</span> <span class="nav-text">🎈API</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -298,7 +363,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

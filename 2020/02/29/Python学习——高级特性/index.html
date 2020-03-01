@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="🎈切片🎏介绍切片标准形式[start:end:step]    能够进行切片的 &gt;&gt;    字符串   列表   元组     参数   start与end均表示索引，即是元素标的序号 &gt;&gt; 正向从0开始;反向从-1开始 &gt;&gt; 即是从左往右0,1,2,3..;从右往左…-3,-2,-1   step步长，即是想要跨过几个。默认为1        通过例子来说">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python学习——高级特性">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;29&#x2F;Python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="🎈切片🎏介绍切片标准形式[start:end:step]    能够进行切片的 &gt;&gt;    字符串   列表   元组     参数   start与end均表示索引，即是元素标的序号 &gt;&gt; 正向从0开始;反向从-1开始 &gt;&gt; 即是从左往右0,1,2,3..;从右往左…-3,-2,-1   step步长，即是想要跨过几个。默认为1        通过例子来说">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;01&#x2F;IGS2i3zMlkn6Orp.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;01&#x2F;CkHeASBLaJxGIM3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;01&#x2F;zRAlUJPedOHhFD5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;01&#x2F;ONR2U3TlzC9DES4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;01&#x2F;hWNCpFftab5MZ8V.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;01&#x2F;idwj9DCKZnYkfAy.png">
+<meta property="article:published_time" content="2020-02-29T11:54:27.000Z">
+<meta property="article:modified_time" content="2020-03-01T11:47:50.403Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;01&#x2F;IGS2i3zMlkn6Orp.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/29/Python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Python学习——高级特性 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/Python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python学习——高级特性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-29 19:54:27" itemprop="dateCreated datePublished" datetime="2020-02-29T19:54:27+08:00">2020-02-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-01 19:47:50" itemprop="dateModified" datetime="2020-03-01T19:47:50+08:00">2020-03-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="🎈切片"><a href="#🎈切片" class="headerlink" title="🎈切片"></a>🎈切片</h1><h2 id="🎏介绍"><a href="#🎏介绍" class="headerlink" title="🎏介绍"></a>🎏介绍</h2><p>切片标准形式<code>[start:end:step]</code>  </p>
+<ul>
+<li>能够进行切片的 &gt;&gt;   <ul>
+<li>字符串  </li>
+<li>列表  </li>
+<li>元组  </li>
+</ul>
+</li>
+<li>参数  <ul>
+<li>start与end<br>均表示索引，即是元素标的序号 &gt;&gt; 正向从0开始;反向从-1开始 &gt;&gt; 即是从左往右0,1,2,3..;从右往左…-3,-2,-1  </li>
+<li>step<br>步长，即是想要跨过几个。默认为1    </li>
+</ul>
+</li>
+</ul>
+<p>通过例子来说明</p>
+<pre><code>&gt;&gt;s=[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;e&quot;]
+&gt;&gt;s[1:]
+...
+[&quot;b&quot;,&quot;c&quot;,&quot;e&quot;]
+&gt;&gt;s[1::2]
+...
+[&quot;b&quot;,&quot;e&quot;]
+&gt;&gt;s[-1:]
+...
+[&quot;e&quot;]
+&gt;&gt;s[:]
+...
+[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;e&quot;]</code></pre><h2 id="🎏练习"><a href="#🎏练习" class="headerlink" title="🎏练习"></a>🎏练习</h2><p>去除字符串首尾的空格<br>(以+表示空格)满足👇<br>++hello+ &gt;&gt; hello<br>+++ &gt;&gt; 空<br>++hello world+ &gt;&gt; hello world<br>空 &gt;&gt; 空<br>hello+ &gt;&gt; hello<br>+hello &gt;&gt; hello  </p>
+<pre><code># 法一 &gt;&gt; 做标记，以遇到字符串就做标记  
+def ti(s):
+if len(s) == 0:
+    return s
+else:
+    count = -1
+    index = []
+    for i in s:
+        count += 1
+        if i != &quot; &quot;:
+            index.append(count)
+    if len(index) != 0:
+        s=s[index[0]:index[-1]+1]
+        return s
+    else:
+        return s[1:1]
+---
+
+# 法二 &gt;&gt; 递归  
+def trim(s):
+    if s[len(s)-1:] == &apos; &apos;:
+        return trim(s[:len(s)-1])
+    elif s[0:1] == &apos; &apos;:
+        return trim(s[1:len(s)])
+    else:
+        return s
+
+---
+
+# 法三 &gt;&gt; while循环   
+    def trim(s):
+        while s[:1]==&apos; &apos;:
+            s=s[1:]
+        while s[-1:]==&apos; &apos;:
+            s=s[:-1]
+        return s        </code></pre><h1 id="🎈-迭代"><a href="#🎈-迭代" class="headerlink" title="🎈 迭代"></a>🎈 迭代</h1><h2 id="🎏介绍-1"><a href="#🎏介绍-1" class="headerlink" title="🎏介绍"></a>🎏介绍</h2><p>for循环这种遍历就叫做迭代。<br>迭代的对象只要是可迭代的都可以进行。  </p>
+<ol>
+<li>判断能否迭代  </li>
+</ol>
+<pre><code>&gt;&gt;from collection import Iterable
+&gt;&gt;isinstance(判断对象,Iterable)
+# 返回判断语句 --True/False</code></pre><ol start="2">
+<li><p>通过<code>enumerate</code>可以得到迭代索引。  </p>
+<pre><code>&gt;&gt;for i,value in enumerate([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;])
+...  print(i,value)
+...
+0 a
+1 b
+2 c</code></pre></li>
+<li><p>对于字典而言，for循环默认是获得<strong>键</strong> <strong>;</strong> 如果要获得<strong>值</strong>，则应该<code>kv.values()</code> <strong>;</strong> 如果要获得<strong>键和值</strong>，则应该<code>kv.items()</code>，如果有两个变量，则一一对应键和值，如果有一个变量，则相当于是一组，以元组的形式储存。  </p>
+<pre><code>&gt;&gt;kv={&apos;a&apos;:1,&apos;b&apos;:2,&apos;c&apos;:3}
+&gt;&gt;for i in kv:
+... print(i)
+...
+a
+b
+c
+# 在教程中说，dict的储存不是按照list的方式排序，所以，迭代的顺序可能不一样。但是，我试验了几次后均是相同的emm  
+
+&gt;&gt;for i in kv.values():
+... print(i)
+...
+1
+2
+3</code></pre><p><img src="https://i.loli.net/2020/03/01/IGS2i3zMlkn6Orp.png" alt=""> </p>
+</li>
+</ol>
+<h2 id="🎏练习-1"><a href="#🎏练习-1" class="headerlink" title="🎏练习"></a>🎏练习</h2><p><strong>目的:</strong> 通过迭代来实现寻找最大值和最小值。<br><strong>方法一：</strong> 记录迭代索引和元素，以此来替换。  </p>
+<pre><code>def MaxAndMin(l):
+    try:
+        max=l[0]
+        min=l[0]
+        for index,ele in enumerate(l):
+            if ele &gt;= max:
+                max = l[index]
+            if ele &lt;= min:
+                min = l[index]
+        return (min,max)
+    except:
+        return(None,None) </code></pre><p>在这里用<code>if</code>，和<code>elif</code>其实都可以。<code>if</code>条件是等价的，是平行关系，也就是不管我前面这个条件成不成立，后面的还是要判断;而<code>elif</code>就是如果我前面成立了，后面就不判断了，属于备用选项，是有先后顺序的。<br>在这里，唯一可能的就是只有一个元素的时候，需要两个都判断，其他如果大于了max，肯定不会小于min。所以，也没有什么影响。<br><strong>方法二:</strong> 冒泡排序<br>从前往后一个一个往后推，两个之间比较，大的往前，小的往后。第一次循环，一定完成了最大的在最左，即索引值最大，但是虽然两个之间是索引值大的数值大，但是不能保证三个之中索引值最小的就是最小。比如<code>[4,5,3]</code>,经过两两之间比较，大的替换到前面得到的是<code>[4,3,5]</code>，所以会进行多次循环，一共应该进行n-1次  </p>
+<pre><code>def findMaxMin(l):
+    n=len(l)
+    try:
+        n&gt;0
+        i=0 # 计数
+        while i &lt; n-1:
+            j=0
+            while j &lt; n-1-i:
+                if l[j] &gt; l[j+1]:
+                    mid = l[j+1]
+                    l[j+1] = l[j]
+                    l[j] = mid
+                j += 1
+            i += 1     # 循环完一次就加一 &gt;&gt;反映了循环次数
+        return (l[0],l[-1])
+    except:
+        return (None,None)</code></pre><h1 id="🎈列表生成式"><a href="#🎈列表生成式" class="headerlink" title="🎈列表生成式"></a>🎈列表生成式</h1><h2 id="🎏介绍-2"><a href="#🎏介绍-2" class="headerlink" title="🎏介绍"></a>🎏介绍</h2><p>只用一个式子生成列表，列表内为生成列表的表达式  </p>
+<pre><code>&gt;&gt;list(range(1,10))
+[1,2,3,4,5,6,7,8,9]
+# 👆算是list的一个emmm功能,这里的list并不是取的名字，而是就是指生成列表的意思，比如str(1) &gt;&quot;1&quot;
+
+# 等价用for👇
+&gt;&gt;[i for i in range(1,10)]
+[1,2,3,4,5,6,7,8,9]
+
+---
+
+# 前面的i也可以是某表达式,可以多元，可以多循环嵌套  
+&gt;&gt;[x+y for x in range(1,6) for y in range(1,3)]
+[2, 3, 3, 4, 4, 5, 5, 6, 6, 7]
+
+---
+
+# 利用if过滤出目标i 
+# 此时if放后面，并且没有else
+# 因为是过滤条件，相当于满足则选，不满足就跳过
+&gt;&gt;[i for i in range(5,11) if i%3==0]
+[6,9]
+
+---
+
+# 如果if放前面则应该配合else
+# 此时的if是表达式  
+# 也就是如果if这个条件满足应该返回根据最前面的i的表达式，如果不满足，则得到else这个表达式
+&gt;&gt;[i*i if i%3==0  else -i for i in range(5,11)]
+[-5, 36, -7, -8, 81, -10]
+
+---
+
+# 两个变量  
+&gt;&gt;[k+&quot;=&quot;+v for k,v in {&quot;a&quot;:&quot;A&quot;,&quot;b&quot;:&quot;B&quot;,&quot;c&quot;:&quot;C&quot;}.items()]
+[&apos;a=A&apos;, &apos;b=B&apos;, &apos;c=C&apos;]</code></pre><h2 id="🎏练习-2"><a href="#🎏练习-2" class="headerlink" title="🎏练习"></a>🎏练习</h2><p><strong>目的:</strong> 使一个既有字符串又有非字符串的列表中的字符串全部小写  </p>
+<pre><code># 目标列表  
+L1 =[&apos;Hello&apos;, &apos;World&apos;, 18, &apos;Apple&apos;, None]
+
+# 操作
+L2=[s.lower() for s in L1 if isinstance(s,str)==True]</code></pre><h1 id="🎈生成器"><a href="#🎈生成器" class="headerlink" title="🎈生成器"></a>🎈生成器</h1><h2 id="🎏介绍-3"><a href="#🎏介绍-3" class="headerlink" title="🎏介绍"></a>🎏介绍</h2><p>生成器实质是一种你调用到哪个，他就算到哪一步，就储存到多少，而且一旦调用，之前的就没了<br><strong>得到生成器</strong> </p>
+<ol>
+<li><p>列表生成式，但是将列表改为圆括号。 </p>
+<p> g=(i*i if i%3==0  else -i for i in range(5,11))</p>
+</li>
+<li><p>yield语句<br>yield后面跟着的就是这个时候打印出来的。也就是到yield结束。  </p>
+</li>
+</ol>
+<p><strong>调用生成器</strong>  </p>
+<ol>
+<li>for i in generator</li>
+<li>next(g)  </li>
+</ol>
+<p>当调用完时，再调用会报错<code>StopIteration</code><br><img src="https://i.loli.net/2020/03/01/CkHeASBLaJxGIM3.png" alt=""><br>如果我们希望报错的时候返回其他值而不是返回报错信息。<br><img src="https://i.loli.net/2020/03/01/zRAlUJPedOHhFD5.png" alt=""><br>yield举例<br><img src="https://i.loli.net/2020/03/01/ONR2U3TlzC9DES4.png" alt=""><br>注意，这个赋值，左边的两个都是没有变的，可以说是同时赋值，左边的b是原来的b，a是原来的a  </p>
+<h2 id="🎏练习-3"><a href="#🎏练习-3" class="headerlink" title="🎏练习"></a>🎏练习</h2><p><strong>目的:</strong> 实现杨辉三角<br><img src="https://i.loli.net/2020/03/01/hWNCpFftab5MZ8V.png" alt=""><br><strong>代码如下</strong>  </p>
+<pre><code>def triangle(n):
+    list1=[1]
+    list_back = []
+    a = 0 
+    for i in range(1,n+1):
+        yield i,list1,list_back
+        list_back = list1.copy()
+        if i &gt; 1:       
+            for j in range(1,i):
+                list1[j] = list_back[j-1]+list_back[j]
+            list1.append(1)          
+        else:
+            list1.append(1)
+
+for i in triangle(5):
+    print(i) </code></pre><h1 id="🎱补充列表赋值"><a href="#🎱补充列表赋值" class="headerlink" title="🎱补充列表赋值"></a>🎱补充列表赋值</h1><p>有三种方法，分别是  </p>
+<ul>
+<li><strong>list1=list2</strong></li>
+<li><strong>import copy</strong>  <ul>
+<li><strong>list2=copy.copy(list1)</strong></li>
+<li><strong>list2=copy.deepcopy(list1)</strong>  </li>
+</ul>
+</li>
+</ul>
+<p><strong>deepcopy()</strong> 就是我们理想中的，我与你相等，但之后我与你无关，无论你怎么变，我都不变。<br>而<strong>copy()</strong> 与<strong>直接相等</strong>则会有改变。<br>实质上这两个改变的原因都差不多，都是如果<strong>改变内部</strong>是会跟着改变的，但如果是直接赋值，则不会。但区别在于，这两种方法的内部的定义不同。<br>对于<strong>a=b</strong>，是整个等于，也就是内部是指每一个元素。也就是如果a[0]=2,那么b[0]也会跟着改变.<br>而对于<strong>copy()</strong>它相当于是每一个元素拿出来相等。也就是它的内部应该是每一个元素的内部，也就是如果每一个元素是嵌套的，也就是对于a[0]是这种情况的👉<code>a=[[1,2,3],1,2]</code>,此时的[1,2,3]里的每一个元素是copy的内部，也就是改变这个里面的元素，copy会跟着变，而如果改变像a[1]这样的，就不会跟着变。<br><img src="https://i.loli.net/2020/03/01/idwj9DCKZnYkfAy.png" alt=""><br><strong>以上，是我自己的理解</strong>，那么如果按照<a href="https://blog.csdn.net/u010712012/article/details/79754132" target="_blank" rel="noopener">https://blog.csdn.net/u010712012/article/details/79754132</a>  👈这位博主的模型来解释。<br>也就是内容是商品，而我的容器是标签的话。可以说，对于<code>a=b</code>，那么我整个商品贴上了标签；而对于<code>copy()</code>,则是，我里面的每一个元素贴上了标签。所以每个元素变，则相当于之前的整个商品都换了，而我每个元素的内部，相当于之前的修改这个商品。  </p>
+<h1 id="🎈迭代器"><a href="#🎈迭代器" class="headerlink" title="🎈迭代器"></a>🎈迭代器</h1><h2 id="🎏介绍-4"><a href="#🎏介绍-4" class="headerlink" title="🎏介绍"></a>🎏介绍</h2><p>能够用<code>for</code>循环的都是<code>Iterable</code><br>能够用<code>next()</code>不停调用的是<code>Iterator</code>，也就是迭代器<br>可以通过<code>iter()</code>将其变成迭代器。 </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/28/Python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0%E7%AF%87/" rel="prev" title="Python学习——函数篇">
+      <i class="fa fa-chevron-left"></i> Python学习——函数篇
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈切片"><span class="nav-number">1.</span> <span class="nav-text">🎈切片</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏介绍"><span class="nav-number">1.1.</span> <span class="nav-text">🎏介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏练习"><span class="nav-number">1.2.</span> <span class="nav-text">🎏练习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈-迭代"><span class="nav-number">2.</span> <span class="nav-text">🎈 迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏介绍-1"><span class="nav-number">2.1.</span> <span class="nav-text">🎏介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏练习-1"><span class="nav-number">2.2.</span> <span class="nav-text">🎏练习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈列表生成式"><span class="nav-number">3.</span> <span class="nav-text">🎈列表生成式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏介绍-2"><span class="nav-number">3.1.</span> <span class="nav-text">🎏介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏练习-2"><span class="nav-number">3.2.</span> <span class="nav-text">🎏练习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈生成器"><span class="nav-number">4.</span> <span class="nav-text">🎈生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏介绍-3"><span class="nav-number">4.1.</span> <span class="nav-text">🎏介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏练习-3"><span class="nav-number">4.2.</span> <span class="nav-text">🎏练习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎱补充列表赋值"><span class="nav-number">5.</span> <span class="nav-text">🎱补充列表赋值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈迭代器"><span class="nav-number">6.</span> <span class="nav-text">🎈迭代器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏介绍-4"><span class="nav-number">6.1.</span> <span class="nav-text">🎏介绍</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.1.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
