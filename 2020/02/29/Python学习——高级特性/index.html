@@ -46,13 +46,14 @@
   };
 </script>
 
-  <meta name="description" content="🎈切片🎏介绍切片标准形式[start:end:step]    能够进行切片的 &gt;&gt;    字符串   列表   元组     参数   start与end均表示索引，即是元素标的序号 &gt;&gt; 正向从0开始;反向从-1开始 &gt;&gt; 即是从左往右0,1,2,3..;从右往左…-3,-2,-1   step步长，即是想要跨过几个。默认为1        通过例子来说">
+  <meta name="description" content="🎈切片🎏介绍切片标准形式[start:end:step]    能够进行切片的 &gt;&gt;    字符串   列表   元组     参数   start与end均表示索引，即是元素标的序号 &gt;&gt; 正向从0开始;反向从-1开始 &gt;&gt; 即是从左往右0,1,2,3..;从右往左…-3,-2,-1   step步长，即是想要跨过几个。默认为1.如果，步长为负值，则相当于">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python学习——高级特性">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;29&#x2F;Python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="🎈切片🎏介绍切片标准形式[start:end:step]    能够进行切片的 &gt;&gt;    字符串   列表   元组     参数   start与end均表示索引，即是元素标的序号 &gt;&gt; 正向从0开始;反向从-1开始 &gt;&gt; 即是从左往右0,1,2,3..;从右往左…-3,-2,-1   step步长，即是想要跨过几个。默认为1        通过例子来说">
+<meta property="og:description" content="🎈切片🎏介绍切片标准形式[start:end:step]    能够进行切片的 &gt;&gt;    字符串   列表   元组     参数   start与end均表示索引，即是元素标的序号 &gt;&gt; 正向从0开始;反向从-1开始 &gt;&gt; 即是从左往右0,1,2,3..;从右往左…-3,-2,-1   step步长，即是想要跨过几个。默认为1.如果，步长为负值，则相当于">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;04&#x2F;GlOyI8SmeiVj9HZ.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;01&#x2F;IGS2i3zMlkn6Orp.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;01&#x2F;CkHeASBLaJxGIM3.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;01&#x2F;zRAlUJPedOHhFD5.png">
@@ -60,10 +61,10 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;01&#x2F;hWNCpFftab5MZ8V.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;01&#x2F;idwj9DCKZnYkfAy.png">
 <meta property="article:published_time" content="2020-02-29T11:54:27.000Z">
-<meta property="article:modified_time" content="2020-03-01T11:47:50.403Z">
+<meta property="article:modified_time" content="2020-03-04T12:33:50.000Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;01&#x2F;IGS2i3zMlkn6Orp.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;04&#x2F;GlOyI8SmeiVj9HZ.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/02/29/Python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">
 
@@ -206,7 +207,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-01 19:47:50" itemprop="dateModified" datetime="2020-03-01T19:47:50+08:00">2020-03-01</time>
+                <time title="Modified: 2020-03-04 20:33:50" itemprop="dateModified" datetime="2020-03-04T20:33:50+08:00">2020-03-04</time>
               </span>
 
           
@@ -230,7 +231,7 @@
 </li>
 <li>参数  <ul>
 <li>start与end<br>均表示索引，即是元素标的序号 &gt;&gt; 正向从0开始;反向从-1开始 &gt;&gt; 即是从左往右0,1,2,3..;从右往左…-3,-2,-1  </li>
-<li>step<br>步长，即是想要跨过几个。默认为1    </li>
+<li>step<br>步长，即是想要跨过几个。默认为1.<br>如果，步长为负值，则相当于倒着看。<br><img src="https://i.loli.net/2020/03/04/GlOyI8SmeiVj9HZ.png" alt="">    </li>
 </ul>
 </li>
 </ul>
@@ -443,7 +444,10 @@ for i in triangle(5):
     <a href="/2020/02/28/Python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0%E7%AF%87/" rel="prev" title="Python学习——函数篇">
       <i class="fa fa-chevron-left"></i> Python学习——函数篇
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/01/Python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" rel="next" title="Python学习——函数式编程">
+      Python学习——函数式编程 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -517,7 +521,7 @@ for i in triangle(5):
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
