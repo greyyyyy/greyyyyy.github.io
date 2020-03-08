@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="🎈返回函数返回值可以是函数,如下👇在这其中f并不是求和结果，而是求和函数。   &gt;&gt;&gt; f &lt;function lazy_sum.&lt;locals&gt;.sum at 0x101c6ed90&gt;  而调用f则是f(n),这个n实际上就是传入sum()的参数，传入主函数的参数也就是最开始的l(1,2,3)中的(1,2,3),以元组的方式传入。也就是内部函数sum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python学习——闭包">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;08&#x2F;python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E9%97%AD%E5%8C%85&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="🎈返回函数返回值可以是函数,如下👇在这其中f并不是求和结果，而是求和函数。   &gt;&gt;&gt; f &lt;function lazy_sum.&lt;locals&gt;.sum at 0x101c6ed90&gt;  而调用f则是f(n),这个n实际上就是传入sum()的参数，传入主函数的参数也就是最开始的l(1,2,3)中的(1,2,3),以元组的方式传入。也就是内部函数sum">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;06&#x2F;agTViKebQ1ClzJ2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;07&#x2F;7sk3druA9eNlnT1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;07&#x2F;pTty7Bw2fnVDNXi.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;07&#x2F;jen5WrL74HF1Zyz.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;07&#x2F;LoWF6ra9NsOVeQ5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;08&#x2F;lQdJwyoKPFCNvYG.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;08&#x2F;gNqwahdM5yQFeGY.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;08&#x2F;AYBuN38SiQyfpa9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;08&#x2F;OJ7bMnu2TCrPhVF.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;08&#x2F;lwVo3cdEnvCGWfZ.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;08&#x2F;xkROlqIu2HiewTA.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;08&#x2F;p9HdVbBmfexCl67.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;08&#x2F;AlIfhn4VowEzTmL.png">
+<meta property="article:published_time" content="2020-03-08T14:46:42.000Z">
+<meta property="article:modified_time" content="2020-03-08T14:50:27.611Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;03&#x2F;06&#x2F;agTViKebQ1ClzJ2.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/08/python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E9%97%AD%E5%8C%85/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>python学习——闭包 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E9%97%AD%E5%8C%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python学习——闭包
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-08 22:46:42 / Modified: 22:50:27" itemprop="dateCreated datePublished" datetime="2020-03-08T22:46:42+08:00">2020-03-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="🎈返回函数"><a href="#🎈返回函数" class="headerlink" title="🎈返回函数"></a>🎈返回函数</h1><p>返回值可以是函数,如下👇<br><img src="https://i.loli.net/2020/03/06/agTViKebQ1ClzJ2.png" alt=""><br>在这其中<code>f</code>并不是求和结果，而是求和函数。  </p>
+<pre><code>&gt;&gt;&gt; f
+&lt;function lazy_sum.&lt;locals&gt;.sum at 0x101c6ed90&gt;  </code></pre><p>而调用<code>f</code>则是<code>f(n)</code>,这个<code>n</code>实际上就是传入<code>sum()</code>的参数，传入主函数的参数也就是最开始的<code>l(1,2,3)</code>中的<code>(1,2,3)</code>,以元组的方式传入。也就是内部函数<code>sum()</code>是可以引用外部函数的参数和局部变量的，当外部函数返回函数<code>sum</code>时，相关参数和变量都保存在返回的函数内，这样的结构叫做<strong>闭包(Closure)</strong><br>这里需要注意的是，即便我<code>l()</code>传入相同的参数，也是不同的函数，是各自独立的函数。   </p>
+<pre><code>&gt;&gt;&gt; f1 = lazy_sum(1, 3, 5, 7, 9)
+&gt;&gt;&gt; f2 = lazy_sum(1, 3, 5, 7, 9)
+&gt;&gt;&gt; f1==f2
+False</code></pre><h1 id="🎱补充-可变数据类型与不可变数据类型"><a href="#🎱补充-可变数据类型与不可变数据类型" class="headerlink" title="🎱补充: 可变数据类型与不可变数据类型"></a>🎱补充: 可变数据类型与不可变数据类型</h1><p>可变数据类型是指如果<strong>改变对象的值</strong>，其引用地址不变，其地址会扩张，但其首地址不变，并且<strong>对于相同值的对象</strong>，其地址是不一样的，实际上可以说是以变量为主，新建一个变量，就有新的对象，不管对象的值是不是一样的。<br>不可变数据类型则是，以对象的值为主来看，也就是<strong>如果对象的值不变</strong>，则它的地址都是一样的，只是有很多变量来引用这个相同的地址，而会有一个引用计数来记录有多少个引用指向了它；而<strong>对于改变对象的值</strong>，则相当于换了一个对象了，则会有新的地址。<br><img src="https://i.loli.net/2020/03/07/7sk3druA9eNlnT1.png" alt=""><br>👆可以看到，当值相等的时候，地址始终是相同的。<br>而如果一个值没有变量指向它的地址了，则会被垃圾回收器回收。再在下一次选择这个变量时，其地址会发生改变。而改变实际上还有另一个问题👇<br>现在对于number，在0-256(经本人试验，是到256)是属于<strong>小整数</strong>，是依赖于解释器运行环境，<strong>只要环境不终止</strong>，小整数的<strong>地址就是固定的</strong>，是不会被改变。<br><img src="https://i.loli.net/2020/03/07/pTty7Bw2fnVDNXi.png" alt=""><br>在这个例子我们可以看到，实际上，如果不是小整数的原因，不可变类型，如果一个值重新得到，则其地址应该是不同的。  </p>
+<hr>
+<p>而对于可变数据类型，比如<code>list</code>，以变量为主，变量变则，创建新的对象，也就是地址变，而两个变量相同，则地址同。<br>而关于list则有几个  </p>
+<ul>
+<li>q=b</li>
+<li>q=copy.copy(b)</li>
+<li>q=[123]<br>b=[123]  </li>
+</ul>
+<p>下面用例子说明情况  </p>
+<pre><code>l=[[1, 2, 3], 2, 3]
+a=[[1, 2, 3], 2, 3]
+eq=l
+copy=copy.copy(l)</code></pre><p>为了方便比较我将以表格的形式呈现。</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>初始l=[[1, 2, 3], 2, 3] &gt;&gt; id(*)</th>
+<th>id(*[0])</th>
+<th>id(*[1])</th>
+<th>改变l[0][1]=9 &gt;&gt; id(*[0])</th>
+<th>改变l[1]=6 &gt;&gt; id(*[1])</th>
+<th>重新赋值 l=[1,2,3]&gt;&gt;id(*)</th>
+<th>&gt;&gt; id(*[0])</th>
+<th>&gt;&gt;id(*[1])</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>l</td>
+<td>2679659123784</td>
+<td>2679662846792</td>
+<td>140724272787744</td>
+<td>2679662846792</td>
+<td>140724272787872</td>
+<td>2679662848968</td>
+<td>140724272787712</td>
+<td>140724272787744</td>
+</tr>
+<tr>
+<td>eq</td>
+<td>2679659123784</td>
+<td>2679662846792</td>
+<td>140724272787744</td>
+<td>2679662846792</td>
+<td>140724272787872</td>
+<td>2679659123784</td>
+<td>2679662846792</td>
+<td>140724272787872</td>
+</tr>
+<tr>
+<td>copy</td>
+<td>2679660393288</td>
+<td>2679662846792</td>
+<td>140724272787744</td>
+<td>2679662846792</td>
+<td>140724272787744</td>
+<td>2679660393288</td>
+<td>2679662846792</td>
+<td>140724272787744</td>
+</tr>
+</tbody></table>
+<p>我们可以看到直接相等的<code>eq=l</code>，可以说是等于了这个地址,也就是他们指向同一个引用，而这个引用是指向一个列表的，这是一个整体(相对于列表内的单个元素而言)，那么我只要没有重新赋值，我们都是一样的。但是对于<code>copy</code>而言，我应该是得到指向你的列表内每一个元素的地址。可以看到，虽然<code>copy</code>的整个的地址不一样，但是我的每一个元素是一样的.<code>copy</code>与<code>eq</code>一个很大的区别就是，<code>l</code>的元素改变，而如果这个元素不是嵌套的，只有一层，那么<code>copy</code>会改变，而<code>eq</code>不会，<code>eq</code>只会在<code>l</code>整个重新赋值，才会变。而其实从表我们也可以看到，改变的，是<code>l</code>重新指向了一个对象。而如果这个对象内的元素有相同的，他们指向实际上是相同的。<br>也就是可以理解为，列表整体来讲是一个可变数据，但是对于它的内部，仍然看是什么元素，是字符串、数字类型、元组，都还是不可变的，也就是只要是相同的，则地址一样。<br>而对于，为什么<code>copy</code>与<code>eq=l</code>这种变化是不一样的。正如我上面所说，<strong>相等</strong>是指向了这整个对象，而<strong>copy</strong>是每一个元素的对象，所以如果改变，则相当于重新赋值。<br>下面再进一步举例，以论述观点。<br>在原有的基础上，我们再添加<code>a</code>使其完全与<code>copy</code>一样<br><img src="https://i.loli.net/2020/03/07/jen5WrL74HF1Zyz.png" alt=""><br>在此，<code>copy2</code>也就是<code>copy</code>,<code>z</code>也就是<code>eq</code>,<code>a</code>也就是我们新得到的。<br><img src="https://i.loli.net/2020/03/07/LoWF6ra9NsOVeQ5.png" alt=""><br>可以看到，虽然<code>[1,2,3]</code>相同，但因为，列表是可变数据类型，地址并不一样。而对于不可变数据类型均是相同的。  </p>
+<p>而可变数据类型与不可变数据类型的一种影响就是，在函数调用中，函数内部要改变外部的变量有两种方法  </p>
+<ul>
+<li>使用<code>global</code>  </li>
+<li>变量是可变数据类型  </li>
+</ul>
+<h1 id="🎱补充-LEGB规则"><a href="#🎱补充-LEGB规则" class="headerlink" title="🎱补充:LEGB规则"></a>🎱补充:LEGB规则</h1><p>python中查找变量时所按照的顺序，是按照LGEB规则来进行查找的。<br>首先我们应该要了解python的作用域。变量的声明是有很多个层次的。<br>LGEB代表的就是Local  –&gt; Enclosed –&gt;Global –&gt; Built-in  </p>
+<pre><code>&gt;&gt;&gt; l=[1,4,7]
+&gt;&gt;&gt; a=len(l)  # len就算是Built-in，是python自身保留的特殊名称  
+&gt;&gt;&gt; b=1  # Global 
+&gt;&gt;&gt; def outer():
+...    b = 0   # Enclosed
+...    def inner():
+...        b = 5  # Local
+...        print(&apos;inner&gt;&gt;local:&apos;,b)
+...    print(&apos;outer&gt;&gt;enclosed:&apos;,b)
+...    return inner
+&gt;&gt;&gt; print(&apos;global:&apos;,b)
+&gt;&gt;&gt; f=outer()
+&gt;&gt;&gt; f()
+global:1
+outer&gt;&gt;enclosed:0
+inner&gt;&gt;local:5  </code></pre><p>可以看到先要找一定是先找自己内部地在一层层往上找。这里如果内部要调用外部得，如果是闭包，则应该用<code>nonlocal b</code>  </p>
+<h1 id="🎈闭包"><a href="#🎈闭包" class="headerlink" title="🎈闭包"></a>🎈闭包</h1><h2 id="🎏简单介绍"><a href="#🎏简单介绍" class="headerlink" title="🎏简单介绍"></a>🎏简单介绍</h2><p>如果在一个内部函数里，对在外部作用域（但不是在全局作用域）的变量进行引用，那么内部函数就被认为是闭包(closure)。<br>这里就指明了闭包的一个特点就是外部函数得参数和变量都可以引用。本身来讲，函数执行完成时，他的储存空间是会被清理的。解释器最开始遇到函数时仅仅是为它开辟了存放函数名的空间，到真正调用时才有开辟空间。  </p>
+<pre><code>&gt;&gt;&gt; def outer():
+...     ls =[]
+...     for i in range(5):
+...         def inner(i):
+...             return i*i
+...         ls.append(inner(i))
+...     return ls
+...
+&gt;&gt;&gt; f1=outer()
+&gt;&gt;&gt; f2=outer()
+&gt;&gt;&gt; f3=outer()
+&gt;&gt;&gt; print(fi,f2,f3)
+[0, 1, 4, 9, 16] [0, 1, 4, 9, 16] [0, 1, 4, 9, 16]  
+
+# 其实这种可以说并不是闭包了，只是在函数内都定义了一个函数。
+# 闭包应当是会引用自由变量，并能够在函数的定义环境外执行的函数。
+# 也就是能够被调用
+# 在前面，我们说了闭包，实际上可以说是外部函数的参数和变量都保存在内部定义的一个函数中，叫做闭包。
+# 而在此，f1,f2,f3并不是函数，只是列表。
+# 另外，自由变量的意思就是不是定义在函数内的但能够被内部函数引用的变量  </code></pre><p>这样的引用，应该是可变数据可以直接在函数内部修改，而不可变数据应该是不能够修改的，需要<code>global / nonlocal</code>。这个不能修改，是指，在函数内部引用时，可以修改，只是这个修改并没有真的修改，你从函数出来，你的值还是之前的，只有可变和<code>global/nonlocal</code>这两种方法。<br><img src="https://i.loli.net/2020/03/08/lQdJwyoKPFCNvYG.png" alt=""><br><img src="https://i.loli.net/2020/03/08/gNqwahdM5yQFeGY.png" alt=""></p>
+<h2 id="🎏-练习"><a href="#🎏-练习" class="headerlink" title="🎏 练习"></a>🎏 练习</h2><p><strong>目的：</strong> 制作一个计数器，在调用外函数一次后，每次调用该函数，数字加一；而如果再从头调用，又会再从初始值开始。  </p>
+<pre><code># 法一
+def createCounter():
+    start = [0]
+    def count():
+        start[0] += 1
+        return start[0]
+    return count 
+
+# 法二——应用生成器  
+def createCounter():
+    a=0
+    def generator():
+        while True:
+            a += 1
+            yield a
+    def counter():
+        return next(generator())
+    return counter
+
+counterA = createCounter()
+print(counterA(), counterA(), counterA(), counterA(), counterA()) # 1 2 3 4 5
+counterB = createCounter()
+if [counterB(), counterB(), counterB(), counterB()]== [1, 2, 3, 4]:
+print(&apos;测试通过!&apos;)
+else:
+print([counterB(), counterB(), counterB(), counterB()])
+print(&apos;测试失败!&apos;)
+
+
+1 2 3 4 5
+测试通过!</code></pre><hr>
+<p>对于第一种方法，制作计数器的问题在于，应该将初始值放在第一层函数内，而不是整个函数外，如果放在整个函数外，到再次调用<code>createCounter()</code>也就是第二个<code>counterB = createCounter()</code>,会接着前面的继续，而不是从0开始。<br>为什么会这样呢？<br><img src="https://i.loli.net/2020/03/08/AYBuN38SiQyfpa9.png" alt=""><br><img src="https://i.loli.net/2020/03/08/OJ7bMnu2TCrPhVF.png" alt=""><br><img src="https://i.loli.net/2020/03/08/lwVo3cdEnvCGWfZ.png" alt="">  </p>
+<p><img src="https://i.loli.net/2020/03/08/xkROlqIu2HiewTA.png" alt=""><br>首先我们可以看到我们不能够修改不可变数据，但是可以重新赋值，这个重新赋值成为了这一个代码块(code block)内的一个变量。<strong><em>或许可以说同一个变量可以指向不同的对象，但是要在不同的作用域</em></strong><br>当然对于第二段，我们只需要加上<code>nonlocal start</code>就可以得到。<br>而我们再说回正题，接下来对比一下。<br><img src="https://i.loli.net/2020/03/08/p9HdVbBmfexCl67.png" alt=""><br><img src="https://i.loli.net/2020/03/08/AlIfhn4VowEzTmL.png" alt=""><br>其实我认为原因就在于他这个实际上就是因为list作为可变数据，就算定义在外面其实也已经变了。而我再次调用，并没有改变什么，因为全部都变了。而如果我定义在里面——因为闭包实际上，是外部函数的变量和参数全部都堆在了内部函数，等着调用——也就是每次都是停留在<code>cout()</code>.而再次整个调用这个函数，就又一次使<code>start=[0]</code><br>而实际上，我们也应该是可以用不可变数据，并且定义在外面来实现的，不可变数据，我在内部如果要改变，只能在函数调用时有效，出来了——也就是再整个调用时仍然是一样的<code>strat=[0]</code>,那么我们就应该用<code>global/nonlocal</code><br>那么现在有一个问题冒出来了，请问<code>nonlocal</code>只是针对内部请求外部函数吗？还是所有位于内部函数上面的？，同样可不可以在内部直接用<code>global</code>？而应用了，是否意味着，每一次调用函数都请求一次，如果这样，就将意味着，无法连续，每次都将重复赋值。下面我们来试试   </p>
+<pre><code>&gt;&gt;&gt; start = 0
+&gt;&gt;&gt; def createCounter():
+...    start = 0
+...    def count():
+...        nonlocal start
+...        start += 1
+...        return start
+...    return count  
+...
+
+before
+start: 0
+counterA -&gt; 1 2 3 4 5
+---
+start: 0
+counterB -&gt; 1 2 3 4
+---
+after
+start: 0
+
+# 这里实现了两个问题，首先不可变数据是只能赋值不能修改的，而一旦用了global，内外一起变。
+# 而global的确就是找整个函数外部的，而nonlocal则是找上一层函数的
+# 在此处，我们第一层相当于是赋值了start这是不会影响外面的start的，所以，虽然函数整个一直在变，但外面的start一直是0  </code></pre>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/06/%E8%AE%BA%E6%96%87%E5%BC%95%E8%A8%80/" rel="prev" title="论文引言">
+      <i class="fa fa-chevron-left"></i> 论文引言
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈返回函数"><span class="nav-number">1.</span> <span class="nav-text">🎈返回函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎱补充-可变数据类型与不可变数据类型"><span class="nav-number">2.</span> <span class="nav-text">🎱补充: 可变数据类型与不可变数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎱补充-LEGB规则"><span class="nav-number">3.</span> <span class="nav-text">🎱补充:LEGB规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈闭包"><span class="nav-number">4.</span> <span class="nav-text">🎈闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏简单介绍"><span class="nav-number">4.1.</span> <span class="nav-text">🎏简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏-练习"><span class="nav-number">4.2.</span> <span class="nav-text">🎏 练习</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.1.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
