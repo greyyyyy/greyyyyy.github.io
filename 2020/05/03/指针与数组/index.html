@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="🎈数组🎏数组的声明int marbles[SIZE]&#x3D;{1,2}; 声明数组中的元素是什么类型(int)  声明数组元素的数目(SIZE)  数组元素用逗号隔开，而元素与逗号之间可以有空格({1,2} OR {1 , 2})  数组也支持对其进行常量化——也就是可读数组,程序不向数组中写数据 const int marbles[SIZE]&#x3D;{1,2};    如果完全没有初始化int marb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="指针与数组">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;03&#x2F;%E6%8C%87%E9%92%88%E4%B8%8E%E6%95%B0%E7%BB%84&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="🎈数组🎏数组的声明int marbles[SIZE]&#x3D;{1,2}; 声明数组中的元素是什么类型(int)  声明数组元素的数目(SIZE)  数组元素用逗号隔开，而元素与逗号之间可以有空格({1,2} OR {1 , 2})  数组也支持对其进行常量化——也就是可读数组,程序不向数组中写数据 const int marbles[SIZE]&#x3D;{1,2};    如果完全没有初始化int marb">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;05&#x2F;03&#x2F;eLS3od8yDNCiE54.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;05&#x2F;03&#x2F;oRmknPLACT5hl6q.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;05&#x2F;03&#x2F;mf8Ub1qPDtMGWg7.png">
+<meta property="article:published_time" content="2020-05-03T12:22:44.000Z">
+<meta property="article:modified_time" content="2020-05-11T01:49:17.321Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;05&#x2F;03&#x2F;eLS3od8yDNCiE54.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/03/%E6%8C%87%E9%92%88%E4%B8%8E%E6%95%B0%E7%BB%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>指针与数组 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/03/%E6%8C%87%E9%92%88%E4%B8%8E%E6%95%B0%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          指针与数组
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-03 20:22:44" itemprop="dateCreated datePublished" datetime="2020-05-03T20:22:44+08:00">2020-05-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-11 09:49:17" itemprop="dateModified" datetime="2020-05-11T09:49:17+08:00">2020-05-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="🎈数组"><a href="#🎈数组" class="headerlink" title="🎈数组"></a>🎈数组</h1><h2 id="🎏数组的声明"><a href="#🎏数组的声明" class="headerlink" title="🎏数组的声明"></a>🎏数组的声明</h2><pre><code>int marbles[SIZE]={1,2};</code></pre><ul>
+<li><p>声明数组中的元素是什么类型(int)</p>
+</li>
+<li><p>声明数组元素的数目(SIZE)</p>
+</li>
+<li><p>数组元素用逗号隔开，而元素与逗号之间可以有空格({1,2} OR {1 , 2})</p>
+</li>
+<li><p>数组也支持对其进行常量化——也就是可读数组,程序不向数组中写数据</p>
+<pre><code>const int marbles[SIZE]={1,2};</code></pre></li>
+</ul>
+<hr>
+<ul>
+<li><p>如果<strong>完全没有初始化</strong><code>int marbles[SIZE]</code>,则数组中的元素储存的是无用的数值(同未初始化的普通变量)</p>
+</li>
+<li><p>如果<strong>部分初始化</strong>，如同上面的例子中。如果<code>SIZE&gt;2</code>,则是部分初始化，则其他没有赋值的，将默认为0</p>
+</li>
+<li><p>可以<strong>不声明SIZE</strong>；此时编译器会自动匹配数组大小和初始化列表中的项目数目  </p>
+<ul>
+<li><p>其数组大小可通过<code>SIZE = sizeof(marbles)/sizeof(*marbles)</code>得到</p>
+<pre><code>int marbles[]={1,45,78,2,5,457,45}；</code></pre></li>
+</ul>
+</li>
+<li><p><strong>SIZE的写法</strong>  </p>
+<ul>
+<li>必须是正整数——若为浮点数，可以转化<code>int marbles[(int)2.5];</code></li>
+<li>可以是整数常量表达式——包括<code>sizeof</code>表达式</li>
+<li>可以是已赋值的变量<code>int n = 5;int marbles[n];</code></li>
+<li>可以是变量，也就是VLA，变长数组，将在后面提到</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>传统C中如果要声明某一个元素的值，只能按照顺序一个一个地声明到那里。<br>  而在C99中<code>int marbles[SIZE] ={[5]=2};</code>  <ul>
+<li>对一个元素多次声明将只取最后一次  </li>
+<li>指定了一个位置之后，其后的所有数值都将赋给这个位置后的元素<br>  而这个指定位置前，若并没有轮到他，则前面有几个数，还是按照顺序赋值给元素，不够之后就是0  </li>
+</ul>
+</li>
+</ul>
+<pre><code>int marbles[10]={0,1,2,[6]=6,7,8,[2]=3}
+/*marbles[0] = 0*/
+/*marbles[1] = 1*/
+/*marbles[2] = 3*/
+/*marbles[4] = 0*/
+/*marbles[5] = 0*/
+/*marbles[6] = 6*/
+/*marbles[7] = 7*/
+/*marbles[8] = 8*/
+/*marbles[9] = 0*/</code></pre><ul>
+<li>C不支持整体赋值<br>  Eg.<code>marbles1=marbles2</code> <strong><em>OR</em></strong> <code>marbles1[SIZE]=marbles2[SIZE]</code>  <ul>
+<li>也不支持除初始化以外的花括号赋值<br>Eg.<code>int marbles[SIZE];marbles[SIZE]={1,2}</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="🎏多维数组"><a href="#🎏多维数组" class="headerlink" title="🎏多维数组"></a>🎏多维数组</h2><p>多维数组的数据类型声明实际上就是出现数值元素的数据的声明即可。</p>
+<pre><code>int marbles[10][5];
+/*marbles具有十个元素，每个元素是包含5个元素的数组*/</code></pre><hr>
+<h1 id="🎈指针"><a href="#🎈指针" class="headerlink" title="🎈指针"></a>🎈指针</h1><h2 id="🎏指针的声明"><a href="#🎏指针的声明" class="headerlink" title="🎏指针的声明"></a>🎏指针的声明</h2><pre><code>int * a,b;
+/*声明了a是一个指向int类型变量的指针，而b是一个int类型的变量*/
+
+int * a,*b;
+/*这样才将a与b均声明为了指针*/</code></pre><h2 id="🎏指针的大小"><a href="#🎏指针的大小" class="headerlink" title="🎏指针的大小"></a>🎏指针的大小</h2><p>指针的大小是固定。<br>指针只是一个放地址的地方。不管它指向的是什么数据类型，它本身只是一个放地址的，它的大小是不变的。<br>在我的电脑上测得为8<br><img src="https://i.loli.net/2020/05/03/eLS3od8yDNCiE54.png" alt=""><br>可以看到指针大小是指针大小，而指针的值，对于数组来说就是指的第一个元素。也就是它的数据类型的大小。<br>而如果对数组进行检查，得到的则是所有该数据类型的和<code>4*5=20</code>，而如果写为<code>*data</code>此时的data则是首元素的地址，所以也就是首元素的数据类型的大小。</p>
+<h2 id="🎏指针与数组"><a href="#🎏指针与数组" class="headerlink" title="🎏指针与数组"></a>🎏指针与数组</h2><h3 id="🎐基本知识"><a href="#🎐基本知识" class="headerlink" title="🎐基本知识"></a>🎐基本知识</h3><p><img src="https://i.loli.net/2020/05/03/oRmknPLACT5hl6q.png" alt=""></p>
+<p>数组中的元素均不能够直接<code>p = data[*]</code><br>但是表达数组的地址，可以直接<code>p=data</code><br>数组不可以<code>p=&amp;data</code>👈这是错误的<br><img src="https://i.loli.net/2020/05/03/mf8Ub1qPDtMGWg7.png" alt=""></p>
+<ul>
+<li>数组的地址与其首元素的地址一样，可以说数组的名字就是指向首元素的指针</li>
+<li>对数组的地址<code>+1</code>则移向数组中的下一元素的地址，<code>-1</code>则移向上一个</li>
+<li>地址的增量实际上反映了该数据类型是采取几个字节进行储存。<ul>
+<li>因为<code>int</code>是采用四个字节，所以，地址<code>+1</code>实际上加了4<blockquote>
+<p>在C中，对一个指针加1的结果是对该指针增加一个储存单元。对于数组而言，地址会增加到下一个元素的地址，而不是下一个字节。<br>地址的内部表示方式是有硬件来决定的。很多计算机都是以字节编址的，这意味着对每个内存字节顺序进行编号。对于包含多个字节的数据类型，比如double类型的变量，对象的地址通常指的是其首字节的地址。<br>对指针加1，等价于对指针的值加上它指向的对象的数值。  </p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>    data+2 == &amp;data[2] 
+    * (data+2) == data[2]
+&gt; C语言标准在描述数组时，确实借助了指针的概念。  
+定义```ar[n]```时，意思是```*(ar+n)```,寻找内存中的ar，然后移动n个单位，再取出数值。 </code></pre><ul>
+<li><p>指向同一数组的指针可以进行相减，其得到的值是这两个所指向对象之间的距离为n个其对应数据类型的大小——也就是数据元素之间差多少。  </p>
+<pre><code>int marbles[5]={1,2,3,4,5}
+int *pt1,*pt2;
+pt1=&amp;marbles[0];
+pt2=&amp;marbles[4];
+pt2-pt1; /*4*/</code></pre><p>  得到的是pt1与pt2之间距离4个int数值大小。一个int，实际上就是一个元素所占的大小。  5</p>
+<h3 id="🎐处理数组的函数"><a href="#🎐处理数组的函数" class="headerlink" title="🎐处理数组的函数"></a>🎐处理数组的函数</h3></li>
+<li><p><em>处理数组的函数实际上使用指针作为参数*</em></p>
+</li>
+<li><p>函数传入一个数组<br>  数组名同时代表数组首元素的地址，实际参数marbles是一个int的地址，应把它赋给一个类型为指向int的指针的形式参量。</p>
+<pre><code>int sum(int *);
+/*这是函数原型:该函数返回一个int类型的值，传入一个指向int类型的指针*/  
+
+/*计算一个数组的每个元素的和的函数*/
+total=sum(marbles);  </code></pre><blockquote>
+<p>它将得到数组的首元素的地址，而且知道可以从此地址找到一个int。但无从知道数组中元素的数量。  </p>
+  <!-- 可以在指针符号中使用数组名，也可以在数组符号中使用指针名。   -->
+</blockquote>
+<!-- ![](https://i.loli.net/2020/04/03/vGjYx7rbpVugakP.png)     --></li>
+<li><p><em>法一:*</em>  </p>
+</li>
+<li><p>通过传入数组的开始点（指针指出了开始点）<strong><em>AND</em></strong> 一个整型参数来告知数组的大小；</p>
+<pre><code>int sum(int*marble,int n){
+    int i ;
+    for(i=0;i&lt;n;i++)
+        marble[i];
+}</code></pre></li>
+</ul>
+<p><strong>法二:</strong>  </p>
+<ul>
+<li>使用两个指针<br>  一个数组的开始，一个数组的结束。  </li>
+</ul>
+<pre><code>/*函数定义*/
+int sum(int* start,int* end){
+    int total;
+    while(start &lt; end){
+        total += *start;
+        start++;
+    }
+    return total;
+}
+
+
+/*声明*/
+int marbles[SIZE]={1,2};
+/*函数调用*/
+total = sum(marbles,marbles+SIZE);</code></pre><p>marbles即是第一个元素的地址，通过其地址的增加，得到后面的元素。    </p>
+<blockquote>
+<p>C保证在为数组分配储存空间时，指向数组之后的第一个位置的指针也是合法的  </p>
+</blockquote>
+<p>意思就是，在<code>marbles+SIZE</code>,因为是从0开始的，所以一定是超过了的。并不是最后一个元素的地址，而是最后一个元素的下一个地址。但是是可以的。所以要指向最后一个元素，应该-1<code>marbles+SIZE-1</code>  </p>
+<pre><code>/*将上面循环精简*/
+total += *start++;</code></pre><p>*与++同级，但是是从右到左结合。也就是先进行++，但是又要先调用，所以先被得到它的值赋给total，接着它的地址本身增加。而不是对它地址所指向的值+1；  </p>
+<pre><code>total += *++start;
+/*会从1开始，而不是0开始*/</code></pre><h2 id="🎏指针数组运算的总结"><a href="#🎏指针数组运算的总结" class="headerlink" title="🎏指针数组运算的总结"></a>🎏指针数组运算的总结</h2><ol>
+<li>指针本身是有地址的，它自己的地址。<br> 也就是说，指针存着它所指向的值的地址，而它本身也是有地址的。  </li>
+<li>指针指向了数组后，所进行的所有运算，基本上均是其储存的值的运算，也就是所指向的值的地址的改变。它本身的地址不会改变。</li>
+</ol>
+<hr>
+<h1 id="🎱补充：关于常量"><a href="#🎱补充：关于常量" class="headerlink" title="🎱补充：关于常量"></a>🎱补充：关于常量</h1><p>在函数中，使用的参数  </p>
+<ul>
+<li>直接传递某值，不会改变调用函数的数据  </li>
+<li>要通过函数修改值，则调用指针  </li>
+<li>处理数组的函数，只能传递指针。<br>  因为这样效率更高。如果通过值向函数传递数组，那么函数中必须分配足够存放一份原数据的拷贝的储存空间，然后把原数组的所有数据复制到这个新数组中。  </li>
+</ul>
+<p>函数直接传递值，可以保证原始数据的完整性，因为用的是原始数据的拷贝。<br>所以要避免意外地不必要修改了数组的值，可以将数组的数据常量化。  </p>
+<pre><code>void function(const in ar[],int n);
+/*即是ar指向的是包含常量数据的数组*/</code></pre><p>也就是说，里面的数据是不能被改变的。因为里面的数据是被看作常量对待的。所以如果改变了，编译器会报错。  </p>
+<p>由此引出对const应用的总结  </p>
+<ol>
+<li><p><strong>const</strong>与 <strong>#define</strong>在创建符号常量上相同  </p>
+<pre><code>#define SIZE 5
+...
+const int SIZE =5;</code></pre></li>
+<li><p>创建数组常量  </p>
+<ul>
+<li>在函数的参数中，可以保证其数据是常量，从而不被函数改变</li>
+<li>在声明中<code>const int marbles[5]={1,2,5,6,4};</code>,则在后面试图改变数组则将报错<code>marbles[1]=5;</code> 👈报错   </li>
+</ul>
+</li>
+<li><p>创建指向常量的指针<br> 也就是说不能通过指针再来改变它所指向的数据的值。<br> 但是指针所储存的地址可以改变。可以将常量或非常量数据的地址赋给指向常量的指针。(与4对比理解)  </p>
+</li>
+</ol>
+<pre><code>    const int locked[6]={1,2,5,6,4}
+    int marbles[5]={1,2,5,6,4};
+    const int *p = marbles;
+    *p = 10; /*错误*/
+    p[1] = 10; /*错误*/
+    p = &amp;marbles[1]; /*允许*/
+    p = locked; /*允许*/
+
+* **🎱对应补充**  
+而普通指针是不能被赋给常量数据的地址的。只有非常量数据可以赋值给普通指针。  
+
+          double *p2 = marbles; /*允许*/
+          p2 = &amp;marbles[2]; /*允许*/
+          p2 = locked; /*错误*/</code></pre><ol start="4">
+<li><p>初始化指针<br> 是指指针所指向的地址成为了常量。因为将指针类比为变量，将变量声明为常量也就是说变量所储存的值就不再改变。因此指针它所储存的值——也就是地址，将不再改变。  </p>
+<pre><code>int * const p = marbles; //p指向了数组的开始处
+p = &amp;marbles[2]; //错误  
+*p = 2;  //可以改变数据的值</code></pre></li>
+<li><p>既不能改变指向的地址，也不能修改所指向的数据  </p>
+<pre><code>const int * const p = marbles;
+p = &amp;marbles[1]; //错误  
+p = lockedc; //错误  
+*p = 33; //错误  </code></pre></li>
+</ol>
+<hr>
+<h1 id="🎈指针与多维数组"><a href="#🎈指针与多维数组" class="headerlink" title="🎈指针与多维数组"></a>🎈指针与多维数组</h1><h2 id="🎏基本知识"><a href="#🎏基本知识" class="headerlink" title="🎏基本知识"></a>🎏基本知识</h2><h3 id="🎐多维数组"><a href="#🎐多维数组" class="headerlink" title="🎐多维数组"></a>🎐多维数组</h3><pre><code>int zippo[3][4]={
+    {1,2,3,4},
+    {5,6,7,8},
+    {9,10,11,12}
+}</code></pre><ul>
+<li><p>zippo是指向zippo[0]的指针，是zippo[0]的地址<code>zippo=&amp;zippo[0]</code>  </p>
+</li>
+<li><p>而zippo[0]本身又是一个数组，它的地址就是zippo[0][0]的地址  </p>
+</li>
+<li><p>zippo=zippo[0]=&amp;zippo[0][0]    </p>
+</li>
+<li><p>*zippo &gt;&gt; zippo[0]的值 &gt;&gt; zippo[0][0]的地址</p>
+</li>
+<li><p>zippo+1 &gt;&gt; zippo[1]的地址 &gt;&gt; zippo[1][0]的地址</p>
+</li>
+<li><p>zippo[0]+1 &gt;&gt; zippo[0][1]的地址  </p>
+</li>
+<li><p>*zippo+1 &gt;&gt; 指向zippo[0][1]</p>
+</li>
+<li><p>*(zippo+1) &gt;&gt; 指向zippo[1] &gt;&gt;zippo[1][0]的地址  </p>
+<h3 id="🎐指针"><a href="#🎐指针" class="headerlink" title="🎐指针"></a>🎐指针</h3><h3 id="一、-指针与多维数组"><a href="#一、-指针与多维数组" class="headerlink" title="一、 指针与多维数组"></a>一、 指针与多维数组</h3><p>  int (*p) [4];<br>  //指向一个包含4个int值的数组</p>
+<p>  int * p[4];<br>  //[]比*高级，则先与p结合————即声明了一个数组<br>  //再表明这个数组的元素的类型————指针<br>  //int再表明是指向int的指针  </p>
+</li>
+</ul>
+<p>好了，我们现在来说为什么是这样。<br>在前面我们看到<code>zippo+1</code> <strong><em>与</em></strong> <code>zippo[0]+1</code><br>前者加的是4个int，而后者加的是一个int。<br>一个指向包含四个int值得数组的指针+1时，是移动四个int<br>而如果要使它移动一个int，就是取其值<code>*p+1</code> <strong><em>OR</em></strong> <code>p[0]+1</code>  </p>
+<h3 id="二、-指针间的赋值——指针的兼容性"><a href="#二、-指针间的赋值——指针的兼容性" class="headerlink" title="二、 指针间的赋值——指针的兼容性"></a>二、 指针间的赋值——指针的兼容性</h3><p>指针之间的赋值必须是同类型的  </p>
+<pre><code>int n=5;
+double x = 2.5;
+int a1[2][3];
+int a2[3][2];
+int * p0;
+int * p1 =&amp;n; //指向int类型,n的指针
+double * p2 = &amp;x; //指向double类型,x的指针
+int (*p3)[3]; //指向一个包含三个int的数组  
+int **p4  // 指向一个指针  
+
+p1 = p2 //错误
+p0 = &amp;a1[0][0]  //允许,均指向int
+p0 = a1[0] //允许,均指向int
+p0 = a1 // 错误
+p3 = a1 // 正确  
+p3 = a2 // 错误，a2是指向包含两个int的数组
+p4 = &amp;p0 //正确 
+p4 = ar2 //错误 p4是指向int指针的指针  ar2是指向int[2]的指针
+*p4 = ar2[0] //正确  *p4是指向int的指针，而ar2[0]是指向ar[0][0]的指针  
+
+
+----
+
+int * pi;
+const int * p2; //指向常量的指针
+const int ** pp2; //指向常量的指针的指针  
+p1 = p2   // 错误，把const指针赋给非const指针，只能把非常量数据赋给普通指针
+p2 = p1  //正确，常量和非常量数据都能赋给指向常量的指针
+pp2 = &amp;p1 //非法，把非const指针赋给const指针只能赋值一层
+
+
+/*两层间接运算将不安全*/
+const int **pp2;
+int *pi;
+const int n=10;
+pp2 = &amp;p1; //假设允许
+*pp2 =&amp;n;  //合法，二者都是const，pp2所指向的指针将指向n，也就是p1将指向n
+*p1 = 13;   //合法，但改变了n的值</code></pre><h3 id="🎐函数"><a href="#🎐函数" class="headerlink" title="🎐函数"></a>🎐函数</h3><h4 id="一、引子"><a href="#一、引子" class="headerlink" title="一、引子"></a>一、引子</h4><pre><code>int function(int (*p)[][COL],int rows);
+int function(int zippo[][COL],int rows);
+/*也应该声明为指向内部多少个int值的指针或者数组*/   
+/*除了最左边的第一个括号可以不写以外，其他的都要写*/  </code></pre><p>因为编译器需要知道所指向对象的数据大小。<br>ar[1]会被转化为ar+1<br>那么编译器要知道它需要走几步<br>所以除了第一个以外，其余都需要写明。<br>这样编译器才知道，哦，原来走一个要COL个int啊。<br>如果再有，比如a[3][4][6]<br>那编译器就会知道，要下移一个，就需要走4个，而这四个中的每一个之间又隔了6个<br>所以就写为<code>int function(int (*p) [][4][6],int rows);</code></p>
+<h4 id="二、VLA"><a href="#二、VLA" class="headerlink" title="二、VLA"></a>二、VLA</h4><p>编写函数，要能处理任意的多维数组，而不是仅能用于确定列数的（以二维数组为例）的数组，就需要用到VLA————变长数组。<br>变长数组的含义其实很简单，就是其维大小能够由变量指定。  </p>
+<pre><code>int n =5;
+int m = 6;
+int marbles[m][n];  </code></pre><p>则对于变长数组，函数的定义方式则是，在函数原型和定义中均要先声明它的行和列的变量，再声明指针。  </p>
+<pre><code>int function(int rows,int col,int a[rows][col]);  </code></pre><h4 id="三、复合文字"><a href="#三、复合文字" class="headerlink" title="三、复合文字"></a>三、复合文字</h4><p>简便的声明方式————复合文字<br>复合文字创建的数组没有名称，所以在创建它们的同时就要通过某种方法来使用它们。<br>比如用指针来保存他们的地址；或者可以在函数的调用中直接使用。  </p>
+<pre><code>(int [4]) {10,12,11,33} //创建一个包含四个int值的数组  
+/*也可以没有SIZE的声明，通过元素的数量来自行匹配*/  
+(int[]) {1,2}
+
+#include&lt;stdio.h&gt;
+int sum(int ar[],int n);
+int sum2d(int ar[][2],int rows);
+int main{
+    int * p;
+    int (*o) [2];
+    o=(int[3][2]){{1,2},{3,4},{5,6}};
+    p = (int[5]{1,2,3,4,5});    
+    sum(p,5);
+    sum2d(o,3);
+    sum2d((int[][2]){{1,3},{2,4},{5,7},{9,6}},4);</code></pre>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/14/C%E8%AF%AD%E8%A8%80%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA/" rel="prev" title="C语言——输入与输出">
+      <i class="fa fa-chevron-left"></i> C语言——输入与输出
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈数组"><span class="nav-number">1.</span> <span class="nav-text">🎈数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏数组的声明"><span class="nav-number">1.1.</span> <span class="nav-text">🎏数组的声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏多维数组"><span class="nav-number">1.2.</span> <span class="nav-text">🎏多维数组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈指针"><span class="nav-number">2.</span> <span class="nav-text">🎈指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏指针的声明"><span class="nav-number">2.1.</span> <span class="nav-text">🎏指针的声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏指针的大小"><span class="nav-number">2.2.</span> <span class="nav-text">🎏指针的大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏指针与数组"><span class="nav-number">2.3.</span> <span class="nav-text">🎏指针与数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#🎐基本知识"><span class="nav-number">2.3.1.</span> <span class="nav-text">🎐基本知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#🎐处理数组的函数"><span class="nav-number">2.3.2.</span> <span class="nav-text">🎐处理数组的函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏指针数组运算的总结"><span class="nav-number">2.4.</span> <span class="nav-text">🎏指针数组运算的总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎱补充：关于常量"><span class="nav-number">3.</span> <span class="nav-text">🎱补充：关于常量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎈指针与多维数组"><span class="nav-number">4.</span> <span class="nav-text">🎈指针与多维数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎏基本知识"><span class="nav-number">4.1.</span> <span class="nav-text">🎏基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#🎐多维数组"><span class="nav-number">4.1.1.</span> <span class="nav-text">🎐多维数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#🎐指针"><span class="nav-number">4.1.2.</span> <span class="nav-text">🎐指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一、-指针与多维数组"><span class="nav-number">4.1.3.</span> <span class="nav-text">一、 指针与多维数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、-指针间的赋值——指针的兼容性"><span class="nav-number">4.1.4.</span> <span class="nav-text">二、 指针间的赋值——指针的兼容性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#🎐函数"><span class="nav-number">4.1.5.</span> <span class="nav-text">🎐函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、引子"><span class="nav-number">4.1.5.1.</span> <span class="nav-text">一、引子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、VLA"><span class="nav-number">4.1.5.2.</span> <span class="nav-text">二、VLA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、复合文字"><span class="nav-number">4.1.5.3.</span> <span class="nav-text">三、复合文字</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.1.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

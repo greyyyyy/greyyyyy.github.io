@@ -165,6 +165,491 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/03/%E6%8C%87%E9%92%88%E4%B8%8E%E6%95%B0%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/03/%E6%8C%87%E9%92%88%E4%B8%8E%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">指针与数组</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-03 20:22:44" itemprop="dateCreated datePublished" datetime="2020-05-03T20:22:44+08:00">2020-05-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-11 09:49:17" itemprop="dateModified" datetime="2020-05-11T09:49:17+08:00">2020-05-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="🎈数组"><a href="#🎈数组" class="headerlink" title="🎈数组"></a>🎈数组</h1><h2 id="🎏数组的声明"><a href="#🎏数组的声明" class="headerlink" title="🎏数组的声明"></a>🎏数组的声明</h2><pre><code>int marbles[SIZE]={1,2};</code></pre><ul>
+<li><p>声明数组中的元素是什么类型(int)</p>
+</li>
+<li><p>声明数组元素的数目(SIZE)</p>
+</li>
+<li><p>数组元素用逗号隔开，而元素与逗号之间可以有空格({1,2} OR {1 , 2})</p>
+</li>
+<li><p>数组也支持对其进行常量化——也就是可读数组,程序不向数组中写数据</p>
+<pre><code>const int marbles[SIZE]={1,2};</code></pre></li>
+</ul>
+<hr>
+<ul>
+<li><p>如果<strong>完全没有初始化</strong><code>int marbles[SIZE]</code>,则数组中的元素储存的是无用的数值(同未初始化的普通变量)</p>
+</li>
+<li><p>如果<strong>部分初始化</strong>，如同上面的例子中。如果<code>SIZE&gt;2</code>,则是部分初始化，则其他没有赋值的，将默认为0</p>
+</li>
+<li><p>可以<strong>不声明SIZE</strong>；此时编译器会自动匹配数组大小和初始化列表中的项目数目  </p>
+<ul>
+<li><p>其数组大小可通过<code>SIZE = sizeof(marbles)/sizeof(*marbles)</code>得到</p>
+<pre><code>int marbles[]={1,45,78,2,5,457,45}；</code></pre></li>
+</ul>
+</li>
+<li><p><strong>SIZE的写法</strong>  </p>
+<ul>
+<li>必须是正整数——若为浮点数，可以转化<code>int marbles[(int)2.5];</code></li>
+<li>可以是整数常量表达式——包括<code>sizeof</code>表达式</li>
+<li>可以是已赋值的变量<code>int n = 5;int marbles[n];</code></li>
+<li>可以是变量，也就是VLA，变长数组，将在后面提到</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>传统C中如果要声明某一个元素的值，只能按照顺序一个一个地声明到那里。<br>  而在C99中<code>int marbles[SIZE] ={[5]=2};</code>  <ul>
+<li>对一个元素多次声明将只取最后一次  </li>
+<li>指定了一个位置之后，其后的所有数值都将赋给这个位置后的元素<br>  而这个指定位置前，若并没有轮到他，则前面有几个数，还是按照顺序赋值给元素，不够之后就是0  </li>
+</ul>
+</li>
+</ul>
+<pre><code>int marbles[10]={0,1,2,[6]=6,7,8,[2]=3}
+/*marbles[0] = 0*/
+/*marbles[1] = 1*/
+/*marbles[2] = 3*/
+/*marbles[4] = 0*/
+/*marbles[5] = 0*/
+/*marbles[6] = 6*/
+/*marbles[7] = 7*/
+/*marbles[8] = 8*/
+/*marbles[9] = 0*/</code></pre><ul>
+<li>C不支持整体赋值<br>  Eg.<code>marbles1=marbles2</code> <strong><em>OR</em></strong> <code>marbles1[SIZE]=marbles2[SIZE]</code>  <ul>
+<li>也不支持除初始化以外的花括号赋值<br>Eg.<code>int marbles[SIZE];marbles[SIZE]={1,2}</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="🎏多维数组"><a href="#🎏多维数组" class="headerlink" title="🎏多维数组"></a>🎏多维数组</h2><p>多维数组的数据类型声明实际上就是出现数值元素的数据的声明即可。</p>
+<pre><code>int marbles[10][5];
+/*marbles具有十个元素，每个元素是包含5个元素的数组*/</code></pre><hr>
+<h1 id="🎈指针"><a href="#🎈指针" class="headerlink" title="🎈指针"></a>🎈指针</h1><h2 id="🎏指针的声明"><a href="#🎏指针的声明" class="headerlink" title="🎏指针的声明"></a>🎏指针的声明</h2><pre><code>int * a,b;
+/*声明了a是一个指向int类型变量的指针，而b是一个int类型的变量*/
+
+int * a,*b;
+/*这样才将a与b均声明为了指针*/</code></pre><h2 id="🎏指针的大小"><a href="#🎏指针的大小" class="headerlink" title="🎏指针的大小"></a>🎏指针的大小</h2><p>指针的大小是固定。<br>指针只是一个放地址的地方。不管它指向的是什么数据类型，它本身只是一个放地址的，它的大小是不变的。<br>在我的电脑上测得为8<br><img src="https://i.loli.net/2020/05/03/eLS3od8yDNCiE54.png" alt=""><br>可以看到指针大小是指针大小，而指针的值，对于数组来说就是指的第一个元素。也就是它的数据类型的大小。<br>而如果对数组进行检查，得到的则是所有该数据类型的和<code>4*5=20</code>，而如果写为<code>*data</code>此时的data则是首元素的地址，所以也就是首元素的数据类型的大小。</p>
+<h2 id="🎏指针与数组"><a href="#🎏指针与数组" class="headerlink" title="🎏指针与数组"></a>🎏指针与数组</h2><h3 id="🎐基本知识"><a href="#🎐基本知识" class="headerlink" title="🎐基本知识"></a>🎐基本知识</h3><p><img src="https://i.loli.net/2020/05/03/oRmknPLACT5hl6q.png" alt=""></p>
+<p>数组中的元素均不能够直接<code>p = data[*]</code><br>但是表达数组的地址，可以直接<code>p=data</code><br>数组不可以<code>p=&amp;data</code>👈这是错误的<br><img src="https://i.loli.net/2020/05/03/mf8Ub1qPDtMGWg7.png" alt=""></p>
+<ul>
+<li>数组的地址与其首元素的地址一样，可以说数组的名字就是指向首元素的指针</li>
+<li>对数组的地址<code>+1</code>则移向数组中的下一元素的地址，<code>-1</code>则移向上一个</li>
+<li>地址的增量实际上反映了该数据类型是采取几个字节进行储存。<ul>
+<li>因为<code>int</code>是采用四个字节，所以，地址<code>+1</code>实际上加了4<blockquote>
+<p>在C中，对一个指针加1的结果是对该指针增加一个储存单元。对于数组而言，地址会增加到下一个元素的地址，而不是下一个字节。<br>地址的内部表示方式是有硬件来决定的。很多计算机都是以字节编址的，这意味着对每个内存字节顺序进行编号。对于包含多个字节的数据类型，比如double类型的变量，对象的地址通常指的是其首字节的地址。<br>对指针加1，等价于对指针的值加上它指向的对象的数值。  </p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>    data+2 == &amp;data[2] 
+    * (data+2) == data[2]
+&gt; C语言标准在描述数组时，确实借助了指针的概念。  
+定义```ar[n]```时，意思是```*(ar+n)```,寻找内存中的ar，然后移动n个单位，再取出数值。 </code></pre><ul>
+<li><p>指向同一数组的指针可以进行相减，其得到的值是这两个所指向对象之间的距离为n个其对应数据类型的大小——也就是数据元素之间差多少。  </p>
+<pre><code>int marbles[5]={1,2,3,4,5}
+int *pt1,*pt2;
+pt1=&amp;marbles[0];
+pt2=&amp;marbles[4];
+pt2-pt1; /*4*/</code></pre><p>  得到的是pt1与pt2之间距离4个int数值大小。一个int，实际上就是一个元素所占的大小。  5</p>
+<h3 id="🎐处理数组的函数"><a href="#🎐处理数组的函数" class="headerlink" title="🎐处理数组的函数"></a>🎐处理数组的函数</h3></li>
+<li><p><em>处理数组的函数实际上使用指针作为参数*</em></p>
+</li>
+<li><p>函数传入一个数组<br>  数组名同时代表数组首元素的地址，实际参数marbles是一个int的地址，应把它赋给一个类型为指向int的指针的形式参量。</p>
+<pre><code>int sum(int *);
+/*这是函数原型:该函数返回一个int类型的值，传入一个指向int类型的指针*/  
+
+/*计算一个数组的每个元素的和的函数*/
+total=sum(marbles);  </code></pre><blockquote>
+<p>它将得到数组的首元素的地址，而且知道可以从此地址找到一个int。但无从知道数组中元素的数量。  </p>
+  <!-- 可以在指针符号中使用数组名，也可以在数组符号中使用指针名。   -->
+</blockquote>
+<!-- ![](https://i.loli.net/2020/04/03/vGjYx7rbpVugakP.png)     --></li>
+<li><p><em>法一:*</em>  </p>
+</li>
+<li><p>通过传入数组的开始点（指针指出了开始点）<strong><em>AND</em></strong> 一个整型参数来告知数组的大小；</p>
+<pre><code>int sum(int*marble,int n){
+    int i ;
+    for(i=0;i&lt;n;i++)
+        marble[i];
+}</code></pre></li>
+</ul>
+<p><strong>法二:</strong>  </p>
+<ul>
+<li>使用两个指针<br>  一个数组的开始，一个数组的结束。  </li>
+</ul>
+<pre><code>/*函数定义*/
+int sum(int* start,int* end){
+    int total;
+    while(start &lt; end){
+        total += *start;
+        start++;
+    }
+    return total;
+}
+
+
+/*声明*/
+int marbles[SIZE]={1,2};
+/*函数调用*/
+total = sum(marbles,marbles+SIZE);</code></pre><p>marbles即是第一个元素的地址，通过其地址的增加，得到后面的元素。    </p>
+<blockquote>
+<p>C保证在为数组分配储存空间时，指向数组之后的第一个位置的指针也是合法的  </p>
+</blockquote>
+<p>意思就是，在<code>marbles+SIZE</code>,因为是从0开始的，所以一定是超过了的。并不是最后一个元素的地址，而是最后一个元素的下一个地址。但是是可以的。所以要指向最后一个元素，应该-1<code>marbles+SIZE-1</code>  </p>
+<pre><code>/*将上面循环精简*/
+total += *start++;</code></pre><p>*与++同级，但是是从右到左结合。也就是先进行++，但是又要先调用，所以先被得到它的值赋给total，接着它的地址本身增加。而不是对它地址所指向的值+1；  </p>
+<pre><code>total += *++start;
+/*会从1开始，而不是0开始*/</code></pre><h2 id="🎏指针数组运算的总结"><a href="#🎏指针数组运算的总结" class="headerlink" title="🎏指针数组运算的总结"></a>🎏指针数组运算的总结</h2><ol>
+<li>指针本身是有地址的，它自己的地址。<br> 也就是说，指针存着它所指向的值的地址，而它本身也是有地址的。  </li>
+<li>指针指向了数组后，所进行的所有运算，基本上均是其储存的值的运算，也就是所指向的值的地址的改变。它本身的地址不会改变。</li>
+</ol>
+<hr>
+<h1 id="🎱补充：关于常量"><a href="#🎱补充：关于常量" class="headerlink" title="🎱补充：关于常量"></a>🎱补充：关于常量</h1><p>在函数中，使用的参数  </p>
+<ul>
+<li>直接传递某值，不会改变调用函数的数据  </li>
+<li>要通过函数修改值，则调用指针  </li>
+<li>处理数组的函数，只能传递指针。<br>  因为这样效率更高。如果通过值向函数传递数组，那么函数中必须分配足够存放一份原数据的拷贝的储存空间，然后把原数组的所有数据复制到这个新数组中。  </li>
+</ul>
+<p>函数直接传递值，可以保证原始数据的完整性，因为用的是原始数据的拷贝。<br>所以要避免意外地不必要修改了数组的值，可以将数组的数据常量化。  </p>
+<pre><code>void function(const in ar[],int n);
+/*即是ar指向的是包含常量数据的数组*/</code></pre><p>也就是说，里面的数据是不能被改变的。因为里面的数据是被看作常量对待的。所以如果改变了，编译器会报错。  </p>
+<p>由此引出对const应用的总结  </p>
+<ol>
+<li><p><strong>const</strong>与 <strong>#define</strong>在创建符号常量上相同  </p>
+<pre><code>#define SIZE 5
+...
+const int SIZE =5;</code></pre></li>
+<li><p>创建数组常量  </p>
+<ul>
+<li>在函数的参数中，可以保证其数据是常量，从而不被函数改变</li>
+<li>在声明中<code>const int marbles[5]={1,2,5,6,4};</code>,则在后面试图改变数组则将报错<code>marbles[1]=5;</code> 👈报错   </li>
+</ul>
+</li>
+<li><p>创建指向常量的指针<br> 也就是说不能通过指针再来改变它所指向的数据的值。<br> 但是指针所储存的地址可以改变。可以将常量或非常量数据的地址赋给指向常量的指针。(与4对比理解)  </p>
+</li>
+</ol>
+<pre><code>    const int locked[6]={1,2,5,6,4}
+    int marbles[5]={1,2,5,6,4};
+    const int *p = marbles;
+    *p = 10; /*错误*/
+    p[1] = 10; /*错误*/
+    p = &amp;marbles[1]; /*允许*/
+    p = locked; /*允许*/
+
+* **🎱对应补充**  
+而普通指针是不能被赋给常量数据的地址的。只有非常量数据可以赋值给普通指针。  
+
+          double *p2 = marbles; /*允许*/
+          p2 = &amp;marbles[2]; /*允许*/
+          p2 = locked; /*错误*/</code></pre><ol start="4">
+<li><p>初始化指针<br> 是指指针所指向的地址成为了常量。因为将指针类比为变量，将变量声明为常量也就是说变量所储存的值就不再改变。因此指针它所储存的值——也就是地址，将不再改变。  </p>
+<pre><code>int * const p = marbles; //p指向了数组的开始处
+p = &amp;marbles[2]; //错误  
+*p = 2;  //可以改变数据的值</code></pre></li>
+<li><p>既不能改变指向的地址，也不能修改所指向的数据  </p>
+<pre><code>const int * const p = marbles;
+p = &amp;marbles[1]; //错误  
+p = lockedc; //错误  
+*p = 33; //错误  </code></pre></li>
+</ol>
+<hr>
+<h1 id="🎈指针与多维数组"><a href="#🎈指针与多维数组" class="headerlink" title="🎈指针与多维数组"></a>🎈指针与多维数组</h1><h2 id="🎏基本知识"><a href="#🎏基本知识" class="headerlink" title="🎏基本知识"></a>🎏基本知识</h2><h3 id="🎐多维数组"><a href="#🎐多维数组" class="headerlink" title="🎐多维数组"></a>🎐多维数组</h3><pre><code>int zippo[3][4]={
+    {1,2,3,4},
+    {5,6,7,8},
+    {9,10,11,12}
+}</code></pre><ul>
+<li><p>zippo是指向zippo[0]的指针，是zippo[0]的地址<code>zippo=&amp;zippo[0]</code>  </p>
+</li>
+<li><p>而zippo[0]本身又是一个数组，它的地址就是zippo[0][0]的地址  </p>
+</li>
+<li><p>zippo=zippo[0]=&amp;zippo[0][0]    </p>
+</li>
+<li><p>*zippo &gt;&gt; zippo[0]的值 &gt;&gt; zippo[0][0]的地址</p>
+</li>
+<li><p>zippo+1 &gt;&gt; zippo[1]的地址 &gt;&gt; zippo[1][0]的地址</p>
+</li>
+<li><p>zippo[0]+1 &gt;&gt; zippo[0][1]的地址  </p>
+</li>
+<li><p>*zippo+1 &gt;&gt; 指向zippo[0][1]</p>
+</li>
+<li><p>*(zippo+1) &gt;&gt; 指向zippo[1] &gt;&gt;zippo[1][0]的地址  </p>
+<h3 id="🎐指针"><a href="#🎐指针" class="headerlink" title="🎐指针"></a>🎐指针</h3><h3 id="一、-指针与多维数组"><a href="#一、-指针与多维数组" class="headerlink" title="一、 指针与多维数组"></a>一、 指针与多维数组</h3><p>  int (*p) [4];<br>  //指向一个包含4个int值的数组</p>
+<p>  int * p[4];<br>  //[]比*高级，则先与p结合————即声明了一个数组<br>  //再表明这个数组的元素的类型————指针<br>  //int再表明是指向int的指针  </p>
+</li>
+</ul>
+<p>好了，我们现在来说为什么是这样。<br>在前面我们看到<code>zippo+1</code> <strong><em>与</em></strong> <code>zippo[0]+1</code><br>前者加的是4个int，而后者加的是一个int。<br>一个指向包含四个int值得数组的指针+1时，是移动四个int<br>而如果要使它移动一个int，就是取其值<code>*p+1</code> <strong><em>OR</em></strong> <code>p[0]+1</code>  </p>
+<h3 id="二、-指针间的赋值——指针的兼容性"><a href="#二、-指针间的赋值——指针的兼容性" class="headerlink" title="二、 指针间的赋值——指针的兼容性"></a>二、 指针间的赋值——指针的兼容性</h3><p>指针之间的赋值必须是同类型的  </p>
+<pre><code>int n=5;
+double x = 2.5;
+int a1[2][3];
+int a2[3][2];
+int * p0;
+int * p1 =&amp;n; //指向int类型,n的指针
+double * p2 = &amp;x; //指向double类型,x的指针
+int (*p3)[3]; //指向一个包含三个int的数组  
+int **p4  // 指向一个指针  
+
+p1 = p2 //错误
+p0 = &amp;a1[0][0]  //允许,均指向int
+p0 = a1[0] //允许,均指向int
+p0 = a1 // 错误
+p3 = a1 // 正确  
+p3 = a2 // 错误，a2是指向包含两个int的数组
+p4 = &amp;p0 //正确 
+p4 = ar2 //错误 p4是指向int指针的指针  ar2是指向int[2]的指针
+*p4 = ar2[0] //正确  *p4是指向int的指针，而ar2[0]是指向ar[0][0]的指针  
+
+
+----
+
+int * pi;
+const int * p2; //指向常量的指针
+const int ** pp2; //指向常量的指针的指针  
+p1 = p2   // 错误，把const指针赋给非const指针，只能把非常量数据赋给普通指针
+p2 = p1  //正确，常量和非常量数据都能赋给指向常量的指针
+pp2 = &amp;p1 //非法，把非const指针赋给const指针只能赋值一层
+
+
+/*两层间接运算将不安全*/
+const int **pp2;
+int *pi;
+const int n=10;
+pp2 = &amp;p1; //假设允许
+*pp2 =&amp;n;  //合法，二者都是const，pp2所指向的指针将指向n，也就是p1将指向n
+*p1 = 13;   //合法，但改变了n的值</code></pre><h3 id="🎐函数"><a href="#🎐函数" class="headerlink" title="🎐函数"></a>🎐函数</h3><h4 id="一、引子"><a href="#一、引子" class="headerlink" title="一、引子"></a>一、引子</h4><pre><code>int function(int (*p)[][COL],int rows);
+int function(int zippo[][COL],int rows);
+/*也应该声明为指向内部多少个int值的指针或者数组*/   
+/*除了最左边的第一个括号可以不写以外，其他的都要写*/  </code></pre><p>因为编译器需要知道所指向对象的数据大小。<br>ar[1]会被转化为ar+1<br>那么编译器要知道它需要走几步<br>所以除了第一个以外，其余都需要写明。<br>这样编译器才知道，哦，原来走一个要COL个int啊。<br>如果再有，比如a[3][4][6]<br>那编译器就会知道，要下移一个，就需要走4个，而这四个中的每一个之间又隔了6个<br>所以就写为<code>int function(int (*p) [][4][6],int rows);</code></p>
+<h4 id="二、VLA"><a href="#二、VLA" class="headerlink" title="二、VLA"></a>二、VLA</h4><p>编写函数，要能处理任意的多维数组，而不是仅能用于确定列数的（以二维数组为例）的数组，就需要用到VLA————变长数组。<br>变长数组的含义其实很简单，就是其维大小能够由变量指定。  </p>
+<pre><code>int n =5;
+int m = 6;
+int marbles[m][n];  </code></pre><p>则对于变长数组，函数的定义方式则是，在函数原型和定义中均要先声明它的行和列的变量，再声明指针。  </p>
+<pre><code>int function(int rows,int col,int a[rows][col]);  </code></pre><h4 id="三、复合文字"><a href="#三、复合文字" class="headerlink" title="三、复合文字"></a>三、复合文字</h4><p>简便的声明方式————复合文字<br>复合文字创建的数组没有名称，所以在创建它们的同时就要通过某种方法来使用它们。<br>比如用指针来保存他们的地址；或者可以在函数的调用中直接使用。  </p>
+<pre><code>(int [4]) {10,12,11,33} //创建一个包含四个int值的数组  
+/*也可以没有SIZE的声明，通过元素的数量来自行匹配*/  
+(int[]) {1,2}
+
+#include&lt;stdio.h&gt;
+int sum(int ar[],int n);
+int sum2d(int ar[][2],int rows);
+int main{
+    int * p;
+    int (*o) [2];
+    o=(int[3][2]){{1,2},{3,4},{5,6}};
+    p = (int[5]{1,2,3,4,5});    
+    sum(p,5);
+    sum2d(o,3);
+    sum2d((int[][2]){{1,3},{2,4},{5,7},{9,6}},4);</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/14/C%E8%AF%AD%E8%A8%80%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/14/C%E8%AF%AD%E8%A8%80%E2%80%94%E2%80%94%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA/" class="post-title-link" itemprop="url">C语言——输入与输出</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-14 17:54:43" itemprop="dateCreated datePublished" datetime="2020-03-14T17:54:43+08:00">2020-03-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-08 21:47:41" itemprop="dateModified" datetime="2020-05-08T21:47:41+08:00">2020-05-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="🎈printf"><a href="#🎈printf" class="headerlink" title="🎈printf()"></a>🎈printf()</h1><h2 id="🎏printf-综介"><a href="#🎏printf-综介" class="headerlink" title="🎏printf()综介"></a>🎏printf()综介</h2><pre><code>printf(control-string,item1,item2..)   </code></pre><p>控制字符串<code>control-string</code>就是双引号所包含的内容，其中有要输出的字符串以及转换说明符<code>%*</code>,<code>item</code>即是要输出的对象，他的数量与转换说明符相同。转换说明符指定了如何把数据转换为可显示形式。   </p>
+<h2 id="🎏转换说明符及其修饰符"><a href="#🎏转换说明符及其修饰符" class="headerlink" title="🎏转换说明符及其修饰符"></a>🎏转换说明符及其修饰符</h2><h3 id="🎐转换说明符"><a href="#🎐转换说明符" class="headerlink" title="🎐转换说明符"></a>🎐转换说明符</h3><ul>
+<li>整数  <ul>
+<li>十进制  <ul>
+<li>有符号<code>%d</code>&amp;<code>%i</code></li>
+<li>无符号<code>%u</code></li>
+</ul>
+</li>
+<li>十六进制  <ul>
+<li>有符号<ul>
+<li>0f –&gt; <code>%x</code></li>
+<li>0F –&gt; <code>%X</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>八进制  <ul>
+<li>无符号<code>%o</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>浮点数  <ul>
+<li>十进制  <ul>
+<li>科学计数法<code>%e</code>&amp;<code>%E</code></li>
+<li>一般<code>%f</code></li>
+<li>根据具体值选<code>%g</code>&amp;<code>%G</code><br>当指数小于<code>-4</code>或大于等于精度时选择<code>%e</code></li>
+</ul>
+</li>
+<li>十六进制  <ul>
+<li>p-计数法<code>%a</code>&amp;<code>%A</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>字符<code>%c</code></li>
+<li>字符串<code>%s</code></li>
+<li>指针<code>%p</code></li>
+<li>百分号<code>%%</code>    </li>
+</ul>
+<p><strong><em>🎱补充：字符与字符串的区别在于.字符是基本类型<code>char</code>类型，而字符串是衍生类型<code>char 数组</code>类型。对于<code>&#39;x&#39; &lt;-- 1个字符</code>而<code>&quot;x&quot; &lt;-- 2个字符 (加上了\0)</code></em></strong>  </p>
+<hr>
+<h3 id="🎐修饰符"><a href="#🎐修饰符" class="headerlink" title="🎐修饰符"></a>🎐修饰符</h3><p>这里主要提一下输出形式的问题。<br>①</p>
+<pre><code>%a.b*</code></pre><p>a,b均为限制某的长度，<em>表示<code>f/d/g/s</code><br>*</em>a<strong>是这整个字节的最小长度，如果不够，默认用空格补齐，如果在其前面加上<code>0</code>则以0补齐<code>%0a.b*</code><br>**b</strong>对于不同类型有不同的意义  </p>
+<ul>
+<li>%f / %e  <ul>
+<li>表示小数点后几位,如果多了，则通过四舍五入来舍去。这个小数点后几位，对于科学计数法来说自然是<code>5.36e+03</code>,这个小数点后是2位，并且里面所有的字符都要算，所以一共有8个字节</li>
+</ul>
+</li>
+<li>%g<ul>
+<li>有效数字位数，如果多了，而又要表达，除了四舍五入，还会转化为科学计数法，则此时的有效位数是指e前面的</li>
+</ul>
+</li>
+<li>%s <ul>
+<li>打印的字符的最大数目，多了就舍去</li>
+</ul>
+</li>
+<li>%d<ul>
+<li>数字部分有多少位，如果不够前面添零补齐，这个跟左对齐没有关系，也就是就算是左对齐仍然是前方添零补齐</li>
+</ul>
+</li>
+</ul>
+<p>②标志  </p>
+<ul>
+<li>#  <ul>
+<li>十六进制/八进制能够输出<code>0x</code>与<code>0</code></li>
+<li>保证所有浮点类型都会打印出小数点，并且保证%g格式不会将尾随的零删掉</li>
+</ul>
+</li>
+<li>- <ul>
+<li>左对齐，体现在如果要用空格补齐时，可以很清晰地看到是在前面补的，所以如果添加了这个，就会补在后面，保证内容一直在左边开始  </li>
+</ul>
+</li>
+<li>+ <ul>
+<li>有符号数字前面添加正负号  </li>
+</ul>
+</li>
+<li>0  <ul>
+<li>补充为0而不是空格  </li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2020/03/14/sqxRuKtAfkb3oLS.png" alt=""><br><img src="https://i.loli.net/2020/03/14/WnsZLB9d2D4RPwx.png" alt=""><br>我们从这两个例子中可以清晰地看出特别是对于<code>%g</code>如果位数不够会怎样，并且如何理解<code>所有的浮点数类型都保证有小数点</code>这句话，以及他们是不是四舍五入的方法舍去，以及什么是左对齐等   </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E9%97%AD%E5%8C%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1431,680 +1916,6 @@ scrapy crawl name -o name.xml -t xml</code></pre></li>
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/SCI%E7%9A%84%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/14/SCI%E7%9A%84%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">SCI的相关知识</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-02-14 17:07:38 / Modified: 20:50:52" itemprop="dateCreated datePublished" datetime="2020-02-14T17:07:38+08:00">2020-02-14</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="🎈SCI期刊"><a href="#🎈SCI期刊" class="headerlink" title="🎈SCI期刊"></a>🎈SCI期刊</h1><p><strong><em>SCI期刊是指被SCI收录的期刊。</em></strong>  </p>
-<h2 id="🎏SCI"><a href="#🎏SCI" class="headerlink" title="🎏SCI"></a>🎏SCI</h2><h3 id="🎐定义"><a href="#🎐定义" class="headerlink" title="🎐定义"></a>🎐定义</h3><ul>
-<li>SCI是一种科技文献检索系统，是国际公认的进行科学统计与科学评价的主要检索工具。  </li>
-<li>通过统计大量的引文，然后得出某期刊某论文在某学科内的影响因子、被引频次、即时指数等量化指标来对期刊、论文等进行排行。被引频次高，说明该论文在它所研究的领域里产生了巨大的影响，被国际同行重视，学术水平高。  <h3 id="🎐选入SCI系统"><a href="#🎐选入SCI系统" class="headerlink" title="🎐选入SCI系统"></a>🎐选入SCI系统</h3></li>
-<li>SCI对全球的自然科学刊物进行考察，凡影响因子大于某一临界值的刊物，则可以进入SCI系统。 进入SCI系统的刊物分为两类，即内圈和外圈，前者的影响因子高于后者，前者称为SCI刊物，后者称为SCIsearch刊物。<h3 id="🎐分区问题"><a href="#🎐分区问题" class="headerlink" title="🎐分区问题"></a>🎐分区问题</h3></li>
-<li>SCI刊物还分为影响因子高区（大于1.105)、中区(在1.105和0.422之间）和低区（小于0.422)3类。</li>
-<li>SCI期刊有两个分区规则:JCR分区和中科院分区。  <ul>
-<li>JCR分区:<br>  JCR分区根据影响因子，某个学科的所有期刊都按照上一年的影响因子降序排列，然后平均4等分，分别是Q1,Q2,Q3,Q4</li>
-<li>中科院分区:<br>  一区刊:各类期刊三年平均影响因子的前5%，二区刊:6%-20%，三区刊:前21%-50%，四区刊:剩下的。<h1 id="🎈-刊物指标"><a href="#🎈-刊物指标" class="headerlink" title="🎈 刊物指标"></a>🎈 刊物指标</h1><h2 id="🎏-影响因子"><a href="#🎏-影响因子" class="headerlink" title="🎏 影响因子"></a>🎏 影响因子</h2>在一定时期（通常是前两年）内，某一刊物发表的论文，被已经进入SCI刊物的论文所引用的总次数，除以该刊物这一时期内的论文总数，即为该刊物的影响因子。一般来说每一年的6月份公布影响因子，影响因子并不是该年度，而是上一年度的影响因子。<h2 id="🎏-引用半衰期与被引用半衰期"><a href="#🎏-引用半衰期与被引用半衰期" class="headerlink" title="🎏 引用半衰期与被引用半衰期"></a>🎏 引用半衰期与被引用半衰期</h2></li>
-</ul>
-</li>
-<li>引用半衰期  <ul>
-<li>引用半衰期是指该期刊引用的全部参考文献中，较新一半是在多长一段时间内发表的。  <ul>
-<li>举例:《Nature》2015年的引用半衰期是6年，即2015年《Nature》发表论文的所有参考文献中，50%的参考文献是近6年内出版的。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>被引用半衰期  <ul>
-<li>显示一份期刊从当前年度向前推算引用数占截止当前年度被引用期刊的总引用数50%的年数，是测度期刊老化速度的一种指标。 半衰期通常不是针对个别文献或某一组文献，而是指某一学科或专业领域的文献总和而言的。<h2 id="🎏-及时指数"><a href="#🎏-及时指数" class="headerlink" title="🎏 及时指数"></a>🎏 及时指数</h2>是指一种期刊当年发表的文献在当年被引用的次数与当年的文献总数之比。此指标表示期刊论文所述的研究课题在当前的热门程度。<h2 id="🎏-被引频次"><a href="#🎏-被引频次" class="headerlink" title="🎏 被引频次"></a>🎏 被引频次</h2>自期刊创刊以来全部论文在某一年被引用的总次数（绝对数量指标）<h2 id="🎏-反应速率"><a href="#🎏-反应速率" class="headerlink" title="🎏 反应速率"></a>🎏 反应速率</h2>期刊前1年发表论文在评价当年的被引次数占前1年论文总量的比例（相对数量指标）。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="🎈文献检索方法"><a href="#🎈文献检索方法" class="headerlink" title="🎈文献检索方法"></a>🎈文献检索方法</h1><h2 id="🎏-布尔检索法"><a href="#🎏-布尔检索法" class="headerlink" title="🎏 布尔检索法"></a>🎏 布尔检索法</h2><ul>
-<li>逻辑或 &gt;&gt;&gt; OR<br>检索式为:  <ul>
-<li><strong>A AND B</strong>  / <strong>A + B</strong> / <strong>A或B</strong><br>表示检出含有A或B两个检索词的记录。  </li>
-</ul>
-</li>
-<li>逻辑与 &gt;&gt;&gt; AND<br>检索式为:  <ul>
-<li><strong>A OR B</strong> /<strong>A * B</strong>/<strong>A与B</strong><br>同时含有A、B两个检索词的  </li>
-</ul>
-</li>
-<li>逻辑非 &gt;&gt;&gt; NOT<br>检索式为:  <ul>
-<li><strong>A Not B</strong>/<strong>A-B</strong>/<strong>A非B</strong><br>含A同时不含B的</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="🎏截词检索法"><a href="#🎏截词检索法" class="headerlink" title="🎏截词检索法"></a>🎏截词检索法</h2><p>主要用于英文这种。  </p>
-<ul>
-<li>截断位置  <ul>
-<li>前截断  </li>
-<li>后截断  </li>
-<li>中截断   </li>
-</ul>
-</li>
-<li>截词后，补充的数量  <ul>
-<li>无限  </li>
-<li>有限  </li>
-</ul>
-</li>
-</ul>
-<hr>
-<ul>
-<li><p>后截断 &gt;&gt;&gt; 在词后加截断符 —— “?” “*”<br>如果是一个，则往往表示无限;非一个时，则有几个则后面应该加几个。  </p>
-<p>  educat?? &gt;&gt;&gt; educator / educated<br>  comput?  &gt;&gt;&gt; computer / computing …  </p>
-</li>
-<li><p>前截断类似  </p>
-</li>
-<li><p>中截断，则往往是有限的，也可以在截断符后加数字，表明中间可添的数量。  </p>
-</li>
-</ul>
-<hr>
-<h2 id="🎏位置检索法"><a href="#🎏位置检索法" class="headerlink" title="🎏位置检索法"></a>🎏位置检索法</h2><table>
-<thead>
-<tr>
-<th>算符</th>
-<th>功能</th>
-<th>表达式</th>
-<th>检索结果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>W、W/N、WITH、WITHIN</td>
-<td>两次相邻，按输入时顺序排列</td>
-<td>Education (W) school 或 Education WITH school</td>
-<td>Education school或Education schools</td>
-</tr>
-<tr>
-<td>nW</td>
-<td>同上，不过两词间可以插入n个词</td>
-<td>Education (1W) school</td>
-<td>Education school/Education schools/Education and school</td>
-</tr>
-<tr>
-<td>N、NEAR</td>
-<td>两次相邻，顺序可调</td>
-<td>Education (N) school</td>
-<td>Education school/school Education</td>
-</tr>
-<tr>
-<td>nN</td>
-<td>同上，中间可加n个词</td>
-<td>Education (1N) school</td>
-<td>Education school/school of Education</td>
-</tr>
-<tr>
-<td>F</td>
-<td>两个词同在一个标引字段中</td>
-<td>Education (F) school</td>
-<td>同时出现在提名或文摘字段</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="🎏字段检索法"><a href="#🎏字段检索法" class="headerlink" title="🎏字段检索法"></a>🎏字段检索法</h2><p>指定检索词出现的字段，系统只对指定字段进行匹配运算。</p>
-<p><img src="https://i.loli.net/2020/02/14/bjAB5CGgkwrMKYS.png" alt=""><br>如:rubber/TI’表示在篇名字段检索，rubber这个词。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/11/python%E7%88%AC%E8%99%AB%E5%8A%A8%E7%89%A9%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/11/python%E7%88%AC%E8%99%AB%E5%8A%A8%E7%89%A9%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%B8%80/" class="post-title-link" itemprop="url">python爬虫动物书笔记(一)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-11 21:23:08" itemprop="dateCreated datePublished" datetime="2020-02-11T21:23:08+08:00">2020-02-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-04 20:19:31" itemprop="dateModified" datetime="2020-03-04T20:19:31+08:00">2020-03-04</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="🎈创建虚拟环境易于保存"><a href="#🎈创建虚拟环境易于保存" class="headerlink" title="🎈创建虚拟环境易于保存"></a>🎈创建虚拟环境易于保存</h1><p>创建一个虚拟环境，在里面安装库文件，可以不用担心某个项目及其关联的库文件冲突;并且当要发送给别人的时候可以轻松打包整个环境，只要python版本相同，就可以直接在虚拟环境运行，而不需要再装库。<br><strong>🎱补充虚拟与正常安装区别:</strong> 我们平时直接<code>pip install 某python库</code>实际上是全局安装它，这通常需要有管理员权限或者以root身份安装，这个库文件对设备上的每一个用户和每一个项目都是存在的。<br>👇虚拟环境如何安装？<br>首先需要<code>pip install virtualenv</code><br>然后<code>virtualenv envriment-name</code><br>接着需要激活它</p>
-<pre><code>&gt; cd enviroment-name
-&gt; source bin/activate  </code></pre><p>激活后，会发现环境名称出现在命令提示符前面，提示你现在在虚拟环境中。然后该怎么操作怎么操作即可。<br>当不再用时，通过释放命令来退出环境</p>
-<pre><code>&gt; deactivate  </code></pre><h1 id="🎈异常补充"><a href="#🎈异常补充" class="headerlink" title="🎈异常补充"></a>🎈异常补充</h1><p>我们应该有着一个易于捕捉异常又容易与阅读的程序代码，还应该希望能够很大程度上重用代码，所以要写像getSiteHTML这种通用函数，更是要有着周密的异常处理功能。  </p>
-<h3 id="PART-Ⅰ-gt-gt-获得-HTML"><a href="#PART-Ⅰ-gt-gt-获得-HTML" class="headerlink" title="PART Ⅰ  &gt;&gt; 获得 HTML"></a>PART Ⅰ  &gt;&gt; 获得 HTML</h3><pre><code>from urllib.requst import urlopen
-from urllib.error import HTTPError
-r = urlopen(url)</code></pre><p>可能出现的异常  </p>
-<ul>
-<li><p>网页在服务器上不存在(或者获取页面时出现错误)</p>
-</li>
-<li><p>服务器不存在<br>第一种异常出现时，程序会返回HTTP错误。HTTP错误可能是”404 Page Not Found” “500 Internal Server Error”等。所有类似情形函数都会抛出”HTTPError”异常。我们可以用以下方式处理👇  </p>
-<pre><code>try:
-    r = urlopen(url)
-except HTTPError as e:
-    print(e) </code></pre><p>如果程序返回HTTP错误代码，程序就会出现错误内容。  </p>
-</li>
-</ul>
-<p>如果服务器不存在——链接打不开/url连接写错了，就会返回一个None对象,由此我们可以再增加一个判断是不是none  </p>
-<pre><code>if r is None:
-    print(&quot;URL is not found&quot;)
-else:
-    # 程序继续的代码  </code></pre><h3 id="PART-Ⅱ-gt-gt-bs解析过程"><a href="#PART-Ⅱ-gt-gt-bs解析过程" class="headerlink" title="PART Ⅱ &gt;&gt; bs解析过程"></a>PART Ⅱ &gt;&gt; bs解析过程</h3><ul>
-<li><p>标签对象不存在 &gt;&gt;&gt; 返回None对象  </p>
-</li>
-<li><p>None对象的子标签 &gt;&gt;&gt; AttributeError错误  </p>
-<pre><code>from urllib.request import urlopen 
-from urllib.error import HTTPError 
-from bs4 import BeautifulSoup
-    def getHTML_title(url):
-        try:
-            html = urlopen(url)
-        except HTTPError as e:
-            return None
-        try:
-            obj = bs4.BeautifulSoup(html.read())
-            title = obj.body.h1
-        except AttributeError as e:
-            return None
-        return title
-    title = getHTML_title(url)
-    if title == None:
-    # PART Ⅰ异常中的第二种/其他中全是None时。
-        print(&quot;title could not found&quot;)
-    else:
-        print(title)</code></pre></li>
-</ul>
-<hr>
-<h1 id="🎈优美地查找元素"><a href="#🎈优美地查找元素" class="headerlink" title="🎈优美地查找元素"></a>🎈优美地查找元素</h1><p>在查找元素时，不应该一个一个定位，即是看到在哪儿就直接写下，对于一次性当然好，但若是想要再使用的时候，需要重复看。<br>find()找到第一个满足条件的标签就返回，find_all()找到所有<br>比如:<code>bsobj.find_all(&quot;table&quot;)[4].find_all(&quot;tr&quot;)[2].find(&quot;td&quot;).find_all(&quot;div&quot;)[1].find(&quot;a&quot;)</code>  </p>
-<ul>
-<li>寻找”打印此页的链接”，或者看看网站有没有HTML样式更友好的移动版(将自己的请求头设置成处于移动设备的状态即可接收移动版)</li>
-<li>寻找隐藏在js中的信息</li>
-</ul>
-<p><strong>🎱补充知识点:</strong> bs对象中一个指定标签name<code>name.get_text()</code>，这样的操作，会把正在处理的HTML文档中的所有标签都清楚，然后返回一个只包含文字的字符窜。所以一般都是最后才用。</p>
-<h2 id="🎏查找元素的bs4基本方法"><a href="#🎏查找元素的bs4基本方法" class="headerlink" title="🎏查找元素的bs4基本方法"></a>🎏查找元素的bs4基本方法</h2><ul>
-<li>find()/findAll()</li>
-<li>select()</li>
-</ul>
-<h3 id="🎐关于select"><a href="#🎐关于select" class="headerlink" title="🎐关于select()"></a>🎐关于<code>select()</code></h3><p>select()方法返回的就是一个Tag对象列表<br>在此，select多用css选择器(emmm主要是笔者学的是这个)，而如果觉得不太定位，可以直接 <strong><em>点开开发者工具&gt;&gt; 选定目标标签左键 &gt;&gt; 点击copy中的selector就可以了</em></strong><br>👇为了简略，所有的形式其实均为<code>soup.select(&#39;**&#39;)</code>就只写引号内的内容</p>
-<table>
-<thead>
-<tr>
-<th>传递给select()方法的选择器</th>
-<th>将匹配..</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>标签名 &gt;&gt;&gt; div</td>
-<td>所有名为&lt;div&gt;的元素</td>
-</tr>
-<tr>
-<td>id名 &gt;&gt;&gt; #name</td>
-<td>所有id为name的&gt;&gt;&gt; &lt;p id = “name”&gt;</td>
-</tr>
-<tr>
-<td>class名 &gt;&gt;&gt; .name &gt;&gt;&gt; “name”</td>
-<td>所有class名为name的 &gt;&gt;&gt; &lt;p class = “name”&gt;</td>
-</tr>
-<tr>
-<td>div p</td>
-<td>所有div标签内的p标签，包括子代的子代</td>
-</tr>
-<tr>
-<td>div &gt; p</td>
-<td>所有以div为父级的p标签 &gt;&gt;&gt; 如果p中有子代，也会被选中，因为这是属于这个p的部分&gt;&gt;&gt;🎱另外这里还将补充一个知识点，在表格后</td>
-</tr>
-<tr>
-<td>input[name]</td>
-<td>所有名为&lt;input&gt;，并有一个name属性的元素；也就是&lt;input name=123/456/987&gt; 其属性值任意</td>
-</tr>
-<tr>
-<td>input[key=”vaule”]</td>
-<td>所有标签&lt;input&gt;并且有着key属性，并且其属性值为value的标签</td>
-</tr>
-</tbody></table>
-<hr>
-<p><strong>🎱补充👇</strong>  </p>
-<pre><code>&lt;div&gt;
-    &lt;p&gt;子代p前面部分
-        &lt;p&gt;子代的子代&lt;/p&gt;
-        子代p后面部分
-    &lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-    &lt;span&gt;子代前面部分
-        &lt;span&gt;子代的子代&lt;/span&gt;
-        子代span后面部分
-    &lt;/span&gt;
-&lt;/div&gt;
-
-&lt;style&gt;
-    div &gt; p{
-        backgrond-color:yellow
-    }
-    div &gt;span{
-        backgrond-color:bule
-    }
-&lt;/style&gt;</code></pre><p><strong>可以看到对于p来讲，前面部分和子代的子代会被染成黄色，而span则均会被染色</strong><br><img src="https://i.loli.net/2020/02/09/l6EzUXuytaciOoV.png" alt="效果图"><br><strong>这其中的原因，好像是跟p是块级元素有关，将后面的挤掉了…但是我觉得这个解释是有问题的，我选中和挤掉好像没有关系？因为如果要说挤掉的话，子代的子代也没有和上一个在同一行，也没有被挤掉？</strong></p>
-<hr>
-<h3 id="🎐-关于find-与findAll"><a href="#🎐-关于find-与findAll" class="headerlink" title="🎐 关于find()与findAll"></a>🎐 关于<code>find()</code>与<code>findAll</code></h3><pre><code>findAll(tag, attributes, recursive, text, limit, keywords)
-find(tag, attributes, recursive, text, keywords)</code></pre><ul>
-<li><strong>标签参数 tag</strong>前面已经介绍过——你可以传一个标签的名称或多个标签名称组成的 Python 列表做标签参数。例如，下面的代码将返回一个包含 HTML 文档中所有标题标签的列表:<br>.findAll({“h1”,”h2”,”h3”,”h4”,”h5”,”h6”})  </li>
-<li><strong>属性参数 attributes</strong> 是用一个 Python 字典封装一个标签的若干属性和对应的属性值。例 如，下面这个函数会返回 HTML 文档里红色与绿色两种颜色的 span 标签:<br>.findAll(“span”, {“class”:{“green”, “red”}})</li>
-<li><strong>递归参数 recursive</strong> 是一个布尔变量。你想抓取 HTML 文档标签结构里多少层的信息?如果 recursive 设置为 True，findAll 就会根据你的要求去查找标签参数的所有子标签，以及子 标签的子标签。如果 recursive 设置为 False，findAll 就只查找文档的一级标签。findAll 默认是支持递归查找的（recursive 默认值是 True）；一般情况下这个参数不需要设置，除 非你真正了解自己需要哪些信息，而且抓取速度非常重要，那时你可以设置递归参数。</li>
-<li><strong>文本参数 text</strong> 有点不同，它是用标签的文本内容去匹配，而不是用标签的属性。假如我们 想查找前面网页中包含“the prince”内容的标签数量，我们可以把之前的 findAll 方法换 成下面的代码:<br>nameList = bsObj.findAll(text=”the prince”) print(len(nameList))<br>输出结果为“7”。</li>
-<li><strong>范围限制参数 limit</strong>，显然只用于 findAll 方法。find 其实等价于 findAll 的 limit 等于 1 时的情形。如果你只对网页中获取的前 x 项结果感兴趣，就可以设置它。但是要注意， 这个参数设置之后，获得的前几项结果是按照网页上的顺序排序的，未必是你想要的那 前几项。</li>
-<li><strong>关键词参数 keyword</strong>，可以让你选择那些具有指定属性的标签。例如:<br>allText = bsObj.findAll(id=”text”) print(allText[0].get_text())  </li>
-</ul>
-<p><strong><em>👆keyword的用法遇到class时，应写为<code>.findAll(class_=&quot;name&quot;)</code>,因为class是python的保留字，当然也可以<code>.findAll(&quot;&quot;,{&quot;class&quot;:&quot;text&quot;})</code>，表达的意思也是查找class是text的标签</em></strong>  </p>
-<h2 id="🎏-来遍历吧-——导航树"><a href="#🎏-来遍历吧-——导航树" class="headerlink" title="🎏 来遍历吧 ——导航树"></a>🎏 来遍历吧 ——导航树</h2><p><img src="https://i.loli.net/2020/02/11/H28rS1kfVKO4ZsQ.png" alt="遍历图片示意"></p>
-<ul>
-<li>🎐向下遍历  </li>
-</ul>
-<p><strong><em>chilren 与 descendants</em></strong><br><img src="https://i.loli.net/2020/02/11/7Cl9y8eHr1bwUzd.png" alt="总向下遍历的方法"><br><img src="https://i.loli.net/2020/02/11/NIr9AwTLG1KaQXW.png" alt=".contents方法示例"></p>
-<ul>
-<li><strong>.contents</strong>可以看到其获得了所有子节点的列表。其中需要注意的是:  <ol>
-<li>换行符也是一个列表中的元素</li>
-<li>虽然是全部展示，因为孙代也是子代的内容，但是是以子代为单位，为一个。  </li>
-</ol>
-</li>
-</ul>
-<hr>
-<p>下面两个方法的共同例子图示👇:<br><img src="https://i.loli.net/2020/02/11/Me1vnuPRoXSsGqQ.png" alt=""></p>
-<ul>
-<li><strong>.children</strong> 一般用于遍历<code>for child in soup.find(&quot;table&quot;,{&quot;id&quot;:&quot;giftList&quot;}).children</code><br><img src="https://i.loli.net/2020/02/11/pVb5rjWfzJN9oHi.png" alt=""> </li>
-<li><strong>.descendants</strong><br><img src="https://i.loli.net/2020/02/12/Hw1RdsWuavQPDXc.png" alt=""><br>因为截图没有弄好，所以…左边被削掉了一些  </li>
-</ul>
-<hr>
-<p><strong>📌综上对比:我们可以看到子代<code>.children</code>与<code>.descendants</code>的区别就在于，我子代遍历虽然也是所有的内容都体现了，但是我是以子代为单位的，而子孙带的遍历则是我要一个一个地全部走一遍，走完第一个子代——这时已经把第一个子代的全部内容(自然包含这个子代的孙代的内容)全部打印出来了，接着走第一个子代的第一个子代…直到全部走完。</strong></p>
-<hr>
-<ul>
-<li>🎐向上遍历<br>如果没有父代——自己就是最大的;那，就会是None类型<br><img src="https://i.loli.net/2020/02/13/zQunUFqjgTfPpto.png" alt=""></li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>.parent</td>
-<td>节点的父亲标签</td>
-</tr>
-<tr>
-<td>.parents</td>
-<td>节点先辈标签的迭代类型，用于循环遍历先辈节点</td>
-</tr>
-</tbody></table>
-<hr>
-<ul>
-<li>🎐平行遍历</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>.next_sibling</td>
-<td>下一个平行节点标签</td>
-</tr>
-<tr>
-<td>.previous_sibling</td>
-<td>上一个平行节点</td>
-</tr>
-<tr>
-<td>.next_siblings</td>
-<td>迭代类型，后续的所有平行节点</td>
-</tr>
-<tr>
-<td>.previous_siblings</td>
-<td>迭代类型，前面的所有平行节点</td>
-</tr>
-</tbody></table>
-<hr>
-<h1 id="🎈信息查找"><a href="#🎈信息查找" class="headerlink" title="🎈信息查找"></a>🎈信息查找</h1><h2 id="🎏信息的标记形式"><a href="#🎏信息的标记形式" class="headerlink" title="🎏信息的标记形式"></a>🎏信息的标记形式</h2><ol>
-<li><p>XML  &gt;&gt;&gt; 基于HTML格式发展起来的一种通用的信息表达形式</p>
-<pre><code>&lt;!--注释方式——与HTML同--!&gt;
-&lt;name&gt;
-    &lt;firstname&gt;greyyyyy&lt;/firstname&gt;
-    &lt;lastname&gt;D&lt;/lastname&gt;</code></pre></li>
-<li><p>JSON &gt;&gt;&gt; JS语言中对面对对象信息的一种表达形式，是一种有类型的键值对构建的信息表达方式。即是，给出信息并对该信息进行表述/定义。字符串均需添加双引号，数字不用。一个键可以对应多个值，用逗号分开。值也可以是键值对——嵌套使用。JSON格式对于JS可以直接作为程序的一部分。  </p>
-</li>
-</ol>
-<pre><code>&quot;name&quot;:{
-    &quot;firstname&quot;:&quot;greyyyyy&quot;
-    &quot;lastname&quot;:&quot;D&quot;
-    }</code></pre><ol start="3">
-<li><p>YAML &gt;&gt;&gt; 无类型键值对，用缩进表示所属关系。   </p>
-<pre><code>name:
-    fristname: greyyyyy
-    lastname: D
-
-# -表示并列关系  
-name:
--greyyyyy
--D
-
-# |表达整块数据  #表示注释
-text: |  #示意
-Python爬虫的学习，经过最初的实践项目入门。可以看到初步的爬虫实际上应用于提取某些信息，可以应用于下载文本/图片等；中等爬虫则是爬取网站，这个我们将用到scrapy库。scrapy库的使用，在这里简单介绍以下。scrapy框架有五个部分。Spider——初步的request、解析Response，从而得到item和新的request；Engine——中枢一般的存在。传递初步request给scheduler成为真的要网络连接的request、再将经过scheduler的真实的request传递给downloader、将downloader的response传递给spider、将spider处理出的item和新的request分别传递给Item Pipelines；Scheduler——对所用爬取请求进行调度管理；Downloader———根据请求下载网页；Item Pipelines ———以流水线方式处理spider产生的爬取项；由一组操作顺序组成，类似流水线，每一个操作是一个item pipeline类型；了能的操作包括:清理、检验、查重爬取项中的HTML数据，将数据存储到数据库中。除此以外还有两个中间键分别是位于Engine和Spider间spider middleware ——对请求和爬取项的再处理；修改、丢请、新增请求或爬取项——和位于Engine和Downloader间的downloader middleware——实现Engine/Scheduler/Downloader之间用户可配置的控制，也就是通过中间键操作，可以修改、丢弃、新增请求或响应。</code></pre></li>
-</ol>
-<hr>
-<p>这三种信息标记进行比较👇 </p>
-<table>
-<thead>
-<tr>
-<th>信息表及类型</th>
-<th>特点</th>
-<th>主要应用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>XML</td>
-<td>最早的通用信息标记语言，可扩展性好，但繁琐</td>
-<td>Internet主要用xml进行信息的交互和传递</td>
-</tr>
-<tr>
-<td>JSON</td>
-<td>信息有类型，适合程序处理(JS),较XML简洁</td>
-<td>移动应用云端和节点的信息通信，无注释。一般来讲，用在程序对接口处理地方。能够被程序运行</td>
-</tr>
-<tr>
-<td>YAML</td>
-<td>信息无类型，文本信息比例最大，可读性高</td>
-<td>各类型的配置文件，有注释易读</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="🎏正则表达式"><a href="#🎏正则表达式" class="headerlink" title="🎏正则表达式"></a>🎏正则表达式</h2><h3 id="🎐常规操作符"><a href="#🎐常规操作符" class="headerlink" title="🎐常规操作符"></a>🎐常规操作符</h3><table>
-<thead>
-<tr>
-<th>操作符</th>
-<th>说明</th>
-<th>实例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>.</td>
-<td>表示任何单个字符</td>
-<td></td>
-</tr>
-<tr>
-<td>[ ]</td>
-<td>字符集，对单个字符给出取值范围</td>
-<td>[abc]表示a、b、c，[a-z]表示a到z单个字符</td>
-</tr>
-<tr>
-<td>[^ ]</td>
-<td>非 字符集，对单给字符给出排除范围</td>
-<td>[^abc]表示非a/b/c的单个字符</td>
-</tr>
-<tr>
-<td>*</td>
-<td>对前一个字符扩展0/∞次 &gt;&gt;&gt;也就是[0,+∞)</td>
-<td>abc*表示ab、abc、abcc、abccc …</td>
-</tr>
-<tr>
-<td>+</td>
-<td>前一个字符扩展[1,+∞)</td>
-<td>abc+表示abc、abcc、abccc …</td>
-</tr>
-<tr>
-<td>？</td>
-<td>前一个字符扩展0/1次</td>
-<td>abc? 表示ab 、 abc</td>
-</tr>
-<tr>
-<td>&#124;</td>
-<td>左右表达式中的任意一个</td>
-<td>abc&#124;def表示abc/def</td>
-</tr>
-<tr>
-<td>{m}</td>
-<td>扩展前一个字符m次</td>
-<td>ab{5}c,b扩展5次 &gt;&gt;abbbbbc</td>
-</tr>
-<tr>
-<td>{m,n}</td>
-<td>扩展前一个字符m至n次(含n)</td>
-<td>ab{2,3}c ，b扩展2次或者3次</td>
-</tr>
-<tr>
-<td>^</td>
-<td>匹配字符串的开头&gt;&gt; 开头应以什么开头——定义开头时</td>
-<td>^abc 以abc开头的</td>
-</tr>
-<tr>
-<td>$</td>
-<td>匹配字符串结尾</td>
-<td>$abc，以abc结尾</td>
-</tr>
-<tr>
-<td>()</td>
-<td>分组标记，内部只能用&#124;操作符,正则表达式的规则里编组会优先运行</td>
-<td>(abc)  &lt;&lt; 🎱这就是一组，针对re库中的goup方法 ——re.search(“([0-9]<em>)([a-z]</em>)([0-9]<em>)”,”123abg123”.goup(0)  &gt;&gt;返回整体 123abg123; .group(1) &gt;&gt;&gt; 返回123 …***并且()内的是一个整体——一个字符 &gt;&gt;&gt; (cc)\</em> c的偶数次***</td>
-</tr>
-<tr>
-<td>\d</td>
-<td>数字，等价于[0-9]</td>
-<td></td>
-</tr>
-<tr>
-<td>\w</td>
-<td>单词字符，等价于[A-Za-z0-9_]</td>
-<td></td>
-</tr>
-</tbody></table>
-<hr>
-<h3 id="🎐re库基本函数介绍"><a href="#🎐re库基本函数介绍" class="headerlink" title="🎐re库基本函数介绍"></a>🎐re库基本函数介绍</h3><p>python中的正则表达式，即是引入<code>re</code>库  </p>
-<p>raw string类型表示正则表达式，表示为<code>r&#39;text&#39;</code>,是不包含转义符的字符串<br>sring类型,有转义字符——即是遇到斜杠要再加一个斜杠<br>比较，   </p>
-<pre><code>r.&apos;[0-9]\d{5}&apos;  &gt;&gt;&gt; raw string
-&apos;[0-9]\\d{5}&apos;   &gt;&gt;&gt; string </code></pre><p>re库的主要功能函数</p>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>re.search()</td>
-<td>在一个字符串中搜索匹配正则表达式的第一个位置，返回match对象</td>
-</tr>
-<tr>
-<td>re.match()</td>
-<td>从最开头开始匹配，也就是开头必须要匹配上，返回match对象</td>
-</tr>
-<tr>
-<td>re.findall()</td>
-<td>搜索字符串。以列表类型返回全不能匹配的子串</td>
-</tr>
-<tr>
-<td>re.split()</td>
-<td>将一个字符串按照正则表达式匹配结果进行分割，返回列表类型</td>
-</tr>
-<tr>
-<td>re.finditer()</td>
-<td>搜索字符串，返回一个匹配结果的跌倒类型，每个迭代元素是match对象</td>
-</tr>
-<tr>
-<td>re.sub()</td>
-<td>在一个字符串中替换所有匹配正则表达式的子串，返回替换的字符串</td>
-</tr>
-</tbody></table>
-<hr>
-<pre><code>re.search(pattern,string,flags=0)
-· pattern: 正则表达式的字符串或原生字符串表示
-· string: 待匹配的字符串
-· flags: 正则表达式使用时的控制标记  </code></pre><table>
-<thead>
-<tr>
-<th>常用标记</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>re.I re.IGNORECASE</td>
-<td>忽略正则表达式的大小写，也就是[A-Z]能够匹配小写字符</td>
-</tr>
-<tr>
-<td>re.M re.MULTILINE</td>
-<td>正则表达式中^不是本指以什么开头吗，加上这个后表示，每行以xx开头的</td>
-</tr>
-<tr>
-<td>re.S re.DOTALL</td>
-<td>.本来应该是匹配除了换行符外的所有字符，有了这个控制符后，就是所有字符——包含换行符</td>
-</tr>
-</tbody></table>
-<p><img src="https://i.loli.net/2020/02/13/nvCNQLxpguYHwP9.png" alt=""></p>
-<hr>
-<pre><code>re.split(pattern,string,maxspilt=0,flags=0)
-# 其他参数都一样  
-· maxspilt 表示最大分割数，其余部分作为最后一个元素输出。</code></pre><p><img src="https://i.loli.net/2020/02/13/ihORGk3BLx9Qmzl.png" alt=""><br><img src="https://i.loli.net/2020/02/14/Syxv7NjB3gdhf91.png" alt=""></p>
-<hr>
-<pre><code>re.sub(pattern,repl,string,count=0,flags=0)
-# 在一个字符串中替换掉所有匹配正则表达式的子串，返回替换后的
-# 相同的参数不说了  
-&gt;repl: 替换匹配字符串的字符串  
-&gt;count: 匹配的最大替换次数</code></pre><p><img src="https://i.loli.net/2020/02/14/AUrbcXygFI2KoZj.png" alt=""></p>
-<hr>
-<h3 id="🎐re库面向对象写法"><a href="#🎐re库面向对象写法" class="headerlink" title="🎐re库面向对象写法"></a>🎐re库面向对象写法</h3><p><strong><em>🏐举个例子，以下两种写法等同</em></strong></p>
-<pre><code>&gt;&gt;&gt; rst = re.search(r&apos;[1-9]\d{5}&apos;,&apos;BIT 100081&apos; )  
-# 函数式写法:一次性操作  
-
----
-
-&gt;&gt;&gt; pat = re.compile(r&apos;[1-9]\d{5}&apos;)
-&gt;&gt;&gt; rst = pat.search(&apos;BIT 100081&apos;)
-# 面向对象用法:编译后多次操作  </code></pre><p><strong>regex = re.compile(pattern,flags=0)</strong><br>将正则表达式的字符串形式编译成正则表达式对象。<br>字符串或者原生字符串并不是正则表达式，它只是一种表示，这个<code>regex</code>才是正则表达式，代表了一组字符串。实现<strong>正则表达式</strong>和<strong>表示</strong>之间的关系。  </p>
-<p>之前介绍的普通函数都可以用,如下:    </p>
-<pre><code>&gt;&gt;&gt; regex.match()  </code></pre><hr>
-<h3 id="🎐re库的match对象"><a href="#🎐re库的match对象" class="headerlink" title="🎐re库的match对象"></a>🎐re库的match对象</h3><p><img src="https://i.loli.net/2020/02/14/MJf5gompd6WqjLz.png" alt=""><br>可以看到返回一个<code>_sre.SRE_Match</code>的对象，实际上就是标题所说的match对象。<br>这个对象实际上就应该式是正则表达式的对象匹配后的，就是match对象。并且可以从它的属性中看到，正则表达式并应该是表达式，而应该指的是转变为对象之后的。<br><img src="https://i.loli.net/2020/02/14/APSsD3IquERCt1L.png" alt=""><br><img src="https://i.loli.net/2020/02/14/8wdPHRXGzbZiS49.png" alt=""><br><img src="https://i.loli.net/2020/02/14/oJkhyzU91fxLNSW.png" alt="">  </p>
-<hr>
-<h2 id="🎏-Lambda"><a href="#🎏-Lambda" class="headerlink" title="🎏 Lambda"></a>🎏 Lambda</h2><p>lambda函数是一种匿名函数。  </p>
-<pre><code>lambda argument_list: expression  </code></pre><p><strong>argument_lisy</strong>即是输入，是参数列表，可以有多种形式。</p>
-<ul>
-<li>变量 &gt;&gt;&gt; a,b  </li>
-<li>赋值的变量  &gt;&gt;&gt; a=1,b=2</li>
-<li>参数 </li>
-<li>空</li>
-<li>…   </li>
-</ul>
-<p><strong>expression</strong>输出，也可以说是，表达了将如何处理输入。  </p>
-<pre><code>&gt;lambda x,y: x*y  
-# 传入x,y，运算乘法
-
-&gt;lambda *args: sum(args) 
-# 求和  
-
-&gt;add = lambda x,y:x+y
-# 将add变为一个加法函数  &gt;&gt; add(5,6)
-
-&gt;time.sleep = lambda x:None 
-# 使得这个函数不再起作用  
-
----
-# lambda函数还可以作为剔除来用，expression是判断的式子时，表达的就是要返回是True的对象。 
-
-&gt;filter(lambda x: x % 3 == 0,[1,2,3])
-# 将能够使三整除的选择出来  
-
-&gt;soup.findALL(lambda tag: len(tag.attrs)==2)
-# 得到有两个属性的标签</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -2175,7 +1986,7 @@ Python爬虫的学习，经过最初的实践项目入门。可以看到初步�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
