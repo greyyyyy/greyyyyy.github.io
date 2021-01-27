@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="🎏读入数据从sklearn.datasets中可以得到鸢鸟的数据包也就是，首先要有sklearn包,通过pip instal sklearn获得 from sklearn.datasets import load_iris from pandas import DataFrame  #处理数据，形成表格，更直观 import pandas as pd  x_data &#x3D; load_iris().">
+<meta property="og:type" content="article">
+<meta property="og:title" content="鸢鸟集">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;01&#x2F;27&#x2F;%E9%B8%A2%E9%B8%9F%E9%9B%86&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="🎏读入数据从sklearn.datasets中可以得到鸢鸟的数据包也就是，首先要有sklearn包,通过pip instal sklearn获得 from sklearn.datasets import load_iris from pandas import DataFrame  #处理数据，形成表格，更直观 import pandas as pd  x_data &#x3D; load_iris().">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;01&#x2F;27&#x2F;u1WnPpVtriXq9Gj.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;01&#x2F;27&#x2F;LOs6ztbnkuYgAPx.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;01&#x2F;27&#x2F;AJx4Sdse9h2w1VU.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;01&#x2F;27&#x2F;InPzHicRCvDZMyS.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;01&#x2F;27&#x2F;jksDGTqL9dFHhWa.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;01&#x2F;27&#x2F;TbaqnWCr7gHPOLl.png">
+<meta property="article:published_time" content="2021-01-27T12:52:42.000Z">
+<meta property="article:modified_time" content="2021-01-27T14:26:55.351Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;01&#x2F;27&#x2F;u1WnPpVtriXq9Gj.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/01/27/%E9%B8%A2%E9%B8%9F%E9%9B%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>鸢鸟集 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/27/%E9%B8%A2%E9%B8%9F%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          鸢鸟集
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-27 20:52:42 / Modified: 22:26:55" itemprop="dateCreated datePublished" datetime="2021-01-27T20:52:42+08:00">2021-01-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="🎏读入数据"><a href="#🎏读入数据" class="headerlink" title="🎏读入数据"></a>🎏读入数据</h1><p>从<code>sklearn.datasets</code>中可以得到鸢鸟的数据包<br>也就是，首先要有<code>sklearn</code>包,通过<code>pip instal sklearn</code>获得</p>
+<pre><code>from sklearn.datasets import load_iris
+from pandas import DataFrame  #处理数据，形成表格，更直观
+import pandas as pd
+
+x_data = load_iris().data
+y_data = load_iris().target
+#获得特征和对应的标签
+
+x_data = DataFrame(x_data, columns=[&apos;花萼长度&apos;, &apos;花萼宽度&apos;, &apos;花瓣长度&apos;, &apos;花瓣宽度&apos;]) # 为表格增加行索引（左侧）和列标签（上方）
+pd.set_option(&apos;display.unicode.east_asian_width&apos;, True)  # 设置列名对齐
+
+x_data[&apos;类别&apos;] = y_data  # 新加一列，列标签为‘类别’，数据为y_data
+
+print(x_data)</code></pre><p><img src="https://i.loli.net/2021/01/27/u1WnPpVtriXq9Gj.png" alt="结果"></p>
+<h2 id="🎱关于DataFrame"><a href="#🎱关于DataFrame" class="headerlink" title="🎱关于DataFrame"></a>🎱关于DataFrame</h2><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><p>创建一个DataFrame，相当于这一堆数据就是一个表格，创建时，会默认给新增一列在最左侧，是索引，从0开始；<br>如果数据是字典型，则已经确定好了列名。<br>若是数组，则可通过<code>columns=[]</code>来命名各列。<br><img src="https://i.loli.net/2021/01/27/LOs6ztbnkuYgAPx.png" alt="例子"></p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>创建之后，就是一个可操作的DataFrame<br>则若要新增一列(最后一列)，可直接<code>x[&#39;列名&#39;]=[内容]</code>。<br>若要指定插入一列<code>x.insert(插入后所处的列数，列名，内容)</code><br><img src="https://i.loli.net/2021/01/27/AJx4Sdse9h2w1VU.png" alt="image.png"></p>
+<h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p><strong>列</strong><br>可直接<code>x[列名]</code><br>当然可直接通过此赋值<code>x[列名]=[内容]</code><br><strong>行</strong><br>直接<code>x.loc[&#39;行名&#39;]</code>   </p>
+<p><strong>行和列</strong>  </p>
+<pre><code>x.iloc[:,:]   
+#可以看到，第一个是几行，第二个是几列。
+#注意，都是从0计数且前闭后开 </code></pre><p><img src="https://i.loli.net/2021/01/27/InPzHicRCvDZMyS.png" alt="image.png"></p>
+<h3 id="索引补充"><a href="#索引补充" class="headerlink" title="索引补充"></a>索引补充</h3><p>索引除了最开始在创建时创建以外，在创建后也可以更改。   </p>
+<ol>
+<li><p>将自己的一列设置为索引<code>x.set_index([列名],drop=True)</code><br>drop默认是True，意思是，将该列作为索引后，不保存该列数据；改为False，则保存该列数据。<br><img src="https://i.loli.net/2021/01/27/jksDGTqL9dFHhWa.png" alt="image.png"></p>
+</li>
+<li><p>直接创建<code>x.index=[1,2,3,4,5]</code></p>
+</li>
+<li><p>还原成默认值<code>x.reset_index(drop=False)</code><br>drop默认值是False，是指将原来的索引值保留为数据；若为True，则原索引值删除。<br><img src="https://i.loli.net/2021/01/27/TbaqnWCr7gHPOLl.png" alt="image.png"></p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/24/Tensorflow-Anaconda-Pycharm%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" rel="prev" title="Tensorflow+Anaconda+Pycharm环境安装">
+      <i class="fa fa-chevron-left"></i> Tensorflow+Anaconda+Pycharm环境安装
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#🎏读入数据"><span class="nav-number">1.</span> <span class="nav-text">🎏读入数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎱关于DataFrame"><span class="nav-number">1.1.</span> <span class="nav-text">🎱关于DataFrame</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入"><span class="nav-number">1.1.2.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找"><span class="nav-number">1.1.3.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引补充"><span class="nav-number">1.1.4.</span> <span class="nav-text">索引补充</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.1.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
