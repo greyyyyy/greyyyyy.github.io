@@ -46,12 +46,12 @@
   };
 </script>
 
-  <meta name="description" content="🎏读入数据从sklearn.datasets中可以得到鸢鸟的数据包也就是，首先要有sklearn包,通过pip instal sklearn获得 from sklearn.datasets import load_iris from pandas import DataFrame  #处理数据，形成表格，更直观 import pandas as pd  x_data &#x3D; load_iris().">
+  <meta name="description" content="🎏实现鸢尾花分类整体思路🎋准备数据 数据集读入 数据集乱序 生成训练集和测试集 配成（输入特征、标签）对，每次读入batch🎋搭建网络 定义神经网络中所有可训练参数🎋参数优化 嵌套循环迭代，with结构更新参数，显示当前loss🎋测试效果 计算当前参数前后传播后的准确率，显示当前acc🎋acc&#x2F;loss可视化  🎏准备🎋数据集读入从sklearn.datasets中可以得到鸢鸟的数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="鸢鸟集">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;01&#x2F;27&#x2F;%E9%B8%A2%E9%B8%9F%E9%9B%86&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="🎏读入数据从sklearn.datasets中可以得到鸢鸟的数据包也就是，首先要有sklearn包,通过pip instal sklearn获得 from sklearn.datasets import load_iris from pandas import DataFrame  #处理数据，形成表格，更直观 import pandas as pd  x_data &#x3D; load_iris().">
+<meta property="og:description" content="🎏实现鸢尾花分类整体思路🎋准备数据 数据集读入 数据集乱序 生成训练集和测试集 配成（输入特征、标签）对，每次读入batch🎋搭建网络 定义神经网络中所有可训练参数🎋参数优化 嵌套循环迭代，with结构更新参数，显示当前loss🎋测试效果 计算当前参数前后传播后的准确率，显示当前acc🎋acc&#x2F;loss可视化  🎏准备🎋数据集读入从sklearn.datasets中可以得到鸢鸟的数">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;01&#x2F;27&#x2F;u1WnPpVtriXq9Gj.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;01&#x2F;27&#x2F;LOs6ztbnkuYgAPx.png">
@@ -60,7 +60,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;01&#x2F;27&#x2F;jksDGTqL9dFHhWa.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;01&#x2F;27&#x2F;TbaqnWCr7gHPOLl.png">
 <meta property="article:published_time" content="2021-01-27T12:52:42.000Z">
-<meta property="article:modified_time" content="2021-01-27T14:26:55.351Z">
+<meta property="article:modified_time" content="2021-01-30T13:23:48.723Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;01&#x2F;27&#x2F;u1WnPpVtriXq9Gj.png">
@@ -198,10 +198,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-01-27 20:52:42 / Modified: 22:26:55" itemprop="dateCreated datePublished" datetime="2021-01-27T20:52:42+08:00">2021-01-27</time>
+              <time title="Created: 2021-01-27 20:52:42" itemprop="dateCreated datePublished" datetime="2021-01-27T20:52:42+08:00">2021-01-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-30 21:23:48" itemprop="dateModified" datetime="2021-01-30T21:23:48+08:00">2021-01-30</time>
+              </span>
 
           
 
@@ -214,7 +220,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="🎏读入数据"><a href="#🎏读入数据" class="headerlink" title="🎏读入数据"></a>🎏读入数据</h1><p>从<code>sklearn.datasets</code>中可以得到鸢鸟的数据包<br>也就是，首先要有<code>sklearn</code>包,通过<code>pip instal sklearn</code>获得</p>
+        <h1 id="🎏实现鸢尾花分类整体思路"><a href="#🎏实现鸢尾花分类整体思路" class="headerlink" title="🎏实现鸢尾花分类整体思路"></a>🎏实现鸢尾花分类整体思路</h1><h2 id="🎋准备数据"><a href="#🎋准备数据" class="headerlink" title="🎋准备数据"></a>🎋准备数据</h2><ul>
+<li>数据集读入</li>
+<li>数据集乱序</li>
+<li>生成训练集和测试集</li>
+<li>配成（输入特征、标签）对，每次读入batch<h2 id="🎋搭建网络"><a href="#🎋搭建网络" class="headerlink" title="🎋搭建网络"></a>🎋搭建网络</h2></li>
+<li>定义神经网络中所有可训练参数<h2 id="🎋参数优化"><a href="#🎋参数优化" class="headerlink" title="🎋参数优化"></a>🎋参数优化</h2></li>
+<li>嵌套循环迭代，with结构更新参数，显示当前loss<h2 id="🎋测试效果"><a href="#🎋测试效果" class="headerlink" title="🎋测试效果"></a>🎋测试效果</h2></li>
+<li>计算当前参数前后传播后的准确率，显示当前acc<h2 id="🎋acc-loss可视化"><a href="#🎋acc-loss可视化" class="headerlink" title="🎋acc/loss可视化"></a>🎋acc/loss可视化</h2></li>
+</ul>
+<h1 id="🎏准备"><a href="#🎏准备" class="headerlink" title="🎏准备"></a>🎏准备</h1><h2 id="🎋数据集读入"><a href="#🎋数据集读入" class="headerlink" title="🎋数据集读入"></a>🎋数据集读入</h2><p>从<code>sklearn.datasets</code>中可以得到鸢鸟的数据包<br>也就是，首先要有<code>sklearn</code>包,通过<code>pip instal sklearn</code>获得</p>
 <pre><code>from sklearn.datasets import load_iris
 from pandas import DataFrame  #处理数据，形成表格，更直观
 import pandas as pd
@@ -245,7 +260,47 @@ print(x_data)</code></pre><p><img src="https://i.loli.net/2021/01/27/u1WnPpVtriX
 <li><p>还原成默认值<code>x.reset_index(drop=False)</code><br>drop默认值是False，是指将原来的索引值保留为数据；若为True，则原索引值删除。<br><img src="https://i.loli.net/2021/01/27/TbaqnWCr7gHPOLl.png" alt="image.png"></p>
 </li>
 </ol>
+<h2 id="🎋数据集乱序"><a href="#🎋数据集乱序" class="headerlink" title="🎋数据集乱序"></a>🎋数据集乱序</h2><pre><code>np.random.seed(116) #是用相同的seed，使输入特征/标签一一对应
+np.random.shuffle(x_data)
+np.random.seed(116)
+np.random.shuffle(y_data)
+tf.random.set_seed(116)</code></pre><h2 id="🎋分为训练集和测试集"><a href="#🎋分为训练集和测试集" class="headerlink" title="🎋分为训练集和测试集"></a>🎋分为训练集和测试集</h2><pre><code>x_train = x_data[:-30]
+y_train = y_data[:-30]
+x_test = x_data[-30:]
+y_test = y_data[-30:]</code></pre><h2 id="🎋配对"><a href="#🎋配对" class="headerlink" title="🎋配对"></a>🎋配对</h2><pre><code>train_db = tf.data.Dataset.from_tensor_slices((x_trainm4,y_train)).batch(32)
+test_db = tf.data.Dataset.from_tensor_slices((x_test,y_test)).batch(32)</code></pre><h1 id="🎏搭建网络"><a href="#🎏搭建网络" class="headerlink" title="🎏搭建网络"></a>🎏搭建网络</h1><pre><code>w1 = tf.Variable(tf.random.truncated_normal([4,3],stddev=0.1,seed=1))
+b1 = tf.Variable(tf.random.truncated_normal([4,3],stddev=0.1,seed=1))
 
+for epoch in range(epoch):
+    for step,(x_train,y_train) in enumerate(train_db):
+        with tf.GradientTape() as tape:
+            y = tf.matmul(x_train, w1) + b1  # 神经网络乘加运算
+            y = tf.nn.softmax(y)  # 使输出y符合概率分布（此操作后与独热码同量级，可相减求loss）
+            y_ = tf.one_hot(y_train, depth=3)  # 将标签值转换为独热码格式，方便计算loss和accuracy
+            loss = tf.reduce_mean(tf.square(y_ - y))  # 采用均方误差损失函数mse = mean(sum(y-out)^2)
+            loss_all += loss.numpy()  # 将每个step计算出的loss累加，为后续求loss平均值提供数据，这样计算的loss更准确
+
+            grads = tape.gradient(loss,[w1,b1])
+            w.assign_sub(lr*grads[0])
+            b1.assign_sub(lr*grads[1])
+        print(&quot;Epoch{},loss:{}&quot;.format(epoch,loss_all/4))</code></pre><h1 id="🎏计算准确率"><a href="#🎏计算准确率" class="headerlink" title="🎏计算准确率"></a>🎏计算准确率</h1><pre><code>for x_test,y_test in test_db:
+    y = tf.matul(h,w)+b  #预测结果
+    y = tf.nn.softmax(y)  #y符合概率分布  
+    pred = tf.argmax(y,axis=1) #返回y中最大值的索引，即预测的分类  
+    pred = tf.cast(pred,dtype = y_test.dtype) #调整数据类型与标签一致  
+    correct = tf.cast(tf.equal(pred,y_test),dtype = tf.int32)
+    correct = tf.reduce_sum(correct) $将每个batch的correct数加起来
+    total_correct +=int(correct)  #将所有batch中的correct数加起来  
+    total_number += x_test.shape[0]
+acc = total_correct/total_number
+print(&quot;test_acc:&quot;,acc)
+
+plt.title(&quot;Acc Curve&quot;)
+plt.xlabel(&quot;Epoch&quot;)
+plt.ylabel(&quot;Acc&quot;)
+plt.plot(test_acc,label=&quot;$Accuracy$&quot;)  
+plt.legend()
+plt.show()</code></pre>
     </div>
 
     
@@ -323,7 +378,7 @@ print(x_data)</code></pre><p><img src="https://i.loli.net/2021/01/27/u1WnPpVtriX
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#🎏读入数据"><span class="nav-number">1.</span> <span class="nav-text">🎏读入数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎱关于DataFrame"><span class="nav-number">1.1.</span> <span class="nav-text">🎱关于DataFrame</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入"><span class="nav-number">1.1.2.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找"><span class="nav-number">1.1.3.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引补充"><span class="nav-number">1.1.4.</span> <span class="nav-text">索引补充</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#🎏实现鸢尾花分类整体思路"><span class="nav-number">1.</span> <span class="nav-text">🎏实现鸢尾花分类整体思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎋准备数据"><span class="nav-number">1.1.</span> <span class="nav-text">🎋准备数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎋搭建网络"><span class="nav-number">1.2.</span> <span class="nav-text">🎋搭建网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎋参数优化"><span class="nav-number">1.3.</span> <span class="nav-text">🎋参数优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎋测试效果"><span class="nav-number">1.4.</span> <span class="nav-text">🎋测试效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎋acc-loss可视化"><span class="nav-number">1.5.</span> <span class="nav-text">🎋acc&#x2F;loss可视化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎏准备"><span class="nav-number">2.</span> <span class="nav-text">🎏准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🎋数据集读入"><span class="nav-number">2.1.</span> <span class="nav-text">🎋数据集读入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎱关于DataFrame"><span class="nav-number">2.2.</span> <span class="nav-text">🎱关于DataFrame</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建"><span class="nav-number">2.2.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入"><span class="nav-number">2.2.2.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找"><span class="nav-number">2.2.3.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引补充"><span class="nav-number">2.2.4.</span> <span class="nav-text">索引补充</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎋数据集乱序"><span class="nav-number">2.3.</span> <span class="nav-text">🎋数据集乱序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎋分为训练集和测试集"><span class="nav-number">2.4.</span> <span class="nav-text">🎋分为训练集和测试集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎋配对"><span class="nav-number">2.5.</span> <span class="nav-text">🎋配对</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎏搭建网络"><span class="nav-number">3.</span> <span class="nav-text">🎏搭建网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎏计算准确率"><span class="nav-number">4.</span> <span class="nav-text">🎏计算准确率</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
