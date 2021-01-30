@@ -196,7 +196,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-30 21:23:48" itemprop="dateModified" datetime="2021-01-30T21:23:48+08:00">2021-01-30</time>
+                <time title="Modified: 2021-01-30 21:25:27" itemprop="dateModified" datetime="2021-01-30T21:25:27+08:00">2021-01-30</time>
               </span>
 
           
@@ -214,12 +214,18 @@
 <li>数据集读入</li>
 <li>数据集乱序</li>
 <li>生成训练集和测试集</li>
-<li>配成（输入特征、标签）对，每次读入batch<h2 id="🎋搭建网络"><a href="#🎋搭建网络" class="headerlink" title="🎋搭建网络"></a>🎋搭建网络</h2></li>
-<li>定义神经网络中所有可训练参数<h2 id="🎋参数优化"><a href="#🎋参数优化" class="headerlink" title="🎋参数优化"></a>🎋参数优化</h2></li>
-<li>嵌套循环迭代，with结构更新参数，显示当前loss<h2 id="🎋测试效果"><a href="#🎋测试效果" class="headerlink" title="🎋测试效果"></a>🎋测试效果</h2></li>
-<li>计算当前参数前后传播后的准确率，显示当前acc<h2 id="🎋acc-loss可视化"><a href="#🎋acc-loss可视化" class="headerlink" title="🎋acc/loss可视化"></a>🎋acc/loss可视化</h2></li>
+<li>配成（输入特征、标签）对，每次读入batch</li>
 </ul>
-<h1 id="🎏准备"><a href="#🎏准备" class="headerlink" title="🎏准备"></a>🎏准备</h1><h2 id="🎋数据集读入"><a href="#🎋数据集读入" class="headerlink" title="🎋数据集读入"></a>🎋数据集读入</h2><p>从<code>sklearn.datasets</code>中可以得到鸢鸟的数据包<br>也就是，首先要有<code>sklearn</code>包,通过<code>pip instal sklearn</code>获得</p>
+<h2 id="🎋搭建网络"><a href="#🎋搭建网络" class="headerlink" title="🎋搭建网络"></a>🎋搭建网络</h2><ul>
+<li>定义神经网络中所有可训练参数</li>
+</ul>
+<h2 id="🎋参数优化"><a href="#🎋参数优化" class="headerlink" title="🎋参数优化"></a>🎋参数优化</h2><ul>
+<li>嵌套循环迭代，with结构更新参数，显示当前loss</li>
+</ul>
+<h2 id="🎋测试效果"><a href="#🎋测试效果" class="headerlink" title="🎋测试效果"></a>🎋测试效果</h2><ul>
+<li>计算当前参数前后传播后的准确率，显示当前acc</li>
+</ul>
+<h2 id="🎋acc-loss可视化"><a href="#🎋acc-loss可视化" class="headerlink" title="🎋acc/loss可视化"></a>🎋acc/loss可视化</h2><h1 id="🎏准备"><a href="#🎏准备" class="headerlink" title="🎏准备"></a>🎏准备</h1><h2 id="🎋数据集读入"><a href="#🎋数据集读入" class="headerlink" title="🎋数据集读入"></a>🎋数据集读入</h2><p>从<code>sklearn.datasets</code>中可以得到鸢鸟的数据包<br>也就是，首先要有<code>sklearn</code>包,通过<code>pip instal sklearn</code>获得</p>
 <pre><code>from sklearn.datasets import load_iris
 from pandas import DataFrame  #处理数据，形成表格，更直观
 import pandas as pd
