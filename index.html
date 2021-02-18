@@ -742,6 +742,13 @@ model.add(Activation(&apos;softmax&apos;))  </code></pre><p><strong>Dense</stron
 
               <time title="Created: 2020-10-07 16:09:09" itemprop="dateCreated datePublished" datetime="2020-10-07T16:09:09+08:00">2020-10-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-18 19:15:51" itemprop="dateModified" datetime="2021-02-18T19:15:51+08:00">2021-02-18</time>
+              </span>
 
           
 
@@ -754,7 +761,383 @@ model.add(Activation(&apos;softmax&apos;))  </code></pre><p><strong>Dense</stron
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h1 id="Tensorflow的结构"><a href="#Tensorflow的结构" class="headerlink" title="Tensorflow的结构"></a>Tensorflow的结构</h1><p>Tensorflow主要由两个部分进行，一个是定义计算图，一个是执行计算图。<br>在构建计算图中，要定义所有使用的数据，也就是张量(tensor)对象(常量、变量和占位符)，同时，定义要执行的所有计算，即运算操作对象(Operation Object,简称OP)</p>
+<h1 id="定义计算图"><a href="#定义计算图" class="headerlink" title="定义计算图"></a>定义计算图</h1><h2 id="张量"><a href="#张量" class="headerlink" title="张量"></a>张量</h2><ul>
+<li>张量<ul>
+<li>标量</li>
+<li>向量</li>
+<li>矩阵</li>
+<li>张量</li>
+</ul>
+</li>
+</ul>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><pre><code># 定义常量矩阵
+&gt;&gt;tf.constant([])
+
+#创建全为0/1的张量
+&gt;&gt;tf.zeros([M,N],tf.dtype)
+# tf.dtype可以是tf.int32、tf.float32等
+&gt;&gt;tf.ones([M,N],tf.dtype)
+
+#在一定范围内生成从初值到终值的等差数列(包含终值)
+&gt;&gt;tf.linspace(start,stop,num)
+# 👆公差为 (stop-start)/(num-1)
+
+#从开始（默认值=0）生成一个数字序列，增量为 delta（默认值=1），直到终值（但不包括终值）
+&gt;&gt;tf.range(start,limit,delta)</code></pre><h1 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h1><h2 id="tf-where"><a href="#tf-where" class="headerlink" title="tf.where()"></a>tf.where()</h2><pre><code>tf.where(条件语句，真返回A，假返回B)
+
+&gt;&gt; a=tf.constant([1,2,3,1,1])
+&gt;&gt; b=tf.constant([0,1,3,4,5])
+&gt;&gt; c=tf.where(tf.greater(a,b),a,b)
+#该位置上若a&gt;b，则为真  
+&gt;&gt; print(&quot;c:&quot;,c)
+
+...
+
+c:tf.Tensor([1 2 3 4 5],shape=(5,),dtype=int32)</code></pre><h2 id="np-random-RandomState-rand"><a href="#np-random-RandomState-rand" class="headerlink" title="np.random.RandomState.rand()"></a>np.random.RandomState.rand()</h2><pre><code>#返回一个[0,1)之间的随机数
+np.random.RandomState.rand(维度)
+#若维度为空，返回标量   
+
+import numpy as np
+rdm = np.random.RandomState(seed=1)  
+a=rdm.rand() #返回一个随机标量
+b=rdm.rand(2,3) #返回维度为2*3的随机数矩阵  </code></pre><h2 id="np-vstack"><a href="#np-vstack" class="headerlink" title="np.vstack()"></a>np.vstack()</h2><pre><code>#将两个数组按垂直方向叠加
+np.vstack(数组1，数组2)
+
+import numpy as np
+a=np.array([1,2,3])
+b=np.array([4,5,6])
+c=np.vstack((a,b))
+
+...
+
+c:
+[[1,2,3]
+[4,5,6]]</code></pre><h2 id="生成网格坐标点"><a href="#生成网格坐标点" class="headerlink" title="生成网格坐标点"></a>生成网格坐标点</h2><pre><code>np.mgrid[起始值:结束值:步长,起始值:结束值:步长,....] 
+#返回若干组维度相同的等差数组
+#[起始值,结束值) 前闭后开
+#当步长是复数时，比如3j,表示点数，即是在该区间取三个值；另外，此时步长是复数时，区间左闭右闭
+
+
+
+x.ravel() #将x变为一维数组  
+
+
+np.c_[] #使返回的间隔数值点配对  </code></pre><p><img src="https://i.loli.net/2021/02/06/wypDIYAx7bE4Zvo.png" alt="image.png"></p>
+<h1 id="神经网络-NN-复杂度"><a href="#神经网络-NN-复杂度" class="headerlink" title="神经网络(NN)复杂度"></a>神经网络(NN)复杂度</h1><ol>
+<li><p>NN复杂度 </p>
+<ul>
+<li>多用NN层数和NN参数的个数表示  </li>
+</ul>
+</li>
+<li><p>空间复杂度(用层数和优化参数个数表示)</p>
+<ul>
+<li><p>层数 = 隐藏层数+1个输出层</p>
+<ul>
+<li>只统计具有运算能力的层</li>
+<li>输入层只把数据传输过来，不具有运算能力  </li>
+</ul>
+</li>
+<li><p>总参数 = 总w + 总b  </p>
+</li>
+</ul>
+</li>
+<li><p>时间复杂度  </p>
+<ul>
+<li>乘加运算次数</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://i.loli.net/2021/02/06/sJePNvzj4UfugiX.png" alt="image.png"></p>
+<h1 id="指数衰减学习率"><a href="#指数衰减学习率" class="headerlink" title="指数衰减学习率"></a>指数衰减学习率</h1><p>指数衰减学习率 =  初始学习率*学习衰减率^(当前轮数/多少轮衰减一次)</p>
+<blockquote>
+<p>根据迭代次数更新   </p>
+</blockquote>
+<p><img src="https://i.loli.net/2021/02/06/sKYm1a8Ric3CXfI.png" alt="image.png"><br><img src="https://i.loli.net/2021/02/06/DBdMaCgeq549XtK.png" alt="image.png"></p>
+<h1 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h1><h2 id="Sigmoid函数-tf-nn-sigmoid-x"><a href="#Sigmoid函数-tf-nn-sigmoid-x" class="headerlink" title="Sigmoid函数  tf.nn.sigmoid(x)"></a>Sigmoid函数  tf.nn.sigmoid(x)</h2><ul>
+<li>范围为<code>(0,1)</code>，以0.5为界限。x=0时，f(x)=0.5  </li>
+</ul>
+<p><img src="https://i.loli.net/2021/02/06/vgbhIzGCJ3YTOiu.png" alt="image.png"></p>
+<h3 id="注释一下"><a href="#注释一下" class="headerlink" title="注释一下"></a>注释一下</h3><ul>
+<li>梯度消失<br>  因为导数输出是0-0.25之间的小数，多个导数相乘会造成趋于零的结果，使得参数无法继续更新。</li>
+<li>输出非0均值，收敛慢<br>  我们希望输入每层神经网络的特征是以0为均值的小数，但经过sigmoid函数后的数据都是整数，会使收敛变慢</li>
+<li>存在幂运算，训练复杂度大，训练时间长</li>
+</ul>
+<h2 id="Tanh函数-tf-math-tanh-x"><a href="#Tanh函数-tf-math-tanh-x" class="headerlink" title="Tanh函数  tf.math.tanh(x)"></a>Tanh函数  tf.math.tanh(x)</h2><p><img src="https://i.loli.net/2021/02/17/4wFYjo87RWTUCfN.png" alt="image.png">  </p>
+<h3 id="注释一下-1"><a href="#注释一下-1" class="headerlink" title="注释一下"></a>注释一下</h3><ul>
+<li>输出为0均值  </li>
+<li>仍存在梯度消失</li>
+<li>幂运算复杂，训练时间长</li>
+</ul>
+<h2 id="Relu函数-tf-nn-relu-x"><a href="#Relu函数-tf-nn-relu-x" class="headerlink" title="Relu函数  tf.nn.relu(x)"></a>Relu函数  tf.nn.relu(x)</h2><p><img src="https://i.loli.net/2021/02/17/b8j6mnpXuRYArvH.png" alt="image.png"></p>
+<h3 id="注释一下-2"><a href="#注释一下-2" class="headerlink" title="注释一下"></a>注释一下</h3><ul>
+<li>Dead ReIU问题<br>  送入激活函数的输入特征为负数时，激活函数输出是0，反向传播得到的梯度是0，导致参数无法更新，造成神经元死亡。</li>
+</ul>
+<h2 id="Leak-Relu函数-tf-nn-leaky-relu-x"><a href="#Leak-Relu函数-tf-nn-leaky-relu-x" class="headerlink" title="Leak Relu函数  tf.nn.leaky_relu(x)"></a>Leak Relu函数  tf.nn.leaky_relu(x)</h2><p><img src="https://i.loli.net/2021/02/17/Ukz74xtiGbX1sNv.png" alt="image.png">   </p>
+<p><img src="https://i.loli.net/2021/02/17/JZBIFmjC3z5Wvyu.png" alt="image.png"></p>
+<h1 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h1><p>定义：预测值与标准值的差</p>
+<p>主流的MSE<code>loss = tf.reduce_mean(tf.square(y_data-y_train))</code>   </p>
+<p><img src="https://i.loli.net/2021/02/17/oYmRFv9Tya7eDSu.png" alt="image.png"></p>
+<h2 id="MSE例子"><a href="#MSE例子" class="headerlink" title="MSE例子"></a>MSE例子</h2><pre><code>import tensorflow as tf
+import numpy as np
+from matplotlib import pyplot as plt
+
+SEED = 23455
+
+rdm = np.random.RandomState(seed=SEED)  # 生成[0,1)之间的随机数
+x = rdm.rand(32, 2)
+y_ = [[x1 + x2 + (rdm.rand() / 10.0 - 0.05)] for (x1, x2) in x]  # 生成噪声[0,1)/10=[0,0.1); [0,0.1)-0.05=[-0.05,0.05)
+x = tf.cast(x, dtype=tf.float32)
+
+w1 = tf.Variable(tf.random.normal([2, 1], stddev=1, seed=1))
+
+epoch = 15000
+lr = 0.002
+loss = []
+
+for epoch in range(epoch):
+    with tf.GradientTape() as tape:
+        y = tf.matmul(x, w1)  # y = w1*x1+w2*x2
+        loss_mse = tf.reduce_mean(tf.square(y_ - y))
+        loss.append(loss_mse.numpy())
+    grads = tape.gradient(loss_mse, w1)
+    w1.assign_sub(lr * grads)
+
+    if epoch % 500 == 0:
+        print(&quot;After %d training steps,w1 is &quot; % (epoch))
+        print(w1.numpy(), &quot;\n&quot;)
+print(&quot;Final w1 is: &quot;, w1.numpy())
+
+y = tf.matmul(x,w1)
+
+plt.subplot(2,2,1)
+plt.title(&apos;Loss&apos;)
+plt.plot(loss)
+
+plt.subplot(2,2,2)
+plt.title(&apos;y_/y&apos;)
+plt.plot(y.numpy(),&apos;r-&apos;)
+plt.plot(y_,&apos;k-&apos;)
+
+
+plt.subplot(2,2,3)
+plt.title(&apos;y_&apos;)
+# plt.plot(y.numpy(),&apos;r-&apos;)
+plt.plot(y_,&apos;k-&apos;)
+
+
+plt.subplot(2,2,4)
+plt.title(&apos;y&apos;)
+plt.plot(y.numpy(),&apos;r-&apos;)
+# plt.plot(y_,&apos;k-&apos;)
+
+plt.show()</code></pre><p><img src="https://i.loli.net/2021/02/17/jAS5IJNMO2CGXVZ.png" alt="image.png"></p>
+<h2 id="自定义"><a href="#自定义" class="headerlink" title="自定义"></a>自定义</h2><p>在刚刚的例子中，我们用MSE作为损失函数，默认的是无论是预测多了还是少了，损失是一样的，也就是不管预测销量少，还是预测销量多，损失是一样的。<br>然而，当我们预测的销量多时，我们就相当于会多购进，损失的是成本；当我们预测的销量少时，我们就少卖了，损失的是利润。<br>若成本≠利润，则MSE产生的loss无法使利益最大化。   </p>
+<p><img src="https://i.loli.net/2021/02/17/MsYyFvQAtWu847x.png" alt="image.png"></p>
+<pre><code>import tensorflow as tf
+import numpy as np
+
+SEED = 23455
+COST = 1
+PROFIT = 99
+
+rdm = np.random.RandomState(SEED)
+x = rdm.rand(32, 2)
+y_ = [[x1 + x2 + (rdm.rand() / 10.0 - 0.05)] for (x1, x2) in x]  # 生成噪声[0,1)/10=[0,0.1); [0,0.1)-0.05=[-0.05,0.05)
+x = tf.cast(x, dtype=tf.float32)
+
+w1 = tf.Variable(tf.random.normal([2, 1], stddev=1, seed=1))
+
+epoch = 10000
+lr = 0.002
+
+for epoch in range(epoch):
+    with tf.GradientTape() as tape:
+        y = tf.matmul(x, w1)
+        loss = tf.reduce_sum(tf.where(tf.greater(y, y_), (y - y_) * COST, (y_ - y) * PROFIT))
+
+    grads = tape.gradient(loss, w1)
+    w1.assign_sub(lr * grads)
+
+    if epoch % 500 == 0:
+        print(&quot;After %d training steps,w1 is &quot; % (epoch))
+        print(w1.numpy(), &quot;\n&quot;)
+print(&quot;Final w1 is: &quot;, w1.numpy())
+
+# 自定义损失函数
+# 酸奶成本1元， 酸奶利润99元
+# 成本很低，利润很高，人们希望多预测些，生成模型系数大于1，往多了预测</code></pre><h2 id="CE-tf-losses-categorical-crossentropy-y-y"><a href="#CE-tf-losses-categorical-crossentropy-y-y" class="headerlink" title="CE tf.losses.categorical_crossentropy(y_,y)"></a>CE tf.losses.categorical_crossentropy(y_,y)</h2><p>交叉熵越大，两个概率分布越远；<br>交叉熵越小，两个概率分布越近。</p>
+<p>一般先用<code>softmax()</code>函数让输出结果符合概率分布，再求交叉熵损失函数。<br>Tensorflow给出一个可以同时计算概率分布和交叉熵函数<code>tf.nn.softmax_cross_entropy_with_logits(y_,y)</code></p>
+<p><img src="https://i.loli.net/2021/02/17/36jG2strdzcwTDC.png" alt="image.png"></p>
+<pre><code># softmax与交叉熵损失函数的结合
+import tensorflow as tf
+import numpy as np
+
+y_ = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 0, 0], [0, 1, 0]])
+y = np.array([[12, 3, 2], [3, 10, 1], [1, 2, 5], [4, 6.5, 1.2], [3, 6, 1]])
+y_pro = tf.nn.softmax(y)
+loss_ce1 = tf.losses.categorical_crossentropy(y_,y_pro)
+loss_ce2 = tf.nn.softmax_cross_entropy_with_logits(y_, y)
+
+print(&apos;分步计算的结果:\n&apos;, loss_ce1)
+print(&apos;结合计算的结果:\n&apos;, loss_ce2)
+
+
+# 输出的结果相同</code></pre><p><img src="https://i.loli.net/2021/02/17/RNZxG5EtKVnpych.png" alt="image.png"></p>
+<h1 id="欠拟合与过拟合"><a href="#欠拟合与过拟合" class="headerlink" title="欠拟合与过拟合"></a>欠拟合与过拟合</h1><ul>
+<li>欠拟合的解决方法：  <ul>
+<li>增加输入特征项</li>
+<li>增加网络参数</li>
+<li>减少正则化参数 </li>
+</ul>
+</li>
+<li>过拟合的解决方法  <ul>
+<li>数据清洗<br>  减少数据集中的噪声</li>
+<li>增大训练集    </li>
+<li>采用正则化</li>
+<li>增大正则化参数</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2021/02/17/2Blo7SGeLCDkpt5.png" alt="image.png"></p>
+<pre><code># 已知两个特征，对应一个标签y，为1或者0
+# 通过训练，使得，再给出一对特征时，判断是1的可能性大还是0的可能性大
+# 数据可视化
+# 将标签为1的点标为红色，为0的点标为蓝色
+# 神经网络要能够划出一条线来区分
+
+# 思路
+# 1.训练神经网络，得到特征与标签的函数关系
+# 2.预测是将所有画网格，覆盖所有点，并将所有点都预测出来，将预测值等于0.5的线画出来，这条线就是我们区分的线
+
+
+# 导入所需模块
+import tensorflow as tf
+from matplotlib import pyplot as plt
+import numpy as np
+import pandas as pd
+
+# 读入数据/标签 生成x_train y_train
+df = pd.read_csv(&apos;dot.csv&apos;)
+x_data = np.array(df[[&apos;x1&apos;, &apos;x2&apos;]])
+y_data = np.array(df[&apos;y_c&apos;])
+
+x_train = x_data
+y_train = y_data.reshape(-1, 1) # -1是未定的意思，也就是不用看这一个，也就是讲y整理成一列
+
+Y_c = [[&apos;red&apos; if y else &apos;blue&apos;] for y in y_train]
+
+print(Y_c)
+
+# 转换x的数据类型，否则后面矩阵相乘时会因数据类型问题报错
+x_train = tf.cast(x_train, tf.float32)
+y_train = tf.cast(y_train, tf.float32)
+
+# from_tensor_slices函数切分传入的张量的第一个维度，生成相应的数据集，使输入特征和标签值一一对应
+train_db = tf.data.Dataset.from_tensor_slices((x_train, y_train)).batch(32)
+
+# 生成神经网络的参数，输入层为2个神经元，隐藏层为11个神经元，1层隐藏层，输出层为1个神经元
+# 用tf.Variable()保证参数可训练
+w1 = tf.Variable(tf.random.normal([2, 11]), dtype=tf.float32)  # 11是自己随便选的；两个输入特征，所以是2
+b1 = tf.Variable(tf.constant(0.01, shape=[11]))                # b1要与w1保持一致
+
+w2 = tf.Variable(tf.random.normal([11, 1]), dtype=tf.float32)
+b2 = tf.Variable(tf.constant(0.01, shape=[1]))
+
+lr = 0.01  # 学习率为
+epoch = 400  # 循环轮数
+
+# 训练部分(反向传播)
+for epoch in range(epoch):
+    for step, (x_train, y_train) in enumerate(train_db):  #
+        with tf.GradientTape() as tape:  # 记录梯度信息
+
+            h1 = tf.matmul(x_train, w1) + b1  # 记录神经网络乘加运算
+            h1 = tf.nn.relu(h1)  # 激活函数是relu
+            y = tf.matmul(h1, w2) + b2
+
+            # 采用均方误差损失函数mse = mean(sum(y-out)^2)
+            loss_mse = tf.reduce_mean(tf.square(y_train - y))
+            # 添加l2正则化
+            loss_regularization = []
+            # tf.nn.l2_loss(w)=sum(w ** 2) / 2
+            loss_regularization.append(tf.nn.l2_loss(w1))
+            loss_regularization.append(tf.nn.l2_loss(w2))
+            # 求和
+            # 例：x=tf.constant(([1,1,1],[1,1,1]))
+            #   tf.reduce_sum(x)
+            # &gt;&gt;&gt;6
+            # loss_regularization = tf.reduce_sum(tf.stack(loss_regularization))
+            loss_regularization = tf.reduce_sum(loss_regularization)
+            loss = loss_mse + 0.03 * loss_regularization #REGULARIZER = 0.03
+
+        # 计算loss对各个参数的梯度
+        variables = [w1, b1, w2, b2]
+        grads = tape.gradient(loss, variables)
+
+        # 实现梯度更新
+        # w1 = w1 - lr * w1_grad
+        w1.assign_sub(lr * grads[0])
+        b1.assign_sub(lr * grads[1])
+        w2.assign_sub(lr * grads[2])
+        b2.assign_sub(lr * grads[3])
+
+    # 每200个epoch，打印loss信息
+    if epoch % 20 == 0:
+        print(&apos;epoch:&apos;, epoch, &apos;loss:&apos;, float(loss))
+
+# 预测部分
+print(&quot;*******predict*******&quot;)
+# xx在-3到3之间以步长为0.01，yy在-3到3之间以步长0.01,生成间隔数值点
+xx, yy = np.mgrid[-3:3:.1, -3:3:.1]
+# 将xx, yy拉直，并合并配对为二维张量，生成二维坐标点
+grid = np.c_[xx.ravel(), yy.ravel()]
+grid = tf.cast(grid, tf.float32)
+# 将网格坐标点喂入神经网络，进行预测，probs为输出
+probs = []
+for x_predict in grid:
+    # 使用训练好的参数进行预测
+    h1 = tf.matmul([x_predict], w1) + b1
+    h1 = tf.nn.relu(h1)
+    y = tf.matmul(h1, w2) + b2  # y为预测结果
+    probs.append(y)
+
+# 取第0列给x1，取第1列给x2
+x1 = x_data[:, 0]
+x2 = x_data[:, 1]
+# probs的shape调整成xx的样子
+probs = np.array(probs).reshape(xx.shape)
+plt.scatter(x1, x2, color=np.squeeze(Y_c))
+# 把坐标xx yy和对应的值probs放入contour&lt;[‘kɑntʊr]&gt;函数，给probs值为0.5的所有点上色  plt点show后 显示的是红蓝点的分界线
+plt.contour(xx, yy, probs, levels=[.5])  # 画出预测值y为0.5的曲线
+plt.show()
+
+# 读入红蓝点，画出分割线，包含正则化
+# 不清楚的数据，建议print出来查看 </code></pre><p><img src="https://i.loli.net/2021/02/18/sgZV4CPf3mI5tME.png" alt="image.png"></p>
+<p>若过拟合，则画出的曲线会不平缓<br>如下图所示，则为未进行正则化的效果<br><img src="https://i.loli.net/2021/02/18/Sz7oqXTI4CEMsbd.png" alt="image.png">  </p>
+<h1 id="参数优化器"><a href="#参数优化器" class="headerlink" title="参数优化器"></a>参数优化器</h1><p>不同的优化器实质上就是定义了不同的一阶动量和二阶动量公式  </p>
+<p><img src="https://i.loli.net/2021/02/18/7fxpTcEh3XetyJo.png" alt="image.png">    </p>
+<h2 id="SGD"><a href="#SGD" class="headerlink" title="SGD"></a>SGD</h2><p>随机梯度下降<br>一阶动量<code>mt</code>为梯度，二阶动量<code>Vt</code>为1<br>也就是<code>w</code>的每次跟新，是<code>lr*对应梯度</code>   </p>
+<pre><code>w1.assign_sub(lr*grads[0])
+b1.assign_sub(lr*grads[1])</code></pre><h2 id="SGDM"><a href="#SGDM" class="headerlink" title="SGDM"></a>SGDM</h2><p>β是超参数，接近于1的数值，经验值是0.9   </p>
+<p><img src="https://i.loli.net/2021/02/18/qmSR5b9JaLHc1Pk.png" alt="image.png"></p>
+<pre><code>m_w,m_b =0,0
+beta = 0.9
+m_w = beta*m_w + (1-beta) * grads[0]
+m_b = beta*m_b + (1-beta) * grads[1]
+w1.assign_sub(lr*m_w)
+b1.assign_sub(lr*m_b)</code></pre><h2 id="Adagrad"><a href="#Adagrad" class="headerlink" title="Adagrad"></a>Adagrad</h2><p><img src="https://i.loli.net/2021/02/18/KZXiGkbIlVL3J7p.png" alt="image.png"></p>
+<pre><code>v_w,v_b =0,0
+v_w += tf.square(grads[0])
+v_b += tf.square(grads[1])
+w1.assign_sub(lr*grads[0]/tf.sqrt(v_w))
+b1.assign_sub(lr*grads[1]/tf.sqrt(v_b))  </code></pre><h2 id="RMSProp"><a href="#RMSProp" class="headerlink" title="RMSProp"></a>RMSProp</h2><p><img src="https://i.loli.net/2021/02/18/YhAv1F6EaWoPiJT.png" alt="image.png">   </p>
+<pre><code>v_w,v_b = 0,0
+v_w = beta * v_w + (1 - beta) * tf.square(grads[0])
+v_b = beta * v_b + (1 - beta) * tf.square(grads[1])
+w1.assign_sub(lr * grads[0] / tf.sqrt(v_w))
+b1.assign_sub(lr * grads[1] / tf.sqrt(v_b))</code></pre><h2 id="Adam"><a href="#Adam" class="headerlink" title="Adam"></a>Adam</h2><p><img src="https://i.loli.net/2021/02/18/FUBrYpCDhbLiTnH.png" alt="image.png"><br><img src="https://i.loli.net/2021/02/18/o6bUYilC7c5xXDN.png" alt="image.png"></p>
+
       
     </div>
 
