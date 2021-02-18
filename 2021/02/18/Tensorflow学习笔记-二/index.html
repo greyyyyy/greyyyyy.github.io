@@ -46,17 +46,21 @@
   };
 </script>
 
-  <meta property="og:type" content="article">
-<meta property="og:title" content="opencv(一)">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;10&#x2F;20&#x2F;opencv-%E4%B8%80&#x2F;index.html">
+  <meta name="description" content="使用八股搭建神经网络用Tensorflow API：tf.keras搭建网络八股    🎱六步法  import相关模块    确定训练集和测试集  指定训练集的输入特征和标签；  指定测试集的输入特征和标签。    在Sequential()中搭建网络结构，逐层描述每层网络  相当于走一遍前向传播    在compile()中配置训练方法  告知训练时选择哪种优化器；  选择哪种损失函数；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorflow学习笔记(二)">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;02&#x2F;18&#x2F;Tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="使用八股搭建神经网络用Tensorflow API：tf.keras搭建网络八股    🎱六步法  import相关模块    确定训练集和测试集  指定训练集的输入特征和标签；  指定测试集的输入特征和标签。    在Sequential()中搭建网络结构，逐层描述每层网络  相当于走一遍前向传播    在compile()中配置训练方法  告知训练时选择哪种优化器；  选择哪种损失函数；">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-10-20T14:57:31.000Z">
-<meta property="article:modified_time" content="2020-10-20T14:57:31.726Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;02&#x2F;18&#x2F;1nCZIvTzxstSBQM.png">
+<meta property="article:published_time" content="2021-02-18T11:23:12.000Z">
+<meta property="article:modified_time" content="2021-02-18T12:48:59.947Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;02&#x2F;18&#x2F;1nCZIvTzxstSBQM.png">
 
-<link rel="canonical" href="http://yoursite.com/2020/10/20/opencv-%E4%B8%80/">
+<link rel="canonical" href="http://yoursite.com/2021/02/18/Tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C/">
 
 
 <script id="page-configurations">
@@ -68,7 +72,7 @@
   };
 </script>
 
-  <title>opencv(一) | Hexo</title>
+  <title>Tensorflow学习笔记(二) | Hexo</title>
   
 
 
@@ -167,7 +171,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/20/opencv-%E4%B8%80/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/18/Tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -180,7 +184,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          opencv(一)
+          Tensorflow学习笔记(二)
         </h1>
 
         <div class="post-meta">
@@ -189,8 +193,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-10-20 22:57:31" itemprop="dateCreated datePublished" datetime="2020-10-20T22:57:31+08:00">2020-10-20</time>
+              <time title="Created: 2021-02-18 19:23:12 / Modified: 20:48:59" itemprop="dateCreated datePublished" datetime="2021-02-18T19:23:12+08:00">2021-02-18</time>
             </span>
 
           
@@ -204,7 +209,92 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="使用八股搭建神经网络"><a href="#使用八股搭建神经网络" class="headerlink" title="使用八股搭建神经网络"></a>使用八股搭建神经网络</h1><p><strong>用Tensorflow API：tf.keras搭建网络八股</strong>   </p>
+<p><strong>🎱六步法</strong></p>
+<ul>
+<li>import相关模块   </li>
+<li>确定训练集和测试集<br>  指定训练集的输入特征和标签；<br>  指定测试集的输入特征和标签。   </li>
+<li>在<code>Sequential()</code>中搭建网络结构，逐层描述每层网络<br>  相当于走一遍前向传播   </li>
+<li>在<code>compile()</code>中配置训练方法<br>  告知训练时选择哪种优化器；<br>  选择哪种损失函数；<br>  选择哪种评测指标；   </li>
+<li>在<code>fit()</code>中执行训练过程<br>  告知训练集和测试集的输入特征和标签；<br>  每个batch是多少；<br>  迭代多少次训练集；  </li>
+<li>用<code>summary()</code>打印出网络的结构和参数统计  </li>
+</ul>
+<h2 id="Sequential"><a href="#Sequential" class="headerlink" title="Sequential()"></a>Sequential()</h2><pre><code># 描述从输入层到输出层，每一层的网络结构
+✨model = tf.keras.models.Sequential([网络结构])     
+
+# 每一层的网络结构，可以是👇  
+
+#拉直层  
+#该层不含计算，只是形状转换
+#把输入特征拉直变成一维数组
+tf.keras.layers.Flatten()
+
+
+#全连接层  
+tf.keras.layers.Dense(神经元个数,activation=&apos;激活函数&apos;,kernel_regularizer=那种正则化)   
+#activation(以字符串形式给出)可选: relu、softmax、sigmoid、tanh   
+#kernel_regularizer 可选: tf.keras.regularizers.l1()、tf.keras.regularizers.l2()   
+
+#卷积层  
+tf.keras.layers.Conv2D(filters=卷积核个数,kernel_size=卷积核尺寸,strides=卷积步长,padding=&quot;valid&quot;or&quot;same&quot;)    
+
+
+#LSTM层(循环神经网络层)  
+tf.keras.layers.LSTM()</code></pre><h2 id="compile"><a href="#compile" class="headerlink" title="compile()"></a>compile()</h2><pre><code>✨model.complie(optimizer=优化器,loss=损失函数,metrics=[&quot;准确率&quot;])
+
+
+
+#优化器optimizer可以是字符串形式给出的👇   
+&gt;&gt;&apos;sgd&apos; or tf.keras.optimizers.SGD(lr=学习率,momentum=动量参数) 
+
+&gt;&gt;&apos;adagrad&apos; pr tf.keras.optimizers.Adagrad(lr=*)
+
+&gt;&gt;&apos;adadelta&apos; or tf.keras.optimizers.Adadelta(lr=*)   
+
+
+
+#损失函数loss👇   
+&gt;&gt;&apos;mse&apos; or tf.keras.losses.MeanSquaredError()  
+
+&gt;&gt;&apos;sparse_categorical_crossentropy&apos; or tf.keras.losses.SparseCategoricalCrossentropy(from_logits=False)  
+#👆这个函数的参数是在询问是否原始输出；
+#神经网络预测结果输出前经过概率分布，就不是原始输出，此时就是False
+
+
+
+#网络评测指标Metrics👇:  
+&gt;&gt;&apos;accuracy&apos;:y_和y都是数值，如y_=[1],y=[1]  
+
+&gt;&gt;&apos;categorical_accuracy&apos;:y_和y都是独热码(概率分布),如y_=[0,1,0],y=[0.256,0.695,0.048] 
+
+&gt;&gt;&apos;sparse_categorical_accuracy&apos;:y_是数值，y是独热码(概率分布),如y_=[1],y=[0.256,0.695.0.048]   </code></pre><h2 id="fit"><a href="#fit" class="headerlink" title="fit()"></a>fit()</h2><pre><code>✨model.fit(训练集的输入特征,训练集的标签,batch_size= , epochs= ,validation_data=(测试集的输入特征,测试集的标签),validation_split=从训练集划分多少比例给测试集,validation_freq=多少次epoch测试一次)   </code></pre><ul>
+<li>validation_data与validation_split两者选其一  </li>
+</ul>
+<h2 id="model-summay"><a href="#model-summay" class="headerlink" title="model.summay()"></a>model.summay()</h2><p>打印出网络的结构和参数统计<br><img src="https://i.loli.net/2021/02/18/1nCZIvTzxstSBQM.png" alt="image.png">   </p>
+<h2 id="鸢尾花示例"><a href="#鸢尾花示例" class="headerlink" title="鸢尾花示例"></a>鸢尾花示例</h2><pre><code>import tensorflow as tf
+from sklearn import datasets
+import numpy as np
+
+x_train = datasets.load_iris().data
+y_train = datasets.load_iris().target
+
+np.random.seed(116)
+np.random.shuffle(x_train)
+np.random.seed(116)
+np.random.shuffle(y_train)
+tf.random.set_seed(116)
+
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Dense(3, activation=&apos;softmax&apos;, kernel_regularizer=tf.keras.regularizers.l2())
+])
+
+model.compile(optimizer=tf.keras.optimizers.SGD(lr=0.1),
+            loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=False),
+            metrics=[&apos;sparse_categorical_accuracy&apos;])
+
+model.fit(x_train, y_train, batch_size=32, epochs=500, validation_split=0.2, validation_freq=20)
+
+model.summary()</code></pre>
     </div>
 
     
@@ -219,13 +309,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/10/07/Tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/" rel="prev" title="Tensorflow学习笔记(一)">
-      <i class="fa fa-chevron-left"></i> Tensorflow学习笔记(一)
+    <a href="/2021/01/27/%E9%B8%A2%E9%B8%9F%E9%9B%86/" rel="prev" title="鸢鸟集">
+      <i class="fa fa-chevron-left"></i> 鸢鸟集
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/10/28/python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E7%B1%BB/" rel="next" title="python学习——类">
-      python学习——类 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -285,6 +372,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用八股搭建神经网络"><span class="nav-number">1.</span> <span class="nav-text">使用八股搭建神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sequential"><span class="nav-number">1.1.</span> <span class="nav-text">Sequential()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#compile"><span class="nav-number">1.2.</span> <span class="nav-text">compile()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fit"><span class="nav-number">1.3.</span> <span class="nav-text">fit()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#model-summay"><span class="nav-number">1.4.</span> <span class="nav-text">model.summay()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#鸢尾花示例"><span class="nav-number">1.5.</span> <span class="nav-text">鸢尾花示例</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
