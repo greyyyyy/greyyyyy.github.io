@@ -165,6 +165,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/22/Cifar10%E6%95%B0%E6%8D%AE%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/22/Cifar10%E6%95%B0%E6%8D%AE%E9%9B%86/" class="post-title-link" itemprop="url">Cifar10数据集</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-02-22 19:25:50 / Modified: 20:30:31" itemprop="dateCreated datePublished" datetime="2021-02-22T19:25:50+08:00">2021-02-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <hr>
+<p>title: Cifar10数据集<br>date: 2021-02-22 19:25:50<br>tags:</p>
+<hr>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>Cifar10数据集：    </p>
+<ul>
+<li>5万张32*32像素点的十分类彩色图片和标签，用于训练    </li>
+<li>1万张32*32像素点的十分类彩色图片和标签，用于测试   </li>
+</ul>
+<p><img src="https://i.loli.net/2021/02/22/DNhYKurdJsQwvCq.png" alt="image.png"><br>这十个类别分别对应标签0、1、3、4、5、6、7、8、9    </p>
+<pre><code># 查看数据集里的图片
+# 也就是我们的输入x     
+
+plt.imshow(x_train[0])  
+plt.show()    
+
+
+# 输入图片表达为像素矩阵   
+&gt; x_train[0]
+# 是一个(32,32,3),三通道的三维数组 
+&gt; x_test.shape
+# (10000,32,32,3)
+
+&gt; y_train[0]
+...
+6
+
+# 这应该算是索引值为6，y应该要有一个对应的列表即可    </code></pre><h1 id="搭建卷积网络示例"><a href="#搭建卷积网络示例" class="headerlink" title="搭建卷积网络示例"></a>搭建卷积网络示例</h1><ul>
+<li><p>6个5*5的卷积层   </p>
+</li>
+<li><p>2个2*2的池化层    </p>
+</li>
+<li><p>两个隐藏层   </p>
+<ul>
+<li>第一个128个神经元   </li>
+<li>第二个10个(与输出对应)   </li>
+</ul>
+</li>
+</ul>
+<pre><code># C卷积(Convolutional)   
+Conv2D(filters=6,kernel_size=(5,5),padding=&apos;same&apos;),
+
+# B批标准化(BN)  
+BatchNormalization(),
+
+# A激活(Activation)   
+Actication(&apos;relu&apos;),   
+
+# P池化(Pooling)   
+MaxPool2D(pool_size=(2,2),strides=2,padding=&apos;same&apos;),
+
+# D舍弃(Dropout)   
+Dropout(0.2)   </code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/22/%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C%E6%90%AD%E5%BB%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1233,92 +1342,6 @@ model.add(Activation(&apos;softmax&apos;))  </code></pre><p><strong>Dense</stron
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/28/python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E7%B1%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/28/python%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E7%B1%BB/" class="post-title-link" itemprop="url">python学习——类</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-10-28 22:39:14" itemprop="dateCreated datePublished" datetime="2020-10-28T22:39:14+08:00">2020-10-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-30 22:56:10" itemprop="dateModified" datetime="2020-10-30T22:56:10+08:00">2020-10-30</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="定义类"><a href="#定义类" class="headerlink" title="定义类"></a>定义类</h1><pre><code>class Student(object):
-    pass</code></pre><p>class后面紧跟着的就是类名，即<code>Student</code> ，后面紧接着的<code>(object)</code>表示该类是从哪个类继承下来的。<br>    如果没有合适的继承类，就用<code>object</code>类，这是所有类都会继承的类。  </p>
-<h1 id="创建实例"><a href="#创建实例" class="headerlink" title="创建实例"></a>创建实例</h1><p>创建实例直接<code>example = Student(parameter)</code><br>如果在类的定义中没有绑定属性。也就是在我们定义类的时候，我们规定，所有实例都必须具有一些属性，就可以在定义类时绑定属性。<br>如果不绑定属性也是可以的。那么就不传入参数<code>example = Student()</code><br>此时，可以自由定义属性 <strong><em>(绑定了属性也是可以自由定义，只是在于，如果了绑定了，就相当于规定了在我定义这个实例时，就必须要具有这些属性)</em></strong>   </p>
-<pre><code>&gt;&gt;&gt; amy = Student()
-&gt;&gt;&gt; amy.name=&quot;Amy Smith&quot;
-&gt;&gt;&gt; amy.name
-&apos;Amy Smith&apos;</code></pre><p>如果在类中绑定了属性   </p>
-<pre><code>class Student():
-    def __init__(self,name,score):
-        self.name=name
-        self.score=score</code></pre><p><strong>注释：</strong> 在类中绑定属性，就是通过定义一个特殊的方法<code>__init__</code>，其第一个参数  <strong><em>(包括后面所有在类中定义的方法)</em></strong> 都是<code>self</code>。因为<code>self</code>就指向创建的实例本身。其后的参数就是我们绑定的属性。   </p>
-<p>此后在创建实例时，就要传入相应的参数。   </p>
-<pre><code>&gt;&gt;&gt; amy = Student(&quot;Amy Smith&quot;,95)
-&gt;&gt;&gt; amy.name
-&quot;Amy Smith&quot;  </code></pre><p>当然属性也不是一层不变的。<br>我们可以更改属性值。  </p>
-<pre><code>&gt;&gt;&gt;amy.name=&quot;Tony&quot;  
-&gt;&gt;&gt;amy.name
-&quot;Tony&quot;</code></pre><p>也就是说外部代码可以自由地修改实例的属性。  </p>
-<p>📌如果要让内部属性不被外部访问，可以把属性的名称前加两个下划线<code>__</code>，此时如果实例的变量名以<code>___</code>开头，就变成一个私有变量，只有内部可以访问，外部不能访问<br><img src="https://i.loli.net/2020/10/30/aeglV2YkQhDmu9B.png" alt="示例">   </p>
-<p><strong>注：</strong> 实际上并不是外部不能访问了，而是Python解释器将<code>__name</code>变成了<code>_Student__name</code>  </p>
-<p><img src="https://i.loli.net/2020/10/30/ZU9kohD1uGCKSQz.png" alt="示例"><br>可以看到通过我们定义的方法可以进行访问、修改属性。也可以看到我们仍然是可以访问私有变量的，只是其名字变了。<br>同时我们也可以看到，在其中的<code>jack.__name=&#39;mike&#39;</code> 实际上并没有实现访问<code>__name</code>变量，而是自己又创了一个属性，这个属性的名字是<code>__name</code>，其值是<code>&#39;mike&#39;</code>   </p>
-<p><strong>补充：</strong> 在Python中，变量名类似<code>__xx__</code>的，是特殊变量，是可以直接访问的。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1389,7 +1412,7 @@ model.add(Activation(&apos;softmax&apos;))  </code></pre><p><strong>Dense</stron
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

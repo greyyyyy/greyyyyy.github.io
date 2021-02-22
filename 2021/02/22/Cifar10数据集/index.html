@@ -46,15 +46,21 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;2021&#x2F;02&#x2F;index.html">
+  <meta name="description" content="title: Cifar10数据集date: 2021-02-22 19:25:50tags:  介绍Cifar10数据集：      5万张32*32像素点的十分类彩色图片和标签，用于训练     1万张32*32像素点的十分类彩色图片和标签，用于测试     这十个类别分别对应标签0、1、3、4、5、6、7、8、9     # 查看数据集里的图片 # 也就是我们的输入x       plt.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cifar10数据集">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;02&#x2F;22&#x2F;Cifar10%E6%95%B0%E6%8D%AE%E9%9B%86&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="title: Cifar10数据集date: 2021-02-22 19:25:50tags:  介绍Cifar10数据集：      5万张32*32像素点的十分类彩色图片和标签，用于训练     1万张32*32像素点的十分类彩色图片和标签，用于测试     这十个类别分别对应标签0、1、3、4、5、6、7、8、9     # 查看数据集里的图片 # 也就是我们的输入x       plt.">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;02&#x2F;22&#x2F;DNhYKurdJsQwvCq.png">
+<meta property="article:published_time" content="2021-02-22T11:25:50.527Z">
+<meta property="article:modified_time" content="2021-02-22T12:30:31.835Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;02&#x2F;22&#x2F;DNhYKurdJsQwvCq.png">
 
-<link rel="canonical" href="http://yoursite.com/archives/2021/02/">
+<link rel="canonical" href="http://yoursite.com/2021/02/22/Cifar10%E6%95%B0%E6%8D%AE%E9%9B%86/">
 
 
 <script id="page-configurations">
@@ -62,11 +68,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false
+    isPost: true
   };
 </script>
 
-  <title>Archive | Hexo</title>
+  <title>Cifar10数据集 | Hexo</title>
   
 
 
@@ -160,150 +166,128 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        <span class="collection-header">OK! 38 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/22/Cifar10%E6%95%B0%E6%8D%AE%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Cifar10数据集
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-02-22 19:25:50 / Modified: 20:30:31" itemprop="dateCreated datePublished" datetime="2021-02-22T19:25:50+08:00">2021-02-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2021</h1>
+        <hr>
+<p>title: Cifar10数据集<br>date: 2021-02-22 19:25:50<br>tags:</p>
+<hr>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>Cifar10数据集：    </p>
+<ul>
+<li>5万张32*32像素点的十分类彩色图片和标签，用于训练    </li>
+<li>1万张32*32像素点的十分类彩色图片和标签，用于测试   </li>
+</ul>
+<p><img src="https://i.loli.net/2021/02/22/DNhYKurdJsQwvCq.png" alt="image.png"><br>这十个类别分别对应标签0、1、3、4、5、6、7、8、9    </p>
+<pre><code># 查看数据集里的图片
+# 也就是我们的输入x     
+
+plt.imshow(x_train[0])  
+plt.show()    
+
+
+# 输入图片表达为像素矩阵   
+&gt; x_train[0]
+# 是一个(32,32,3),三通道的三维数组 
+&gt; x_test.shape
+# (10000,32,32,3)
+
+&gt; y_train[0]
+...
+6
+
+# 这应该算是索引值为6，y应该要有一个对应的列表即可    </code></pre><h1 id="搭建卷积网络示例"><a href="#搭建卷积网络示例" class="headerlink" title="搭建卷积网络示例"></a>搭建卷积网络示例</h1><ul>
+<li><p>6个5*5的卷积层   </p>
+</li>
+<li><p>2个2*2的池化层    </p>
+</li>
+<li><p>两个隐藏层   </p>
+<ul>
+<li>第一个128个神经元   </li>
+<li>第二个10个(与输出对应)   </li>
+</ul>
+</li>
+</ul>
+<pre><code># C卷积(Convolutional)   
+Conv2D(filters=6,kernel_size=(5,5),padding=&apos;same&apos;),
+
+# B批标准化(BN)  
+BatchNormalization(),
+
+# A激活(Activation)   
+Actication(&apos;relu&apos;),   
+
+# P池化(Pooling)   
+MaxPool2D(pool_size=(2,2),strides=2,padding=&apos;same&apos;),
+
+# D舍弃(Dropout)   
+Dropout(0.2)   </code></pre>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-02-22T19:25:50+08:00"
-              content="2021-02-22">
-          02-22
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/02/22/Cifar10%E6%95%B0%E6%8D%AE%E9%9B%86/" itemprop="url">
-            <span itemprop="name">Cifar10数据集</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-02-22T14:03:08+08:00"
-              content="2021-02-22">
-          02-22
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/02/22/%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C%E6%90%AD%E5%BB%BA/" itemprop="url">
-            <span itemprop="name">卷积网络搭建</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-02-21T20:02:20+08:00"
-              content="2021-02-21">
-          02-21
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/02/21/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%AB%E8%82%A1%E5%8A%9F%E8%83%BD%E6%89%A9%E5%B1%95/" itemprop="url">
-            <span itemprop="name">神经网络八股功能扩展</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-02-19T14:02:50+08:00"
-              content="2021-02-19">
-          02-19
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/02/19/Tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9B%9B/" itemprop="url">
-            <span itemprop="name">Tensorflow学习笔记(四)</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-02-19T09:45:00+08:00"
-              content="2021-02-19">
-          02-19
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/02/19/Tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/" itemprop="url">
-            <span itemprop="name">Tensorflow学习笔记(三)</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-02-18T19:23:12+08:00"
-              content="2021-02-18">
-          02-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/02/18/Tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C/" itemprop="url">
-            <span itemprop="name">Tensorflow学习笔记(二)</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
+        
 
 
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/22/%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C%E6%90%AD%E5%BB%BA/" rel="prev" title="卷积网络搭建">
+      <i class="fa fa-chevron-left"></i> 卷积网络搭建
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -354,6 +338,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建卷积网络示例"><span class="nav-number">2.</span> <span class="nav-text">搭建卷积网络示例</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
